@@ -1,0 +1,17 @@
+{
+  "landing":{
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "admin":{
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "user":{
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  }
+}
