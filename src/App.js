@@ -1,66 +1,60 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+import i18next from 'i18next';
 import Landing from './pages/Landing/Landing';
 import Home from './containers/Home/Home';
 import About from './containers/About/About';
 import LoginPage from './pages/Login/LoginPage';
+import {pathToRegexp, compile, parse } from "path-to-regexp";
 
-const languages = [
-  {
-    code:'en',
-    name:'English',
-    country_code:'fr'
-  },
-  {
-    code:'ka',
-    name:'ქართული',
-    country_code:'ge'
-  },
-]
 
   function App() {
-    const { t } = useTranslation();
-  
-    const releaseDate = new Date('2021-03-07')
-    const timeDifference = new Date() - releaseDate
-    const number_of_days = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
+    const {t}=useTranslation();
+
+    //const location = useLocation();
+    const lang = 'en'
+    let loc=window.location.pathname;
+
+    if(loc.length<2){
+      loc+=lang;
+    }
+
+    console.log(loc);
+    const changeLanguage = (lng) => {
+      
+      const currentPath = window.location;
+      const newPath = `/${lng}${currentPath.substring(3)}`;
+      i18next.changeLanguage(lng);
+      //return <Navigate to={newPath} />;
+    };
+    // if (lang != match.params.locale) {
+    //   changeLanguage(match.params.locale);
+    // }
 
     return (
       <>
         <div className="container">
-          <div className='d-flex justify-content-end'>
-            <div className="dropdown">
-              <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown button
-              </button>
-              <ul className="dropdown-menu">
-                {languages.map(({code,name,country_code})=>{
-                  <li key={country_code}>
-                    <button className="dropdown-item">
-                      {name} 
-                    </button>
-                  </li>
-                })}
-
-              </ul>
-            </div>
-          </div>
           <div className='d-flex flex-column align-items-start'>
             <h1 className='font-weight-normal mb-3'>{t('welcome_message')}</h1>
-            <p>{t('days_since_release',{number_of_days})}</p>
+            {/* <p>{t('days_since_release',{number_of_days})}</p> */}
+            <Router>
+              <Routes>
+                <Route path="/:lang" element={<Landing/>}>
+                </Route>
+                <Route path="/:lang/about" element={<About />} />
+                {/* <Route exact path="/:lang" element={<Landing/>}>
+                    <Route index element={<Home />} />
+                    <Route path="about" element={<About />} />
+                </Route> */}
+              </Routes>
+            </Router>
           </div>
         </div>
       </>
     );
   }
 
-// function App() {
-//   const { t } = useTranslation();
-
-//   return ( 
-//     <>
-    
 //     <div className="container">
 //       <div className='d-flex flex-column align-items-start'>
 //         <h2>{t('welcome_message')}</h2>

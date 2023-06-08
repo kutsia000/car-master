@@ -1,3 +1,4 @@
+
 import i18n from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -11,7 +12,7 @@ i18n
     supportedLngs:['en','ka'],
     fallbackLng: 'en',
     detection:{
-      order:['cookie', 'htmlTag', 'localStorage', 'path', 'subdomain'],
+      order:['path', 'cookie', 'htmlTag', 'localStorage', 'subdomain'],
       caches:['cookie']
     },
     backend:{
