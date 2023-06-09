@@ -16,7 +16,7 @@ function App() {
     <>
       <div className="container">
         <div className="d-flex flex-column align-items-start">
-          <h1 className="font-weight-normal mb-3">{t('welcome_message')}</h1>
+          {/* <h1 className="font-weight-normal mb-3">{t('welcome_message')}</h1> */}
           <Router>
             <Routes>
               <Route path={`/${lang}`} element={<Landing />}>
@@ -24,6 +24,9 @@ function App() {
                 <Route path={`/${lang}/about`} element={<About />} />
               </Route>
               <Route path={`/${lang}/login`} element={<LoginPage />} />
+              {/* <Route path={`/${lang}/user/dashboard`} element={<UserPage/>} /> */}
+              <Route path={`/${lang}/admin/login`} element={<LoginPage />} />
+              {/* <Route path={`/${lang}/admin/dashboard`} element={<AdminPage/>} /> */}
               <Route path="*" element={<Navigate to={`/${lang}`} />} />
             </Routes>
           </Router>
