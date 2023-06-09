@@ -1,29 +1,28 @@
-import React, { useContext } from 'react';
-import LanguageContext from '../../../../utils/LanguageContext';
-import {useTranslation} from 'react-i18next';
+import React from 'react';
+//import LanguageContext from '../../../../utils/LanguageContext';
+import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
+import { Link } from 'react-router-dom';
 
 const Navigation = () => {
   // const { language, changeLanguage } = useContext(LanguageContext);
   // const translations = require(`../../../../data/languages/${language}.json`);
-  const {t} = useTranslation();
-
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || 'en';
   return (
     <nav>
       <ul>
         <li>
-          <a href="/">{t('landing.home')}</a>
+          <Link to={`/${lang}`}>{t('navigation_home')}</Link>
         </li>
         <li>
-          <a href="/about">{t('landing.about')}</a>
+          <Link to={`/${lang}/about`}>{t('navigation_about')}</Link>
         </li>
         <li>
-          <a href="/contact">{t('landing.compact')}</a>
+          <Link to={`/${lang}/contact`}>{t('navigation_contact')}</Link>
         </li>
       </ul>
-      <LanguageSelector/>
-      {/* <button onClick={() => changeLanguage('en')}>English</button>
-      <button onClick={() => changeLanguage('ka')}>Georgian</button> */}
+      <LanguageSelector />
     </nav>
   );
 };

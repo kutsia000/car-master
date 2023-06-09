@@ -1,6 +1,9 @@
 {
-    "app_title": "სათაური",
-    "language": "ენა",
-    "welcome_message": "კეთილი იყოს თქვენი მობრძანება",
-    "days_since_release": "it's been {{number_of_days}} days since this video was released"
-  }
+  "app_title": "სათაური",
+  "language": "ენა",
+  "welcome_message": "კეთილი იყოს თქვენი მობრძანება",
+  "days_since_release": "it's been {{number_of_days}} days since this video was released",
+  "navigation_home": "მთავარი",
+  "navigation_about": "ჩვენს შესახებ",
+  "navigation_contact": "კონტაქტი"
+}

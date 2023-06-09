@@ -1,6 +1,9 @@
 {
-    "app_title": "Title",
-    "language": "Language",
-    "welcome_message": "Welcome",
-    "days_since_release": "it's been {{number_of_days}} days since this video was released"
-  }
+  "app_title": "Title",
+  "language": "Language",
+  "welcome_message": "Welcome",
+  "days_since_release": "it's been {{number_of_days}} days since this video was released",
+  "navigation_home": "Home",
+  "navigation_about": "About",
+  "navigation_contact": "Contact"
+}
