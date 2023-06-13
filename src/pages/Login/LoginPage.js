@@ -32,7 +32,7 @@ const LoginPage = () => {
   }, [navigate, lang]);
 
   if (isLoading) {
-    return <LoadingMarkUp />; // Render nothing while checking authentication
+    return <LoadingMarkUp />;
   }
 
   return (
