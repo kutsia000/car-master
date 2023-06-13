@@ -1,23 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const ButtonComponent = ({ label, type, onClick, loading }) => {
-  const [clicked, setClicked] = useState(false);
-
-  const handleClick = (e) => {
-    if (!loading) {
-      setClicked(true);
-      onClick(e);
+  const handleClick = () => {
+    if (onClick && typeof onClick === 'function') {
+      onClick();
     }
   };
 
   return (
-    <button
-      type={type}
-      onClick={handleClick}
-      disabled={loading}
-      className={`button ${clicked ? 'clicked' : ''} ${loading ? 'loading' : ''}`}
-    >
-      {loading ? 'Loading...' : label}
+    <button type={type} onClick={handleClick} disabled={loading}>
+      {label}
     </button>
   );
 };

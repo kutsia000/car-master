@@ -1,26 +1,20 @@
-import React, {Suspense} from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
+import LoadingMarkUp from './components/Loading/Loading';
 // import LanguageProvider from './components/Language/LanguageProvider';
-
 import 'bootstrap/dist/js/bootstrap.js';
 
 import App from './App';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'flag-icon-css/css/flag-icons.css'
+import 'flag-icon-css/css/flag-icons.css';
 
 import './utils/i18n';
 
-const loadingMarkup = (
-  <div className='py-4 text-center'>
-    <h3>Loading...</h3>
-  </div>
-)
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Suspense fallback={loadingMarkup}>
+  <Suspense fallback={<LoadingMarkUp />}>
     <React.StrictMode>
       <App />
     </React.StrictMode>

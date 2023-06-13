@@ -5,5 +5,6 @@
   "days_since_release": "it's been {{number_of_days}} days since this video was released",
   "navigation_home": "Home",
   "navigation_about": "About",
-  "navigation_contact": "Contact"
+  "navigation_contact": "Contact",
+  "logout": "Log Out"
 }

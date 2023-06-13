@@ -1,7 +1,7 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
+//import Cookies from 'js-cookie';
 //const apiUrl = process.env.REACT_APP_API_URL;
-const api = axios.create({
+const authApi = axios.create({
   baseURL: 'https://localhost:7164/api',
   headers: {
     post: {
@@ -11,6 +11,8 @@ const api = axios.create({
   timeout: 5000,
 });
 
+//api.interceptors.response.use()
+
 // api.interceptors.request.use((config) => {
 //   const token = Cookies.get('Token');
 
@@ -19,4 +21,4 @@ const api = axios.create({
 //   }
 // });
 
-export default api;
+export default authApi;

@@ -1,8 +1,8 @@
 import { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import axios from 'axios';
-import api from './api';
+import { useTranslation } from 'react-i18next';
+import api from './authApi';
 
 const AuthServiceContext = createContext();
 
@@ -10,38 +10,64 @@ const AuthService = ({ children }) => {
   const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false);
   const [error, setError] = useState(null);
+  const { i18n } = useTranslation();
+
+  const lang = i18n.language;
 
   const login = async (credentials) => {
     try {
-      //console.log(credentials);
       const response = await api.post('/Auth/LogIn', credentials);
-      //console.log(response);
+
       if (response.status === 200) {
-        const { isSuccess, code, message } = response.data;
+        const { isSuccess, message } = response.data;
         if (!isSuccess) {
           setError(message);
         } else {
-          //console.log(response.data);
-          const { token } = response.data;
+          const { token, isAdmin } = response.data;
 
           Cookies.set('Token', token, { expires: 1 / 48 });
+          localStorage.setItem('IsAdmin', isAdmin);
 
           setAuthenticated(true);
 
-          navigate('/user');
+          isAdmin ? navigate(`/${lang}/admin/dashboard`) : navigate(`/${lang}/user/dashboard`);
         }
       } else {
         setError('Authentication failed. Please check your credentials.');
       }
-    } catch (error) {}
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      const token = Cookies.get('Token');
+      const response = await api.post(
+        '/Auth/LogOut',
+        {},
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        if (!isSuccess) {
+          alert(message);
+        } else {
+          navigate(`/${lang}/login`);
+        }
+      }
+    } catch (error) {}
     Cookies.remove('Token');
+
+    localStorage.removeItem('IsAdmin');
 
     setAuthenticated(false);
 
-    navigate('/login');
+    navigate(`/${lang}/login`);
   };
 
   return (

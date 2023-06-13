@@ -5,11 +5,12 @@ import Landing from './pages/Landing/Landing';
 import Home from './containers/Home/Home';
 import About from './containers/About/About';
 import LoginPage from './pages/Login/LoginPage';
+import AdminDashboard from './pages/Admin/AdminPage';
+import UserDashboard from './pages/User/UserPage';
 
 function App() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
-  //console.log();
   const lang = i18n.language;
 
   return (
@@ -24,9 +25,8 @@ function App() {
                 <Route path={`/${lang}/about`} element={<About />} />
               </Route>
               <Route path={`/${lang}/login`} element={<LoginPage />} />
-              {/* <Route path={`/${lang}/user/dashboard`} element={<UserPage/>} /> */}
-              <Route path={`/${lang}/admin/login`} element={<LoginPage />} />
-              {/* <Route path={`/${lang}/admin/dashboard`} element={<AdminPage/>} /> */}
+              <Route path={`/${lang}/user/dashboard`} element={<UserDashboard />} />
+              <Route path={`/${lang}/admin/dashboard`} element={<AdminDashboard />} />
               <Route path="*" element={<Navigate to={`/${lang}`} />} />
             </Routes>
           </Router>
@@ -35,28 +35,5 @@ function App() {
     </>
   );
 }
-
-//     <div className="container">
-//       <div className='d-flex flex-column align-items-start'>
-//         <h2>{t('welcome_message')}</h2>
-//       </div>
-//       {/* <Landing></Landing> */}
-//       {/* <Router>
-//         <Routes>
-//           <Route exact path="/" element={<Landing />}>
-//             <Route index element={<Home />} />
-//             <Route path="about" element={<About />} />
-//           </Route>
-//           <Route path="/login" element={<LoginPage />}></Route>
-//           {/* <Route path="/user" component={UserPage} />
-//           <Route path="/admin" component={AdminPage} />
-//           <Navigate to="/" />
-//         </Routes>
-//       </Router> */}
-//     </div>
-//     </>
-
-//   );
-// }
 
 export default App;
