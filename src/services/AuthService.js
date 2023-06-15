@@ -25,7 +25,7 @@ const AuthService = ({ children }) => {
         } else {
           const { token, isAdmin } = response.data;
 
-          Cookies.set('Token', token, { expires: 1 / 48 });
+          Cookies.set('Token', token);
           localStorage.setItem('IsAdmin', isAdmin);
 
           setAuthenticated(true);

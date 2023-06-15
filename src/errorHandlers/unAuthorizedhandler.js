@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 
-const handleUnauthorizedError = () => {
+const HandleUnauthorizedError = () => {
   const { i18n } = useTranslation();
   const navigate = useNavigate();
   const lang = i18n.language;
@@ -13,4 +13,4 @@ const handleUnauthorizedError = () => {
   navigate(`/${lang}/login`);
 };
 
-export default handleUnauthorizedError;
+export default HandleUnauthorizedError;

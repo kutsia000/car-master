@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import ButtonComponent from '../../../../components/Button/ButtonComponent';
 import { AuthServiceContext } from '../../../../services/AuthService';
-import LoadingMarkUp from '../../../../components/Loading/Loading';
+//import LoadingMarkUp from '../../../../components/Loading/Loading';
 
 const LogOut = () => {
   const { logout } = useContext(AuthServiceContext);

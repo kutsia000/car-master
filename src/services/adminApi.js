@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { handleunAuthorizedError } from '../errorHandlers/unAuthorizedhandler';
+import HandleUnauthorizedError from '../errorHandlers/unAuthorizedhandler';
 
 import Cookies from 'js-cookie';
 //const apiUrl = process.env.REACT_APP_API_URL;
@@ -10,26 +10,34 @@ const adminApi = axios.create({
       'Content-Type': 'application/json',
     },
   },
-  timeout: 5000,
+  timeout: 20000,
 });
 
-api.interceptors.request.use((config) => {
+adminApi.interceptors.request.use((config) => {
   const token = Cookies.get('Token');
-
+  //console.log(['token', token]);
   if (token) {
     config.headers['Authorization'] = `${token}`;
+    return config;
+  } else {
+    HandleUnauthorizedError();
   }
 });
 
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response.status === 401) {
-      handleunAuthorizedError();
-    }
+// adminApi.interceptors.response.use(
+//   (response) => {
+//     console.log(response);
+//     return response;
+//   },
+//   (error) => {
+//     //console.log(error.response);
+//     if (error.response && error.response.status === 401) {
+//       // Handle unauthorized error
+//       HandleUnauthorizedError();
+//     }
 
-    return Promise.reject(error);
-  }
-);
+//     //return Promise.reject(error);
+//   }
+// );
 
 export default adminApi;
