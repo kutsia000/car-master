@@ -1,13 +1,17 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
 
 const handleUnauthorizedError = () => {
+  const { i18n } = useTranslation();
   const navigate = useNavigate();
-
   // Handle unauthorized errors
-  navigate('/ka/login'); // Example: Redirect to the login page
+  Cookies.remove('Token');
+  localStorage.removeItem('IsAdmin');
+  const lang = i18n.language;
+  navigate(`/${lang}/login`); // Example: Redirect to the login page
 
-  // Perform any additional error handling or actions as needed
-  // ...
+  return;
 };
 
 export default handleUnauthorizedError;

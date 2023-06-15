@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import LoadingMarkUp from './components/Loading/Loading';
+
 // import LanguageProvider from './components/Language/LanguageProvider';
 import 'bootstrap/dist/js/bootstrap.js';
 
@@ -16,7 +17,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Suspense fallback={<LoadingMarkUp />}>
     {/* <React.StrictMode> */}
+
     <App />
+
     {/* </React.StrictMode> */}
   </Suspense>
 );
