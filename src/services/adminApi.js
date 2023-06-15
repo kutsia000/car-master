@@ -1,8 +1,11 @@
 import axios from 'axios';
-import HandleUnauthorizedError from '../errorHandlers/unAuthorizedhandler';
+import handleUnauthorizedError from '../errorHandlers/unAuthorizedhandler';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import Cookies from 'js-cookie';
 //const apiUrl = process.env.REACT_APP_API_URL;
+
 const adminApi = axios.create({
   baseURL: 'https://localhost:7164/api',
   headers: {
@@ -20,24 +23,27 @@ adminApi.interceptors.request.use((config) => {
     config.headers['Authorization'] = `${token}`;
     return config;
   } else {
-    HandleUnauthorizedError();
+    // handleUnauthorizedError();
   }
 });
 
-// adminApi.interceptors.response.use(
-//   (response) => {
-//     console.log(response);
-//     return response;
-//   },
-//   (error) => {
-//     //console.log(error.response);
-//     if (error.response && error.response.status === 401) {
-//       // Handle unauthorized error
-//       HandleUnauthorizedError();
-//     }
+adminApi.interceptors.response.use(
+  (response) => {
+    //console.log(response);
+    return response;
+  },
+  (error) => {
+    //console.log(error.response.data);
+    if (error.response && error.response.status === 401) {
+      // Handle unauthorized error
+      alert('2');
+      // const { i18n } = useTranslation();
+      // const navigate = useNavigate();
+      handleUnauthorizedError();
+    }
 
-//     //return Promise.reject(error);
-//   }
-// );
+    //return Promise.reject(error);
+  }
+);
 
 export default adminApi;
