@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+//import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
@@ -43,11 +43,12 @@ const AxiosInterceptor = ({ children }) => {
       navigate(`/${lang}/login`);
     }
     return null;
-    return Promise.reject(error);
+    //return Promise.reject(error);
   };
 
   //console.log(lang);
-  const interceptor = adminInstance.interceptors.response.use(resInterceptor, errInterceptor);
+  //const interceptor =
+  adminInstance.interceptors.response.use(resInterceptor, errInterceptor);
   //console.log(adminInstance.interceptors.response);
 
   // useEffect(() => {

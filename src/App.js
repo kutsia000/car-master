@@ -6,7 +6,7 @@ import Home from './containers/Home/Home';
 import About from './containers/About/About';
 import LoginPage from './pages/Login/LoginPage';
 import AdminDashboard from './pages/Admin/AdminPage';
-import UserDashboard from './pages/User/UserPage';
+import DealerDashboard from './pages/Dealer/DealerPage';
 
 function App() {
   const { i18n } = useTranslation();
@@ -25,8 +25,9 @@ function App() {
                 <Route path={`/${lang}/about`} element={<About />} />
               </Route>
               <Route path={`/${lang}/login`} element={<LoginPage />} />
-              <Route path={`/${lang}/user/dashboard`} element={<UserDashboard />} />
+              <Route path={`/${lang}/dealer/dashboard`} element={<DealerDashboard />} />
               <Route path={`/${lang}/admin/dashboard`} element={<AdminDashboard />} />
+
               <Route path="*" element={<Navigate to={`/${lang}`} />} />
             </Routes>
           </Router>

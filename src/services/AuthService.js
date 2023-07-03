@@ -14,6 +14,12 @@ const AuthService = ({ children }) => {
 
   const lang = i18n.language;
 
+  const dashboardUrls = {
+    1: `/${lang}/admin/dashboard`,
+    2: `/${lang}/dealer/dashboard`,
+    3: `/${lang}/employee/dashboard`,
+  };
+
   const login = async (credentials) => {
     try {
       const response = await api.post('/Auth/LogIn', credentials);
@@ -23,14 +29,19 @@ const AuthService = ({ children }) => {
         if (!isSuccess) {
           setError(message);
         } else {
-          const { token, isAdmin } = response.data;
+          const { token, userTypeId } = response.data;
 
           Cookies.set('Token', token);
-          localStorage.setItem('IsAdmin', isAdmin);
+          localStorage.setItem('userTypeId', userTypeId);
 
           setAuthenticated(true);
 
-          isAdmin ? navigate(`/${lang}/admin/dashboard`) : navigate(`/${lang}/user/dashboard`);
+          if (dashboardUrls.hasOwnProperty(userTypeId)) {
+            navigate(dashboardUrls[userTypeId]);
+          } else {
+            // Handle the case when userTypeId does not exist
+            navigate(`/${lang}`);
+          }
         }
       } else {
         setError('Authentication failed. Please check your credentials.');

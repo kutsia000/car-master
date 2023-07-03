@@ -2,10 +2,10 @@ import React from 'react';
 import LogOut from '../../containers/Header/Subcomponents/LogOut/LogOut';
 import { AuthService } from '../../services/AuthService';
 
-const UserDashboard = () => {
+const DealerDashboard = () => {
   return (
     <>
-      <h1>user dashboard</h1>
+      <h1>dealer dashboard</h1>
       <AuthService>
         <LogOut />
       </AuthService>
@@ -13,4 +13,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default DealerDashboard;

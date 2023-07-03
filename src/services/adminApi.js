@@ -36,7 +36,7 @@ adminApi.interceptors.response.use(
     //console.log(error.response.data);
     if (error.response && error.response.status === 401) {
       // Handle unauthorized error
-      alert('2');
+      //alert('2');
       // const { i18n } = useTranslation();
       // const navigate = useNavigate();
       handleUnauthorizedError();
