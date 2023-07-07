@@ -6,7 +6,7 @@ import { AuthService } from '../../services/AuthService';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 import LoadingMarkUp from '../../components/Loading/Loading';
-
+import dashboardUrls from '../../utils/urlsDictionary';
 const LoginPage = () => {
   const navigate = useNavigate();
 
@@ -18,11 +18,16 @@ const LoginPage = () => {
 
   useEffect(() => {
     const checkUserTypeAndToken = () => {
-      const userType = localStorage.getItem('IsAdmin');
+      const userTypeId = localStorage.getItem('userTypeId');
       const token = Cookies.get('Token');
+      //console.log([token, userTypeId]);
       if (token) {
-        const dashboardPath = `/${lang}/${userType === 'true' ? 'admin' : 'user'}/dashboard`;
-        navigate(dashboardPath);
+        if (dashboardUrls.hasOwnProperty(userTypeId)) {
+          navigate(`/${lang}${dashboardUrls[userTypeId]}`);
+        } else {
+          // Handle the case when userTypeId does not exist
+          navigate(`/${lang}`);
+        }
       } else {
         setIsLoading(false);
       }

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 import api from './authApi';
+import dashboardUrls from '../utils/urlsDictionary';
 
 const AuthServiceContext = createContext();
 
@@ -11,14 +12,7 @@ const AuthService = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [error, setError] = useState(null);
   const { i18n } = useTranslation();
-
   const lang = i18n.language;
-
-  const dashboardUrls = {
-    1: `/${lang}/admin/dashboard`,
-    2: `/${lang}/dealer/dashboard`,
-    3: `/${lang}/employee/dashboard`,
-  };
 
   const login = async (credentials) => {
     try {
@@ -37,7 +31,7 @@ const AuthService = ({ children }) => {
           setAuthenticated(true);
 
           if (dashboardUrls.hasOwnProperty(userTypeId)) {
-            navigate(dashboardUrls[userTypeId]);
+            navigate(`/${lang}${dashboardUrls[userTypeId]}`);
           } else {
             // Handle the case when userTypeId does not exist
             navigate(`/${lang}`);

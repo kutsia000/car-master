@@ -36,7 +36,7 @@ const AxiosInterceptor = ({ children }) => {
   };
 
   const errInterceptor = (error) => {
-    console.log(error);
+    //console.log(error);
     if (error.response.status === 401) {
       Cookies.remove('Token');
       localStorage.removeItem('IsAdmin');

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import handleUnauthorizedError from '../errorHandlers/unAuthorizedhandler';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+// import { useTranslation } from 'react-i18next';
+// import { useNavigate } from 'react-router-dom';
 
 import Cookies from 'js-cookie';
 //const apiUrl = process.env.REACT_APP_API_URL;

@@ -1,36 +1,102 @@
 import { createContext, useState } from 'react';
-//import { useNavigate } from 'react-router-dom';
-//import adminApi from './adminApi';
 import adminInstance from './AxiosInterceptor';
-//import { useTranslation } from 'react-i18next';
 
 const AdminServiceContext = createContext();
 
 const AdminService = ({ children }) => {
-  //const navigate = useNavigate();
   const [error, setError] = useState(null);
-  //const { i18n } = useTranslation();
+  //const [blogs, setBlogs] = useState(null);
+  const [reviews, setReviews] = useState(null);
+  const [review, setReview] = useState(null);
 
-  // const lang = i18n.language;
-  //console.log(3);
-  const home = () => {
+  const home = async () => {
     try {
-      const response = adminInstance.post('/Admin/Home');
-      console(response);
+      const response = await adminInstance.post('/Admin/Home');
+      //console(response);
       if (response.status === 200) {
-        const { isSuccess, message, code } = response.data;
+        const { isSuccess, message } = response.data;
         if (!isSuccess) {
           setError(message);
         }
-        console.log(code);
+        //console.log(code);
       }
     } catch (error) {
       setError(error);
     }
   };
 
+  /////////////////////////
+  ////////////Reviews
+  /////////////////////////
+  const getReviews = async (reqBody) => {
+    try {
+      const response = await adminInstance.post('/Reviews/GetReviews', reqBody);
+      if (response.status === 200) {
+        const { isSuccess, reviews, message } = response.data;
+        if (!isSuccess) {
+          setError(message);
+          throw new Error('something went wrong');
+        }
+
+        setReviews(reviews);
+      } else {
+        setError(response.statusText);
+        throw new Error('something went wrong');
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const getReview = async (reqBody) => {
+    try {
+      const response = await adminInstance.post('/Reviews/GetReviewById', reqBody);
+      if (response.status === 200) {
+        const { isSuccess, review } = response.data;
+        if (!isSuccess) throw new Error('??');
+
+        setReview(review);
+      } else {
+        setError(response.statusText);
+        throw new Error('something went wrong');
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const getLastThreeReviews = async (reqBody) => {
+    try {
+      const response = await adminInstance.post('/Reviews/GetLastThree', reqBody);
+      if (response.status === 200) {
+        const { isSuccess, reviews, message } = response.data;
+        if (!isSuccess) {
+          setError(message);
+          throw new Error(message);
+        }
+        setReviews(reviews);
+      } else {
+        setError(response.statusText);
+        throw new Error('something went wrong');
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const addReview = async (reqBody) => {
+    try {
+    } catch (error) {
+      setError(error);
+    }
+  };
+
   return (
-    <AdminServiceContext.Provider value={{ home, error }}>{children}</AdminServiceContext.Provider>
+    <AdminServiceContext.Provider
+      value={{ home, getReviews, getReview, getLastThreeReviews, error, reviews, review }}
+    >
+      {children}
+    </AdminServiceContext.Provider>
   );
 };
 
