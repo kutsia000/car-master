@@ -7,7 +7,7 @@ const handleUnauthorizedError = () => {
   const navigate = useNavigate();
   // Handle unauthorized errors
   Cookies.remove('Token');
-  localStorage.removeItem('IsAdmin');
+  localStorage.removeItem('UserTypeId');
   const lang = i18n.language;
   navigate(`/${lang}/login`); // Example: Redirect to the login page
 

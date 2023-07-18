@@ -22,6 +22,7 @@ const Navigation = () => {
           <Link to={`/${lang}/contact`}>{t('navigation_contact')}</Link>
         </li>
       </ul>
+      <Link to={`/${lang}/login`}>login</Link>
       <LanguageSelector />
     </nav>
   );

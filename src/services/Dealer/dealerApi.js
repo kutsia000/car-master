@@ -1,33 +1,25 @@
 import axios from 'axios';
-import handleUnauthorizedError from '../errorHandlers/unAuthorizedhandler';
-// import { useTranslation } from 'react-i18next';
-// import { useNavigate } from 'react-router-dom';
-
+import handleUnauthorizedError from '../../errorHandlers/unAuthorizedhandler';
 import Cookies from 'js-cookie';
-//const apiUrl = process.env.REACT_APP_API_URL;
 
-const adminApi = axios.create({
+const dealerApi = axios.create({
   baseURL: 'https://localhost:7164/api',
-  // headers: {
-  //   post: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // },
+
   timeout: 20000,
 });
 
-adminApi.interceptors.request.use((config) => {
+dealerApi.interceptors.request.use((config) => {
   const token = Cookies.get('Token');
   //console.log(['token', token]);
   if (token) {
     config.headers['Authorization'] = `${token}`;
     return config;
   } else {
-    // handleUnauthorizedError();
+    handleUnauthorizedError();
   }
 });
 
-adminApi.interceptors.response.use(
+dealerApi.interceptors.response.use(
   (response) => {
     //console.log(response);
     return response;
@@ -46,4 +38,4 @@ adminApi.interceptors.response.use(
   }
 );
 
-export default adminApi;
+export default dealerApi;

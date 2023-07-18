@@ -15,11 +15,11 @@ const AdminDashboardPage = () => {
       <h1>admin dashboard</h1>
       <AuthService>
         <AxiosInterceptor>
+          <LogOut />
           <AdminService>
             <AdminDashboard />
             <Outlet />
           </AdminService>
-          <LogOut />
         </AxiosInterceptor>
       </AuthService>
     </>

@@ -1,0 +1,33 @@
+dialog {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent backdrop */
+}
+dialog[open] {
+  width: 300px;
+  padding: 20px;
+  background: white;
+  border-radius: 5px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid black;
+  text-align: left;
+  border-collapse: collapse;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

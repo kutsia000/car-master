@@ -27,8 +27,8 @@ const AuthService = ({ children }) => {
 
           Cookies.set('Token', token);
           localStorage.setItem('userTypeId', userTypeId);
-
           setAuthenticated(true);
+          //console.log(tk);
 
           if (dashboardUrls.hasOwnProperty(userTypeId)) {
             navigate(`/${lang}${dashboardUrls[userTypeId]}`);

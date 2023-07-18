@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminServiceContext } from '../../services/AdminService';
+import LoadingMarkUp from '../../components/Loading/Loading';
+import { Link } from 'react-router-dom';
 
 const Reviews = () => {
   const { getReviews, reviews } = useContext(AdminServiceContext);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   //console.log(getReviews);
   const [loading, setLoading] = useState(true);
   const lang = i18n.language || 'en';
@@ -23,16 +25,17 @@ const Reviews = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingMarkUp />;
   }
 
   return (
     <>
-      sadasdsadsa
+      <Link to={`/${lang}/admin/dashboard/review/`}>{t('new')}</Link>
       {reviews &&
         reviews.map((review) => {
           return (
             <div key={review.id}>
+              <Link to={`/${lang}/admin/dashboard/review/${review.id}`}>edit</Link>
               <h2>{review.fullName}</h2>
               <label>{review.text}</label>
             </div>

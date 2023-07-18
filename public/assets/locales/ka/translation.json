@@ -6,5 +6,8 @@
   "navigation_home": "მთავარი",
   "navigation_about": "ჩვენს შესახებ",
   "navigation_contact": "კონტაქტი",
-  "logout": "გამოსვლა"
+  "logout": "გამოსვლა",
+  "new": "ახალი",
+  "fullName": "სრული სახელი",
+  "text": "ტექსტი"
 }

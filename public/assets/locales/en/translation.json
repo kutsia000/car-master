@@ -6,5 +6,8 @@
   "navigation_home": "Home",
   "navigation_about": "About",
   "navigation_contact": "Contact",
-  "logout": "Log Out"
+  "logout": "Log Out",
+  "new": "new",
+  "fullName": "FullName",
+  "text": "text"
 }

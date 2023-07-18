@@ -8,13 +8,14 @@ const InputComponent = ({
   name,
   validationRegex,
   onChange,
+  value,
 }) => {
-  const [value, setValue] = useState('');
+  //const [value, setValue] = useState('');
   const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const inputValue = e.target.value;
-    setValue(inputValue);
+    //setValue(inputValue);
 
     if (required && inputValue.trim() === '') {
       setError(`${label} is required.`);
@@ -23,7 +24,7 @@ const InputComponent = ({
     } else {
       setError('');
     }
-    onChange(e.target.value);
+    onChange(e);
   };
 
   return (
@@ -34,8 +35,9 @@ const InputComponent = ({
         placeholder={placeholder}
         value={value}
         name={name}
-        onChange={handleChange}
+        required={required}
         className={error ? 'input-error' : ''}
+        onChange={handleChange}
       />
       {error && <span className="error-message">{error}</span>}
     </div>

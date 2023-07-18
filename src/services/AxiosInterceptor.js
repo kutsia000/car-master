@@ -39,7 +39,7 @@ const AxiosInterceptor = ({ children }) => {
     //console.log(error);
     if (error.response.status === 401) {
       Cookies.remove('Token');
-      localStorage.removeItem('IsAdmin');
+      localStorage.removeItem('UserTypeId');
       navigate(`/${lang}/login`);
     }
     return null;

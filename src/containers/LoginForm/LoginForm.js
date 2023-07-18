@@ -10,7 +10,8 @@ const LoginForm = () => {
     password: '',
   });
 
-  const handleChange = (name, value) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormValues((prevValues) => ({
       ...prevValues,
       [name]: value,
@@ -32,14 +33,14 @@ const LoginForm = () => {
           placeholder="Enter your UserName"
           type="text"
           name="username"
-          onChange={(value) => handleChange('username', value)}
+          onChange={(e) => handleChange(e)}
           required
           value={formValues.name}
         />
         <InputComponent
           label="Password"
           placeholder="Enter your password"
-          onChange={(value) => handleChange('password', value)}
+          onChange={(e) => handleChange(e)}
           type="password"
           name="password"
           required
