@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const languages = [
   {
@@ -32,11 +33,20 @@ const GlobeIcon = ({ width = 24, height = 24 }) => (
 const LanguageSelector = () => {
   const currentLanguageCode = Cookies.get('i18next') || 'ka';
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   //const releaseDate = new Date('2021-03-07');
   //const timeDifference = new Date() - releaseDate;
   //const number_of_days = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
+
+  const handleLanguageChange = (code) => {
+    if (code !== currentLanguage) {
+      i18next.changeLanguage(code);
+      const newPath = window.location.pathname.replace(`/${currentLanguageCode}`, `/${code}`);
+      navigate(`${newPath}`);
+    }
+  };
 
   useEffect(() => {
     document.body.dir = currentLanguage.dir || 'ltr';
@@ -62,7 +72,7 @@ const LanguageSelector = () => {
             <li key={country_code}>
               <button
                 className="dropdown-item"
-                onClick={() => i18next.changeLanguage(code)}
+                onClick={() => handleLanguageChange(code)}
                 disabled={code === currentLanguageCode}
               >
                 <span

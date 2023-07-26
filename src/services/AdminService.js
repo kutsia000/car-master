@@ -16,6 +16,8 @@ const AdminService = ({ children }) => {
   const [success, setSuccess] = useState(false);
   const [notifications, setNotifications] = useState(null);
   const [notification, setNotification] = useState(null);
+  const [becomeDealerRequests, setBecomeDelaerRequests] = useState(null);
+  const [becomeDealerRequest, setBecomeDelaerRequest] = useState(null);
   const [recordsCount, setRecordsCount] = useState(null);
 
   const config = {
@@ -76,18 +78,20 @@ const AdminService = ({ children }) => {
   /////////////////////////
   ////////////Reviews
   /////////////////////////
-  const getReviews = async () => {
+  const getReviews = async (reqBody) => {
     try {
-      const response = await adminInstance.get('/Reviews/GetReviews');
+      const response = await adminInstance.get('/Reviews/GetReviews', { params: reqBody });
       setError(null);
       if (response.status === 200) {
-        const { isSuccess, reviews, message } = response.data;
+        const { isSuccess, reviews, recordsCount, message } = response.data;
+        setSuccess(isSuccess);
         if (!isSuccess) {
           setError(message);
           throw new Error('something went wrong');
         }
 
         setReviews(reviews);
+        setRecordsCount(recordsCount);
       } else {
         setError(response.statusText);
         throw new Error('something went wrong');
@@ -363,16 +367,19 @@ const AdminService = ({ children }) => {
   /////////////////////////
   ////////////Notifications
   /////////////////////////
-  const getNotifications = async () => {
+  const getNotifications = async (reqBody) => {
     try {
-      const response = await adminInstance.get('/Notification/GetNotifications');
+      const response = await adminInstance.get('/Notification/GetNotifications', {
+        params: reqBody,
+      });
       setError(null);
       if (response.status === 200) {
-        const { isSuccess, notifications, message } = response.data;
+        const { isSuccess, notifications, recordsCount, message } = response.data;
         if (!isSuccess) {
           setError(message);
           setSuccess(isSuccess);
         } else {
+          setRecordsCount(recordsCount);
           setNotifications(notifications);
           setSuccess(isSuccess);
         }
@@ -464,12 +471,34 @@ const AdminService = ({ children }) => {
   /////////////////////////
   ////////////CarMarks
   /////////////////////////
-  const getCarMarks = async () => {
+  const getCarMarks = async (reqBody) => {
     try {
-      const response = await adminInstance.get('/CarMark/GetCarMarks');
+      const response = await adminInstance.get('/CarMark/GetCarMarks', { params: reqBody });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, carMarks, recordsCount, message } = response.data;
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setCarMarks(carMarks);
+          setRecordsCount(recordsCount);
+        }
+        setSuccess(isSuccess);
+      } else {
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const getAllCarMarks = async () => {
+    try {
+      const response = await adminInstance.get('/CarMark/GetAllCarMarks');
       setError(null);
       if (response.status === 200) {
         const { isSuccess, carMarks, message } = response.data;
+        //console.log(carMarks);
         if (!isSuccess) {
           setError(message);
         } else {
@@ -574,17 +603,20 @@ const AdminService = ({ children }) => {
   /////////////////////////
   ////////////CarModels
   /////////////////////////
-  const getCarModels = async () => {
+  const getCarModels = async (reqBody) => {
     try {
-      const response = await adminInstance.get('/CarMarkModel/GetCarMarkModels');
+      const response = await adminInstance.get('/CarMarkModel/GetCarMarkModels', {
+        params: reqBody,
+      });
       setError(null);
       if (response.status === 200) {
-        const { isSuccess, carModels, message } = response.data;
+        const { isSuccess, carMarkModels, recordsCount, message } = response.data;
         setSuccess(isSuccess);
         if (!isSuccess) {
           setError(message);
         } else {
-          setCarModels(carModels);
+          setCarModels(carMarkModels);
+          setRecordsCount(recordsCount);
         }
       } else {
         setError(response.statusText);
@@ -598,17 +630,17 @@ const AdminService = ({ children }) => {
 
   const getCarModelById = async (id) => {
     try {
-      const response = await adminInstance.get('/CarMarkModel/GetCarMarkModels', {
+      const response = await adminInstance.get('/CarMarkModel/GetCarMarkModelById', {
         params: { id: id },
       });
       setError(null);
       if (response.status === 200) {
-        const { isSuccess, carModel, message } = response.data;
+        const { isSuccess, carMarkModel, message } = response.data;
         setSuccess(isSuccess);
         if (!isSuccess) {
           setError(message);
         } else {
-          setCarModel(carModel);
+          setCarModel(carMarkModel);
         }
       } else {
         setError(response.statusText);
@@ -644,8 +676,9 @@ const AdminService = ({ children }) => {
 
   const addCarModel = async (reqBody) => {
     try {
+      //console.log(reqBody);
       const fData = jsonToFormData(reqBody);
-      const response = await adminInstance('/CarMarkModel/AddCarModel', fData, config);
+      const response = await adminInstance.post('/CarMarkModel/AddCarModel', fData, config);
       setError(null);
       if (response.status === 200) {
         const { isSuccess, carModel, message } = response.data;
@@ -688,6 +721,73 @@ const AdminService = ({ children }) => {
     }
   };
 
+  /////////////////////////
+  ////////////Become Dealer Request
+  /////////////////////////
+  const getDealerRequests = async (reqBody) => {
+    try {
+      const response = await adminInstance.get('/BecomeDealer/GetDealerRequests', {
+        params: reqBody,
+      });
+      if (response.status === 200) {
+        const { isSuccess, message, becomeDealerRequests, recordsCount } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setRecordsCount(recordsCount);
+          setBecomeDelaerRequests(becomeDealerRequests);
+        }
+      } else {
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const getDealerRequestById = async (reqBody) => {
+    try {
+      const response = await adminInstance.get('/BecomeDealer/GetDealerRequestById', {
+        params: reqBody,
+      });
+      if (response.status === 200) {
+        const { isSuccess, message, becomeDealerRequest, recordsCount } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setRecordsCount(recordsCount);
+          setBecomeDelaerRequest(becomeDealerRequest);
+        }
+      } else {
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const deleteDealerRequest = async (id) => {
+    try {
+      const response = await adminInstance.delete('/BecomeDealer/DeleteRequest', {
+        params: { id: id },
+      });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
   return (
     <AdminServiceContext.Provider
       value={{
@@ -711,6 +811,7 @@ const AdminService = ({ children }) => {
         addNotification,
         updateNotification,
         getCarMarks,
+        getAllCarMarks,
         getCarMarkById,
         deleteCarMark,
         addCarmark,
@@ -720,6 +821,9 @@ const AdminService = ({ children }) => {
         deleteCarModel,
         addCarModel,
         updateCarModel,
+        getDealerRequests,
+        getDealerRequestById,
+        deleteDealerRequest,
         error,
         success,
         recordsCount,
@@ -733,6 +837,8 @@ const AdminService = ({ children }) => {
         carMark,
         carModels,
         carModel,
+        becomeDealerRequests,
+        becomeDealerRequest,
       }}
     >
       {children}

@@ -5,19 +5,30 @@ import NotificationDialog from '../Notification/NotificationDialog';
 import LoadingMarkUp from '../../components/Loading/Loading';
 
 const DealerDashboard = () => {
-  const { getDealerHome, notifications, error } = useContext(DealerServiceContext);
+  const { getDealerHome, notifications, agreeNotification, error, success } =
+    useContext(DealerServiceContext);
   const { i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      //await getDealerHome();
-      setLoading(false);
-    };
+  const fetchData = async () => {
+    await getDealerHome();
+    setLoading(false);
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
+
+  const handleNotificationAgree = async () => {
+    //console.log(notifications[0]);
+    if (notifications) {
+      if (notifications[0]) {
+        await agreeNotification(notifications[0].id);
+        fetchData();
+      }
+    }
+  };
 
   if (loading) {
     return <LoadingMarkUp />;
@@ -25,7 +36,9 @@ const DealerDashboard = () => {
 
   return (
     <>
-      <NotificationDialog notifications={notifications} />
+      {notifications && (
+        <NotificationDialog notification={notifications[0]} handleAgree={handleNotificationAgree} />
+      )}
       delaer dashboard
     </>
   );

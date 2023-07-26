@@ -1,30 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import Landing from './pages/Landing/Landing';
 import Home from './containers/Home/Home';
 import About from './containers/About/About';
+import Contact from './containers/Contact/Contact';
+import LandingBlogs from './containers/Blog/LandingBlogs';
 import LoginPage from './pages/Login/LoginPage';
 import AdminDashboard from './pages/Admin/AdminPage';
 import DealerDashboard from './pages/Dealer/DealerPage';
 import EmployeeDashboard from './pages/Employee/EmployeePage';
-import Reviews from './containers/Reviews/Reviews';
-import Review from './containers/Reviews/Review';
+import ReviewsPage from './pages/Admin/ReviewsPage';
 import NotFound from './pages/NotFound';
-import Blogs from './containers/Blog/Blogs';
-import Blog from './containers/Blog/Blog';
-import Notifications from './containers/Notification/Notifications';
-import Notification from './containers/Notification/Notification';
-import CarMarks from './containers/CarMarks/CarMarks';
-import CarMark from './containers/CarMarks/CarMark';
-import CarModels from './containers/CarModels/CarModels';
-import CarModel from './containers/CarModels/CarModel';
+import BlogsPage from './pages/Admin/BlogsPage';
+import NotificationsPage from './pages/Admin/NotificationsPage';
+import CarMarksPage from './pages/Admin/CarMarksPage';
+import CarModelsPage from './pages/Admin/CarModelsPage';
+import LandingBlog from './containers/Blog/LandingBlog';
+import BecomeDealerPage from './pages/Landing/BecomeDealerPage';
+import DealerRequests from './containers/DealerRequests/DealerRequests';
 
 function App() {
-  const { i18n } = useTranslation();
-
-  const lang = i18n.language;
-
   return (
     <>
       <div className="container">
@@ -33,39 +28,48 @@ function App() {
           <Router>
             <Routes>
               <Route path="/" element={<Landing />} />
-              <Route path={`/${lang}`} element={<Landing />}>
+              <Route path={`/:lang`} element={<Landing />}>
                 <Route index element={<Home />} />
-                <Route path={`/${lang}/about`} element={<About />} />
+                <Route path={`/:lang/about`} element={<About />} />
+                <Route path={`/:lang/contact`} element={<Contact />} />
+                <Route path={`/:lang/blogs`} element={<LandingBlogs />} />
+                <Route path={`/:lang/blogs/:blogId`} element={<LandingBlog />} />
+                <Route path={`/:lang/becomedealer`} element={<BecomeDealerPage />} />
               </Route>
-              <Route path={`/${lang}/login`} element={<LoginPage />} />
-              <Route path={`/${lang}/dealer/dashboard`} element={<DealerDashboard />} />
-              <Route path={`/${lang}/admin/dashboard`} element={<AdminDashboard />}>
-                <Route path={`/${lang}/admin/dashboard/reviews`} element={<Reviews />} />
-                <Route path={`/${lang}/admin/dashboard/review/:reviewId`} element={<Review />} />
-                <Route path="review/*" element={<Review />} />
-                <Route path={`/${lang}/admin/dashboard/blogs`} element={<Blogs />} />
-                <Route path={`/${lang}/admin/dashboard/blog/:blogId`} element={<Blog />} />
-                <Route path="blog/*" element={<Blog />} />
+              <Route path={`/:lang/login`} element={<LoginPage />} />
+              <Route path={`/:lang/dealer/dashboard`} element={<DealerDashboard />} />
+              <Route path={`/:lang/admin/dashboard`} element={<AdminDashboard />}>
+                <Route path={`/:lang/admin/dashboard/reviews`} element={<ReviewsPage />} />
                 <Route
-                  path={`/${lang}/admin/dashboard/notifications`}
-                  element={<Notifications />}
+                  path={`/:lang/admin/dashboard/reviews/:reviewId`}
+                  element={<ReviewsPage />}
+                />
+                <Route path={`/:lang/admin/dashboard/blogs`} element={<BlogsPage />} />
+                <Route path={`/:lang/admin/dashboard/blogs/:blogId`} element={<BlogsPage />} />
+                <Route
+                  path={`/:lang/admin/dashboard/notifications`}
+                  element={<NotificationsPage />}
                 />
                 <Route
-                  path={`/${lang}/admin/dashboard/notification/:notificationId`}
-                  element={<Notification />}
+                  path={`/:lang/admin/dashboard/notifications/:notificationId`}
+                  element={<NotificationsPage />}
                 />
-                <Route path="notification/*" element={<Notification />} />
-                <Route path={`/${lang}/admin/dashboard/carmarks`} element={<CarMarks />} />
-                <Route path={`/${lang}/admin/dashboard/carmark/:carmarkId`} element={<CarMark />} />
-                <Route path="carmark/*" element={<CarMark />} />
-                <Route path={`/${lang}/admin/dashboard/carmodels`} element={<CarModels />} />
+                <Route path={`/:lang/admin/dashboard/carmarks`} element={<CarMarksPage />} />
                 <Route
-                  path={`/${lang}/admin/dashboard/carmodel/:carmodelId`}
-                  element={<CarModel />}
+                  path={`/:lang/admin/dashboard/carmarks/:carmarkId`}
+                  element={<CarMarksPage />}
                 />
-                <Route path="carmodel/*" element={<CarModel />} />
+                <Route path={`/:lang/admin/dashboard/carmodels`} element={<CarModelsPage />} />
+                <Route
+                  path={`/:lang/admin/dashboard/carmodels/:carmodelId`}
+                  element={<CarModelsPage />}
+                />
+                <Route
+                  path={`/:lang/admin/dashboard/dealerrequests`}
+                  element={<DealerRequests />}
+                />
               </Route>
-              <Route path={`/${lang}/employee/dashboard`} element={<EmployeeDashboard />} />
+              <Route path={`/:lang/employee/dashboard`} element={<EmployeeDashboard />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>

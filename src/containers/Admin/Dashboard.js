@@ -39,6 +39,15 @@ const AdminDashboard = () => {
             <li>
               <Link to={`/${lang}/admin/dashboard/notifications`}>notification</Link>
             </li>
+            <li>
+              <Link to={`/${lang}/admin/dashboard/carmarks`}>carmarks</Link>
+            </li>
+            <li>
+              <Link to={`/${lang}/admin/dashboard/carmodels`}>car models</Link>
+            </li>
+            <li>
+              <Link to={`/${lang}/admin/dashboard/dealerrequests`}>dealer requests</Link>
+            </li>
           </ul>
         </nav>
       </header>

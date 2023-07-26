@@ -2,34 +2,35 @@ import React, { useContext, useEffect, useState } from 'react';
 import { DealerServiceContext } from '../../services/Dealer/DealerService';
 import '../../Main.css';
 
-const NotificationDialog = ({ notifications }) => {
-  const { agreeNotification, error } = useContext(DealerServiceContext);
-  const [currentNotification, setCurrentNotification] = useState(null);
+const NotificationDialog = ({ notification, handleAgree }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (notifications) {
+    if (notification) {
       setIsOpen(true);
-      setCurrentNotification(notifications[0]);
     } else {
       setIsOpen(false);
     }
-  }, [notifications]);
+  }, [notification]);
 
-  const handleAgree = async () => {
-    if (currentNotification) {
-      await agreeNotification({ notificationId: currentNotification.id });
-      const remainingNotifications = notifications.slice(1);
-      setCurrentNotification(remainingNotifications(remainingNotifications[0]));
+  const handleNotifAgree = async () => {
+    if (notification) {
+      handleAgree();
     }
   };
+
   return (
     <>
-      {isOpen && (
-        <dialog open>
-          <h2>{currentNotification.Title}</h2>
-          <p>{currentNotification.Content}</p>
-        </dialog>
+      {isOpen && notification && (
+        <div className="dialog-container">
+          <dialog open>
+            <h2>{notification.title}</h2>
+            <p>{notification.content}</p>
+            <button type="button" onClick={() => handleNotifAgree()}>
+              agree
+            </button>
+          </dialog>
+        </div>
       )}
     </>
   );

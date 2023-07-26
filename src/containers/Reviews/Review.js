@@ -6,7 +6,7 @@ import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
 import InputFileComponent from '../../components/Input/InputFileComponent';
 
-const Review = () => {
+const Review = ({ handleCloseDialog }) => {
   const { review, getReview, addReview, updateReview, error } = useContext(AdminServiceContext);
   const { t, i18n } = useTranslation();
   //console.log(getReviews);
@@ -78,6 +78,7 @@ const Review = () => {
       await addReview(formData);
     }
     setLoading(false);
+    handleCloseDialog();
   };
 
   const handleFileChange = (file) => {

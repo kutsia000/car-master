@@ -6,8 +6,9 @@ import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
 import InputFileComponent from '../../components/Input/InputFileComponent';
 
-const Blog = () => {
-  const { blog, getBlogByIdAllLanguages, addBlog, updateBlog } = useContext(AdminServiceContext);
+const Blog = ({ handleCloseDialog }) => {
+  const { blog, getBlogByIdAllLanguages, addBlog, updateBlog, error, success } =
+    useContext(AdminServiceContext);
 
   const initialState = {
     id: null,
@@ -91,6 +92,9 @@ const Blog = () => {
       await addBlog(formData);
     }
     setLoading(false);
+    if (success) {
+      handleCloseDialog();
+    }
   };
 
   if (loading) {
@@ -142,7 +146,7 @@ const Blog = () => {
           required={!blogId}
           onFileSelected={handleImagesChange}
         />
-        {/* {error && <label>{error}</label>} */}
+        {error && <label>{error}</label>}
         <button type="submit">Submit</button>
       </form>
     </>

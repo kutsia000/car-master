@@ -6,21 +6,21 @@ const DealerServiceContext = createContext();
 const DealerService = ({ children }) => {
   const [error, setError] = useState(null);
   const [notifications, setNotifications] = useState(null);
-  const [isSuccess, setIsSuccess] = useState(true);
+  const [success, setSuccess] = useState(true);
 
   const getDealerHome = async () => {
     try {
       const response = await dealerApi.get('/Dealer/Home');
       if (response.status === 200) {
         const { isSuccess, notifications, message } = response.data;
-        setIsSuccess(isSuccess);
+        setSuccess(isSuccess);
         if (!isSuccess) {
           setError(message);
         } else {
           setNotifications(notifications);
         }
       } else {
-        setIsSuccess(false);
+        setSuccess(false);
         setError(error);
       }
     } catch (error) {
@@ -28,11 +28,30 @@ const DealerService = ({ children }) => {
     }
   };
 
-  const agreeNotification = async () => {};
+  const agreeNotification = async (id) => {
+    setSuccess(true);
+    setError(null);
+    try {
+      const response = await dealerApi.get('/Dealer/AgreeNotification', { params: { id: id } });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setSuccess(false);
+      setError(error);
+    }
+  };
 
   return (
     <DealerServiceContext.Provider
-      value={{ getDealerHome, agreeNotification, isSuccess, error, notifications }}
+      value={{ getDealerHome, agreeNotification, success, error, notifications }}
     >
       {children}
     </DealerServiceContext.Provider>

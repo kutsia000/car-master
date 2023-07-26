@@ -2,25 +2,27 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
-import Dialog from '../../components/Dialog/Dialog';
-import Review from './Review';
 import { PaginationControl } from 'react-bootstrap-pagination-control';
-import { Link, useLocation, createSearchParams, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, createSearchParams, useNavigate } from 'react-router-dom';
 
-const Reviews = () => {
+const DealerRequests = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
-  const { getReviews, reviews, deleteReview, error, recordsCount } =
-    useContext(AdminServiceContext);
+  const {
+    getDealerRequests,
+    getDealerRequestById,
+    deleteDealerRequest,
+    error,
+    recordsCount,
+    becomeDealerRequests,
+  } = useContext(AdminServiceContext);
   const { t, i18n } = useTranslation();
   //console.log(getReviews);
   const [loading, setLoading] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
   const [page, setPage] = useState(parseInt(queryParams.get('page')) || 1);
   const [pageSize, setPageSize] = useState(parseInt(queryParams.get('pageSize')) || 5);
   const lang = i18n.language || 'en';
-  const { reviewId } = useParams();
 
   const fetchData = async () => {
     setLoading(true);
@@ -30,33 +32,17 @@ const Reviews = () => {
       page: page,
       pageSize: pageSize,
     };
-    await getReviews(langModel);
+    await getDealerRequests(langModel);
     setLoading(false);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     fetchData();
   }, [page, pageSize]);
-
-  useEffect(() => {
-    if (reviewId) {
-      handleOpenDialog();
-    }
-  }, [reviewId]);
-
-  const handleOpenDialog = () => {
-    setIsOpen(true);
-  };
-
-  const handleCloseDialog = () => {
-    setIsOpen(false);
-    navigate(`/${lang}/admin/dashboard/reviews`);
-    fetchData();
-  };
 
   const handlePageChange = (event) => {
     setPage(event);
@@ -69,7 +55,7 @@ const Reviews = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm('are you sure?')) {
-      await deleteReview(id);
+      await deleteDealerRequest(id);
       fetchData();
     }
   };
@@ -80,36 +66,30 @@ const Reviews = () => {
 
   return (
     <>
-      <button onClick={handleOpenDialog}>new</button>
-      {isOpen && (
-        <Dialog onClose={handleCloseDialog}>
-          <Review handleCloseDialog={handleCloseDialog} />
-        </Dialog>
-      )}
       <div>
         <table>
           <thead>
             <tr>
               <th>ID</th>
               <th>fullName</th>
-              <th>text</th>
+              <th>PhoneNumber</th>
+              <th>EMail</th>
+              <th>Text</th>
               <th>Edit</th>
-              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
-            {reviews &&
-              reviews.map((review) => {
+            {becomeDealerRequests &&
+              becomeDealerRequests.map((req) => {
                 return (
-                  <tr key={review.id}>
-                    <td>{review.id}</td>
-                    <td>{review.fullName}</td>
-                    <td>{review.text}</td>
+                  <tr key={req.id}>
+                    <td>{req.id}</td>
+                    <td>{req.fullName}</td>
+                    <td>{req.phoneNumber}</td>
+                    <td>{req.eMail}</td>
+                    <td>{req.text}</td>
                     <td>
-                      <Link to={`/${lang}/admin/dashboard/reviews/${review.id}`}>edit</Link>
-                    </td>
-                    <td>
-                      <button onClick={() => handleDelete(review.id)}>delete</button>
+                      <button onClick={() => handleDelete(req.id)}>delete</button>
                     </td>
                   </tr>
                 );
@@ -125,9 +105,9 @@ const Reviews = () => {
           ellipsis={2}
         />
       </div>
-      {error ? error : null}
+      {error && <span style={{ color: 'red' }}>{error}</span>}
     </>
   );
 };
 
-export default Reviews;
+export default DealerRequests;

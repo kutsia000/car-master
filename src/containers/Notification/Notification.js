@@ -5,8 +5,8 @@ import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
 
-const Notification = () => {
-  const { getNotificationById, notification, addNotification, updateNotification, error } =
+const Notification = ({ handleCloseDialog }) => {
+  const { getNotificationById, notification, addNotification, updateNotification, error, success } =
     useContext(AdminServiceContext);
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(true);
@@ -71,6 +71,10 @@ const Notification = () => {
     }
 
     setLoading(false);
+
+    if (success) {
+      handleCloseDialog();
+    }
   };
 
   if (loading) {

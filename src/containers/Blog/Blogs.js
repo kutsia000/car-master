@@ -5,6 +5,9 @@ import LoadingMarkUp from '../../components/Loading/Loading';
 import { Link, useLocation, createSearchParams, useNavigate } from 'react-router-dom';
 //import Pagination from '../../components/Pagination/Pagination';
 import { PaginationControl } from 'react-bootstrap-pagination-control';
+import Dialog from '../../components/Dialog/Dialog';
+import Blog from './Blog';
+import { useParams } from 'react-router-dom';
 
 const Blogs = () => {
   const location = useLocation();
@@ -16,6 +19,8 @@ const Blogs = () => {
   const { t, i18n } = useTranslation();
   //console.log(getReviews);
   const [loading, setLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const { blogId } = useParams();
   const lang = i18n.language || 'en';
 
   const fetchBlogs = async () => {
@@ -33,11 +38,27 @@ const Blogs = () => {
     fetchBlogs();
   }, [page, pageSize]);
 
+  useEffect(() => {
+    if (blogId) {
+      handleOpenDialog();
+    }
+  }, [blogId]);
+
   const handleDelete = async (id) => {
     if (window.confirm('are you sure?')) {
       await deleteBlog(id);
       fetchBlogs();
     }
+  };
+
+  const handleOpenDialog = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsOpen(false);
+    navigate(`/${lang}/admin/dashboard/blogs`);
+    fetchBlogs();
   };
 
   if (loading) {
@@ -46,8 +67,6 @@ const Blogs = () => {
 
   const handlePageChange = (event) => {
     setPage(event);
-    //alert(1);
-    //console.log(event);
     navigate({
       search: createSearchParams({
         page: event,
@@ -55,11 +74,14 @@ const Blogs = () => {
     });
   };
 
-  //console.log(recordsCount);
-
   return (
     <>
-      <Link to={`/${lang}/admin/dashboard/blog/`}>{t('new')}</Link>
+      <button onClick={handleOpenDialog}>{t('new')}</button>
+      {isOpen && (
+        <Dialog onClose={handleCloseDialog}>
+          <Blog handleCloseDialog={handleCloseDialog} />
+        </Dialog>
+      )}
       <div>
         <table>
           <thead>
@@ -80,7 +102,7 @@ const Blogs = () => {
                     <td>{blog.blogContents[0].title}</td>
                     <td>{blog.blogContents[0].content}</td>
                     <td>
-                      <Link to={`/${lang}/admin/dashboard/blog/${blog.id}`}>edit</Link>
+                      <Link to={`/${lang}/admin/dashboard/blogs/${blog.id}`}>edit</Link>
                     </td>
                     <td>
                       <button onClick={() => handleDelete(blog.id)}>delete</button>
@@ -99,13 +121,6 @@ const Blogs = () => {
             changePage={(page) => handlePageChange(page)}
             ellipsis={2}
           />
-          {/* <Pagination
-            className="pagination-bar"
-            currentPage={page}
-            totalCount={recordsCount}
-            pageSize={5}
-            onPageChange={(page) => handlePageChange(page)}
-          /> */}
         </div>
       </div>
     </>
