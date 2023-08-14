@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { DealerServiceContext } from '../../services/Dealer/DealerService';
+import React, { useEffect, useState } from 'react';
 import '../../Main.css';
 
 const NotificationDialog = ({ notification, handleAgree }) => {

@@ -18,6 +18,13 @@ import CarModelsPage from './pages/Admin/CarModelsPage';
 import LandingBlog from './containers/Blog/LandingBlog';
 import BecomeDealerPage from './pages/Landing/BecomeDealerPage';
 import DealerRequests from './containers/DealerRequests/DealerRequests';
+import AuctionsPage from './pages/Admin/AuctionsPage';
+import LocationsPage from './pages/Admin/LocationsPage';
+import PortsPage from './pages/Admin/Portspage';
+import PriceListGroupsPage from './pages/Admin/PriceListGroupsPage';
+import PriceListGroupLinesPage from './pages/Admin/PriceListGroupLinesPage';
+import UsersPage from './pages/Admin/UsersPage';
+import MyPriceListPage from './pages/Common/MyPriceListPage';
 
 function App() {
   return (
@@ -37,7 +44,9 @@ function App() {
                 <Route path={`/:lang/becomedealer`} element={<BecomeDealerPage />} />
               </Route>
               <Route path={`/:lang/login`} element={<LoginPage />} />
-              <Route path={`/:lang/dealer/dashboard`} element={<DealerDashboard />} />
+              <Route path={`/:lang/dealer/dashboard`} element={<DealerDashboard />}>
+                <Route path={`/:lang/dealer/dashboard/mypricelist`} element={<MyPriceListPage />} />
+              </Route>
               <Route path={`/:lang/admin/dashboard`} element={<AdminDashboard />}>
                 <Route path={`/:lang/admin/dashboard/reviews`} element={<ReviewsPage />} />
                 <Route
@@ -68,8 +77,41 @@ function App() {
                   path={`/:lang/admin/dashboard/dealerrequests`}
                   element={<DealerRequests />}
                 />
+                <Route path={`/:lang/admin/dashboard/auctions`} element={<AuctionsPage />} />
+                <Route
+                  path={`/:lang/admin/dashboard/auctions/:auctionId`}
+                  element={<AuctionsPage />}
+                />
+                <Route path={`/:lang/admin/dashboard/locations`} element={<LocationsPage />} />
+                <Route
+                  path={`/:lang/admin/dashboard/locations/:locationId`}
+                  element={<LocationsPage />}
+                />
+                <Route path={`/:lang/admin/dashboard/ports`} element={<PortsPage />} />
+                <Route path={`/:lang/admin/dashboard/ports/:portId`} element={<PortsPage />} />
+                <Route
+                  path={`/:lang/admin/dashboard/pricelistgroups`}
+                  element={<PriceListGroupsPage />}
+                />
+                <Route
+                  path={`/:lang/admin/dashboard/pricelistgroups/:priceListGroupId`}
+                  element={<PriceListGroupsPage />}
+                />
+                <Route
+                  path={`/:lang/admin/dashboard/pricelistgrouplines`}
+                  element={<PriceListGroupLinesPage />}
+                />
+                <Route
+                  path={`/:lang/admin/dashboard/pricelistgrouplines/:lineId`}
+                  element={<PriceListGroupLinesPage />}
+                />
+                <Route path={`/:lang/admin/dashboard/users`} element={<UsersPage />} />
+                <Route path={`/:lang/admin/dashboard/users/:userId`} element={<UsersPage />} />
+                <Route path={`/:lang/admin/dashboard/mypricelist`} element={<MyPriceListPage />} />
               </Route>
-              <Route path={`/:lang/employee/dashboard`} element={<EmployeeDashboard />} />
+              <Route path={`/:lang/employee/dashboard`} element={<EmployeeDashboard />}>
+                <Route path={`/:lang/employee/dashboard`} element={<MyPriceListPage />} />
+              </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>

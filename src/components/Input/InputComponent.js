@@ -5,10 +5,14 @@ const InputComponent = ({
   placeholder,
   type,
   required,
+  id,
   name,
   validationRegex,
   onChange,
   value,
+  containerClass,
+  className,
+  labelClass,
 }) => {
   //const [value, setValue] = useState('');
   const [error, setError] = useState('');
@@ -28,17 +32,22 @@ const InputComponent = ({
   };
 
   return (
-    <div className="input-container">
-      <label>{label}</label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        name={name}
-        required={required}
-        className={error ? 'input-error' : ''}
-        onChange={handleChange}
-      />
+    <div className="form-group row">
+      <label htmlFor={id} className={labelClass}>
+        {label}
+      </label>
+      <div className={containerClass}>
+        <input
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          id={id}
+          name={name}
+          required={required}
+          className={error ? `${className} is-invalid` : className}
+          onChange={handleChange}
+        />
+      </div>
       {error && <span className="error-message">{error}</span>}
     </div>
   );

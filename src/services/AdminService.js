@@ -18,7 +18,25 @@ const AdminService = ({ children }) => {
   const [notification, setNotification] = useState(null);
   const [becomeDealerRequests, setBecomeDelaerRequests] = useState(null);
   const [becomeDealerRequest, setBecomeDelaerRequest] = useState(null);
+  const [auctions, setAuctions] = useState(null);
+  const [auction, setAuction] = useState(null);
+  const [locations, setLocations] = useState(null);
+  const [Location, setLocation] = useState(null);
+  const [ports, setPorts] = useState(null);
+  const [port, setPort] = useState(null);
+  const [priceListGroups, setPriceListGroups] = useState(null);
+  const [priceListGroup, setPriceListGroup] = useState(null);
+  const [priceListGroupLines, setPriceListGroupLines] = useState(null);
+  const [priceListGroupLine, setPriceListGroupLine] = useState(null);
   const [recordsCount, setRecordsCount] = useState(null);
+  const [selAuctions, setSelAuctions] = useState(null);
+  const [selLocations, setSelLocations] = useState(null);
+  const [selPorts, setSelPorts] = useState(null);
+  const [selPriceListGroups, setSelPriceListGroups] = useState(null);
+  const [userTypes, setUserTypes] = useState(null);
+  const [users, setUsers] = useState(null);
+  const [user, setUser] = useState(null);
+  const [myPriceList, setMyPriceList] = useState(null);
 
   const config = {
     headers: {
@@ -62,16 +80,153 @@ const AdminService = ({ children }) => {
   const home = async () => {
     try {
       const response = await adminInstance.post('/Admin/Home');
-      //console.log(response);
       if (response.status === 200) {
-        const { isSuccess, message } = response.data;
+        const {
+          isSuccess,
+          message,
+          auctions,
+          locations,
+          ports,
+          priceListGroups,
+          userTypes,
+          myPriceList,
+        } = response.data;
         if (!isSuccess) {
           setError(message);
+        } else {
+          setSelAuctions(auctions);
+          setSelLocations(locations);
+          setSelPorts(ports);
+          setSelPriceListGroups(priceListGroups);
+          setUserTypes(userTypes);
+          setMyPriceList(myPriceList);
         }
         //console.log(code);
       }
     } catch (error) {
       setError(error);
+    }
+  };
+
+  /////////////////////////
+  ////////////Users
+  /////////////////////////
+  const getUsers = async () => {
+    try {
+      const response = await adminInstance.get('/Admin/GetUsers');
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, users, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          const temp = users.map((user) => {
+            if (!user.priceListGroupId) {
+              user.priceListGroupId = 0;
+              user.priceListGroupName = '';
+            }
+            return user;
+          });
+          setUsers(temp);
+        }
+      } else {
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const getUserById = async (id) => {
+    try {
+      const response = await adminInstance.get('/Admin/GetUserById', { params: { id: id } });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, user, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setUser(user);
+        }
+      } else {
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const registerUser = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post('/Admin/RegisterUser', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, user, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setUser(user);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const updateUser = async (reqBody) => {
+    try {
+      // console.log(reqBody);
+      const fData = jsonToFormData(reqBody);
+      // for (let [key, value] of fData.entries()) {
+      //   console.log(`${key}:`, value);
+      // }
+      const response = await adminInstance.patch('/Admin/EditUser', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, user, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setUser(user);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const deleteUser = async (id) => {
+    try {
+      const response = await adminInstance.delete('/Admin/DeleteUser', {
+        params: { id: id },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
     }
   };
 
@@ -676,7 +831,6 @@ const AdminService = ({ children }) => {
 
   const addCarModel = async (reqBody) => {
     try {
-      //console.log(reqBody);
       const fData = jsonToFormData(reqBody);
       const response = await adminInstance.post('/CarMarkModel/AddCarModel', fData, config);
       setError(null);
@@ -752,12 +906,11 @@ const AdminService = ({ children }) => {
         params: reqBody,
       });
       if (response.status === 200) {
-        const { isSuccess, message, becomeDealerRequest, recordsCount } = response.data;
+        const { isSuccess, message, becomeDealerRequest } = response.data;
         setSuccess(isSuccess);
         if (!isSuccess) {
           setError(message);
         } else {
-          setRecordsCount(recordsCount);
           setBecomeDelaerRequest(becomeDealerRequest);
         }
       } else {
@@ -788,10 +941,621 @@ const AdminService = ({ children }) => {
     }
   };
 
+  /////////////////////////
+  ////////////Auctions
+  /////////////////////////
+  const getAuctions = async (reqBody) => {
+    try {
+      const response = await adminInstance.get('/Auctions/GetAuctions', {
+        params: reqBody,
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, auctions, recordsCount, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setAuctions(auctions);
+          setRecordsCount(recordsCount);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const getAuctionById = async (id) => {
+    try {
+      const response = await adminInstance.get('/Auctions/GetAuctionById', {
+        params: { id: id },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, auction, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setAuction(auction);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const deleteAuction = async (id) => {
+    try {
+      const response = await adminInstance.delete('/Auctions/DeleteAuction', {
+        params: { id: id },
+      });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const addAuction = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post('/Auctions/AddAuction', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, auction, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setAuction(auction);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const updateAuction = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.patch('/Auctions/UpdateAuction', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, auction, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setAuction(auction);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  /////////////////////////
+  ////////////Locations
+  /////////////////////////
+  const getLocations = async (reqBody) => {
+    try {
+      const response = await adminInstance.get('/Locations/GetLocations', {
+        params: reqBody,
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, locations, recordsCount, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setLocations(locations);
+          setRecordsCount(recordsCount);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const getLocationById = async (id) => {
+    try {
+      const response = await adminInstance.get('/Locations/GetLocationById', {
+        params: { id: id },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, location, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setLocation(location);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const deleteLocation = async (id) => {
+    try {
+      const response = await adminInstance.delete('/Locations/DeleteLocation', {
+        params: { id: id },
+      });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const addLocation = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post('/Locations/AddAuction', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, location, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setLocation(location);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const updateLocation = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.patch('/Locations/UpdateLocation', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, location, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setLocation(location);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  /////////////////////////
+  ////////////Ports
+  /////////////////////////
+  const getPorts = async (reqBody) => {
+    try {
+      const response = await adminInstance.get('/Ports/GetPorts', {
+        params: reqBody,
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, ports, recordsCount, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setPorts(ports);
+          setRecordsCount(recordsCount);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const getPortById = async (id) => {
+    try {
+      const response = await adminInstance.get('/Ports/GetPortById', {
+        params: { id: id },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, port, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setPort(port);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const deletePort = async (id) => {
+    try {
+      const response = await adminInstance.delete('/Ports/DeletePort', {
+        params: { id: id },
+      });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const addPort = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post('/Ports/AddPort', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, port, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setPort(port);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const updatePort = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.patch('/Ports/UpdatePort', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, port, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setPort(port);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  /////////////////////////
+  ////////////PriceListGroups
+  /////////////////////////
+  const getPriceListGroups = async (reqBody) => {
+    try {
+      const response = await adminInstance.get('/PriceListGroups/GetPriceListGroups', {
+        params: reqBody,
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, priceListGroups, recordsCount, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setPriceListGroups(priceListGroups);
+          setRecordsCount(recordsCount);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const getPriceListGroupById = async (id) => {
+    try {
+      const response = await adminInstance.get('/PriceListGroups/GetPriceListGroupById', {
+        params: { id: id },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, priceListGroup, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setPriceListGroup(priceListGroup);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const deletePriceListGroup = async (id) => {
+    try {
+      const response = await adminInstance.delete('/PriceListGroups/DeletePriceListGroup', {
+        params: { id: id },
+      });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const addPriceListGroup = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post(
+        '/PriceListGroups/AddPriceListGroup',
+        fData,
+        config
+      );
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, priceListGroup, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setPriceListGroup(priceListGroup);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const updatePriceListGroup = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.patch(
+        '/PriceListGroups/UpdatePriceListGroup',
+        fData,
+        config
+      );
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, priceListGroup, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setPriceListGroup(priceListGroup);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  /////////////////////////
+  ////////////PriceListGroupLines
+  /////////////////////////
+  const getPriceListGroupLines = async (reqBody) => {
+    try {
+      const response = await adminInstance.get('/PriceListGroupLines/GetPriceListGroupLines', {
+        params: reqBody,
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, priceListGroupLines, recordsCount, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setPriceListGroupLines(priceListGroupLines);
+          setRecordsCount(recordsCount);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const getPriceListGroupLineById = async (id) => {
+    try {
+      const response = await adminInstance.get('/PriceListGroupLines/GetPriceListGroupLineById', {
+        params: { id: id },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, priceListGroupLine, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setPriceListGroupLine(priceListGroupLine);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const deletePriceListGroupLine = async (id) => {
+    try {
+      const response = await adminInstance.delete('/PriceListGroupLines/DeletePriceListGroupLine', {
+        params: { id: id },
+      });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const addPriceListGroupLine = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post(
+        '/PriceListGroupLines/AddPriceListGroupLine',
+        fData,
+        config
+      );
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, priceListGroupLine, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setPriceListGroupLine(priceListGroupLine);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const updatePriceListGroupLine = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.patch(
+        '/PriceListGroupLines/UpdatePriceListGroupLine',
+        fData,
+        config
+      );
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, priceListGroupLine, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setPriceListGroupLine(priceListGroupLine);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
   return (
     <AdminServiceContext.Provider
       value={{
         home,
+        getUsers,
+        getUserById,
+        registerUser,
+        updateUser,
+        deleteUser,
         getReviews,
         getReview,
         getLastThreeReviews,
@@ -824,6 +1588,31 @@ const AdminService = ({ children }) => {
         getDealerRequests,
         getDealerRequestById,
         deleteDealerRequest,
+        getAuctions,
+        getAuctionById,
+        deleteAuction,
+        addAuction,
+        updateAuction,
+        getLocations,
+        getLocationById,
+        deleteLocation,
+        addLocation,
+        updateLocation,
+        getPorts,
+        getPortById,
+        deletePort,
+        addPort,
+        updatePort,
+        getPriceListGroups,
+        getPriceListGroupById,
+        deletePriceListGroup,
+        addPriceListGroup,
+        updatePriceListGroup,
+        getPriceListGroupLines,
+        getPriceListGroupLineById,
+        deletePriceListGroupLine,
+        addPriceListGroupLine,
+        updatePriceListGroupLine,
         error,
         success,
         recordsCount,
@@ -839,6 +1628,24 @@ const AdminService = ({ children }) => {
         carModel,
         becomeDealerRequests,
         becomeDealerRequest,
+        auctions,
+        auction,
+        locations,
+        Location,
+        ports,
+        port,
+        priceListGroups,
+        priceListGroup,
+        priceListGroupLines,
+        priceListGroupLine,
+        selAuctions,
+        selLocations,
+        selPorts,
+        selPriceListGroups,
+        userTypes,
+        users,
+        user,
+        myPriceList,
       }}
     >
       {children}

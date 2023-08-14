@@ -5,7 +5,7 @@ import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 
 const AdminDashboard = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const [loading, setLoading] = useState(true);
 
@@ -31,6 +31,9 @@ const AdminDashboard = () => {
         <nav>
           <ul>
             <li>
+              <Link to={`/${lang}/admin/dashboard/users`}>users</Link>
+            </li>
+            <li>
               <Link to={`/${lang}/admin/dashboard/reviews`}>reviews</Link>
             </li>
             <li>
@@ -47,6 +50,26 @@ const AdminDashboard = () => {
             </li>
             <li>
               <Link to={`/${lang}/admin/dashboard/dealerrequests`}>dealer requests</Link>
+            </li>
+            <li>
+              <Link to={`/${lang}/admin/dashboard/auctions`}>auctions</Link>
+            </li>
+            <li>
+              <Link to={`/${lang}/admin/dashboard/locations`}>locations</Link>
+            </li>
+            <li>
+              <Link to={`/${lang}/admin/dashboard/ports`}>ports</Link>
+            </li>
+            <li>
+              <Link to={`/${lang}/admin/dashboard/pricelistgroups`}>price list groups</Link>
+            </li>
+            <li>
+              <Link to={`/${lang}/admin/dashboard/pricelistgrouplines`}>
+                price list group lines
+              </Link>
+            </li>
+            <li>
+              <Link to={`/${lang}/admin/dashboard/mypricelist`}>my price list</Link>
             </li>
           </ul>
         </nav>

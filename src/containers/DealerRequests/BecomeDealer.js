@@ -14,7 +14,7 @@ const BecomeDealer = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     phoneNumber: '',
-    eMail: null,
+    eMail: '',
     text: '',
   });
 

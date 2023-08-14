@@ -21,7 +21,6 @@ const DealerDashboard = () => {
   }, []);
 
   const handleNotificationAgree = async () => {
-    //console.log(notifications[0]);
     if (notifications) {
       if (notifications[0]) {
         await agreeNotification(notifications[0].id);
