@@ -11,5 +11,9 @@
   "logout": "გამოსვლა",
   "new": "ახალი",
   "fullName": "სრული სახელი",
-  "text": "ტექსტი"
+  "text": "ტექსტი",
+  "userName_error": "userName აუცილებელია",
+  "column_carMarkName": "მარკა",
+  "column_carModelName": "მოდელი",
+  "column_carStatusName": "სტატუსი"
 }

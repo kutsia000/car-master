@@ -25,6 +25,9 @@ import PriceListGroupsPage from './pages/Admin/PriceListGroupsPage';
 import PriceListGroupLinesPage from './pages/Admin/PriceListGroupLinesPage';
 import UsersPage from './pages/Admin/UsersPage';
 import MyPriceListPage from './pages/Common/MyPriceListPage';
+import CarsPage from './pages/Admin/CarsPage';
+import CarInside from './containers/Cars/CarInside';
+import DealerCarsPage from './pages/Dealer/DealerCarsPage';
 
 function App() {
   return (
@@ -35,17 +38,20 @@ function App() {
           <Router>
             <Routes>
               <Route path="/" element={<Landing />} />
-              <Route path={`/:lang`} element={<Landing />}>
+              <Route path={`/:lang?`} element={<Landing />}>
                 <Route index element={<Home />} />
                 <Route path={`/:lang/about`} element={<About />} />
                 <Route path={`/:lang/contact`} element={<Contact />} />
                 <Route path={`/:lang/blogs`} element={<LandingBlogs />} />
                 <Route path={`/:lang/blogs/:blogId`} element={<LandingBlog />} />
                 <Route path={`/:lang/becomedealer`} element={<BecomeDealerPage />} />
+                <Route path={`/:lang/car`} element={<CarInside />} />
+                <Route path={`/:lang/car/:vinCode`} element={<CarInside />} />
               </Route>
               <Route path={`/:lang/login`} element={<LoginPage />} />
               <Route path={`/:lang/dealer/dashboard`} element={<DealerDashboard />}>
                 <Route path={`/:lang/dealer/dashboard/mypricelist`} element={<MyPriceListPage />} />
+                <Route path={`/:lang/dealer/dashboard/cars`} element={<DealerCarsPage />} />
               </Route>
               <Route path={`/:lang/admin/dashboard`} element={<AdminDashboard />}>
                 <Route path={`/:lang/admin/dashboard/reviews`} element={<ReviewsPage />} />
@@ -107,6 +113,8 @@ function App() {
                 />
                 <Route path={`/:lang/admin/dashboard/users`} element={<UsersPage />} />
                 <Route path={`/:lang/admin/dashboard/users/:userId`} element={<UsersPage />} />
+                <Route path={`/:lang/admin/dashboard/cars`} element={<CarsPage />} />
+                <Route path={`/:lang/admin/dashboard/cars/:carId`} element={<CarsPage />} />
                 <Route path={`/:lang/admin/dashboard/mypricelist`} element={<MyPriceListPage />} />
               </Route>
               <Route path={`/:lang/employee/dashboard`} element={<EmployeeDashboard />}>

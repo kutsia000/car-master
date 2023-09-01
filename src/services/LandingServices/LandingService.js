@@ -10,6 +10,7 @@ const LandingService = ({ children }) => {
   const [blog, setBlog] = useState(null);
   const [success, setSuccess] = useState(true);
   const [recordsCount, setRecordsCount] = useState(0);
+  const [car, setCar] = useState(null);
 
   const config = {
     headers: {
@@ -50,14 +51,13 @@ const LandingService = ({ children }) => {
       const response = await landginApi.post('/Landing/Home', reqBody);
       if (response.status === 200) {
         const { isSuccess, message, reviews, blogs } = response.data;
-
         if (!isSuccess) {
           setError(message);
           throw new Error('something went wrong');
+        } else {
+          setReviews(reviews);
+          setBlogs(blogs);
         }
-
-        setReviews(reviews);
-        setBlogs(blogs);
       } else {
         setError('something went wrong');
       }
@@ -122,6 +122,37 @@ const LandingService = ({ children }) => {
     }
   };
 
+  const searchCar = async (vinCode) => {
+    try {
+      const response = await landginApi.get('/Landing/SearchCar', { params: { vinCode: vinCode } });
+      if (response.status === 200) {
+        const { isSuccess, carSearch, message } = response.data;
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          if (carSearch) {
+            const inputDateString = carSearch.containerOpenDate;
+            const dateObject = new Date(inputDateString);
+
+            const day = String(dateObject.getDate()).padStart(2, '0');
+            const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+            const year = dateObject.getFullYear();
+
+            const formattedDate = `${day}/${month}/${year}`;
+            //console.log(formattedDate);
+            carSearch.containerOpenDate = formattedDate;
+
+            setCar(carSearch);
+          }
+        }
+      } else {
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
   return (
     <LandingServiceContext.Provider
       value={{
@@ -129,10 +160,12 @@ const LandingService = ({ children }) => {
         getBlogs,
         getBlogById,
         addDealerRequest,
+        searchCar,
         error,
         reviews,
         blogs,
         blog,
+        car,
         recordsCount,
         success,
       }}

@@ -11,5 +11,9 @@
   "logout": "Log Out",
   "new": "new",
   "fullName": "FullName",
-  "text": "text"
+  "text": "text",
+  "userName_error": "userName is required",
+  "column_carMarkName": "Car Mark",
+  "column_carModelName": "Model",
+  "column_carStatusName": "Status"
 }

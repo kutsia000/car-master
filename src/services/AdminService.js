@@ -37,6 +37,18 @@ const AdminService = ({ children }) => {
   const [users, setUsers] = useState(null);
   const [user, setUser] = useState(null);
   const [myPriceList, setMyPriceList] = useState(null);
+  const [carStatuses, setCarStatuses] = useState(null);
+  const [allCarMarks, setAllCarMarks] = useState(null);
+  const [allCarModels, setAllCarModels] = useState(null);
+  const [allRecieverPorts, setAllRecieverPorts] = useState(null);
+  const [recieverPort, setRecieverPort] = useState(null);
+  const [allLines, setAllLines] = useState(null);
+  const [line, setLine] = useState(null);
+  const [cars, setCars] = useState(null);
+  const [car, setCar] = useState(null);
+  const [recieverPorts, setRecieverPorts] = useState(null);
+  const [lines, setLines] = useState(null);
+  const [dealers, setDealers] = useState(null);
 
   const config = {
     headers: {
@@ -68,7 +80,9 @@ const AdminService = ({ children }) => {
           if (value instanceof File) {
             formData.append(key, value);
           } else {
-            formData.append(key, value);
+            if (value !== null) {
+              formData.append(key, value);
+            }
           }
         }
       }
@@ -90,6 +104,12 @@ const AdminService = ({ children }) => {
           priceListGroups,
           userTypes,
           myPriceList,
+          carStatuses,
+          carMarks,
+          carMarkModels,
+          recieverPorts,
+          lines,
+          dealers,
         } = response.data;
         if (!isSuccess) {
           setError(message);
@@ -100,6 +120,12 @@ const AdminService = ({ children }) => {
           setSelPriceListGroups(priceListGroups);
           setUserTypes(userTypes);
           setMyPriceList(myPriceList);
+          setCarStatuses(carStatuses);
+          setAllCarMarks(carMarks);
+          setAllCarModels(carMarkModels);
+          setAllRecieverPorts(recieverPorts);
+          setAllLines(lines);
+          setDealers(dealers);
         }
         //console.log(code);
       }
@@ -143,12 +169,13 @@ const AdminService = ({ children }) => {
       const response = await adminInstance.get('/Admin/GetUserById', { params: { id: id } });
       setError(null);
       if (response.status === 200) {
-        const { isSuccess, user, message } = response.data;
+        //console.log(response.data);
+        const { isSuccess, userDTO, message } = response.data;
         setSuccess(isSuccess);
         if (!isSuccess) {
           setError(message);
         } else {
-          setUser(user);
+          setUser(userDTO);
         }
       } else {
         setError(response.statusText);
@@ -183,7 +210,6 @@ const AdminService = ({ children }) => {
 
   const updateUser = async (reqBody) => {
     try {
-      // console.log(reqBody);
       const fData = jsonToFormData(reqBody);
       // for (let [key, value] of fData.entries()) {
       //   console.log(`${key}:`, value);
@@ -1547,6 +1573,394 @@ const AdminService = ({ children }) => {
     }
   };
 
+  /////////////////////////
+  ////////////RecieverPorts
+  /////////////////////////
+  const getRecieverPorts = async (reqBody) => {
+    try {
+      const response = await adminInstance.get('/RecieverPorts/GetRecieverPorts', {
+        params: reqBody,
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, recieverPorts, recordsCount, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setRecieverPorts(recieverPorts);
+          setRecordsCount(recordsCount);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const getRecieverPortById = async (id) => {
+    try {
+      const response = await adminInstance.get('/RecieverPorts/GetRecieverPortById', {
+        params: { id: id },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, recieverPort, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setRecieverPort(recieverPort);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const deleteRecieverPort = async (id) => {
+    try {
+      const response = await adminInstance.delete('/RecieverPorts/DeleteRecieverPort', {
+        params: { id: id },
+      });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const addRecieverPort = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post('/RecieverPorts/DeleteRecieverPort', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, recieverPort, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setRecieverPort(recieverPort);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const updateRecieverPort = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.patch(
+        '/RecieverPorts/UpdateRecieverPort',
+        fData,
+        config
+      );
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, recieverPort, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setRecieverPort(recieverPort);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  /////////////////////////
+  ////////////Lines
+  /////////////////////////
+  const getLines = async (reqBody) => {
+    try {
+      const response = await adminInstance.get('/Lines/GetLines', {
+        params: reqBody,
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, lines, recordsCount, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setLines(lines);
+          setRecordsCount(recordsCount);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const getLineById = async (id) => {
+    try {
+      const response = await adminInstance.get('/Lines/GetLineById', {
+        params: { id: id },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, line, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setLine(line);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const deleteLine = async (id) => {
+    try {
+      const response = await adminInstance.delete('/Lines/DeleteLine', {
+        params: { id: id },
+      });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const addLine = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post('/Lines/AddLine', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, line, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setLine(line);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const updateLine = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.patch('/Lines/UpdateLine', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, line, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setLine(line);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  /////////////////////////
+  ////////////Cars
+  ////////////////////////
+  const getCars = async () => {
+    try {
+      const response = await adminInstance.get('/Cars/GetCars');
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, cars, recordsCount, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          const carsTemp = cars.map((car) => {
+            if (!car.recieverPortId) {
+              car.recieverPortName = '';
+            }
+            if (!car.lineId) {
+              car.lineName = '';
+            }
+            if (!car.userId) {
+              car.fullName = '';
+            }
+            return car;
+          });
+          setCars(carsTemp);
+          setRecordsCount(recordsCount);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const getCarById = async (id) => {
+    try {
+      const response = await adminInstance.get('/Cars/GetCarById', {
+        params: { id: id },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, car, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setCar(car);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const deleteCar = async (id) => {
+    try {
+      const response = await adminInstance.delete('/Cars/DeleteCar', {
+        params: { id: id },
+      });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const deleteCarImages = async (id) => {
+    try {
+      const response = await adminInstance.delete('/Cars/DeleteAllImages', {
+        params: { id: id },
+      });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const addCar = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post('/Cars/AddCar', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, car, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setCar(car);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const updateCar = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.patch('/Cars/UpdateCar', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, car, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setCar(car);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
   return (
     <AdminServiceContext.Provider
       value={{
@@ -1613,6 +2027,22 @@ const AdminService = ({ children }) => {
         deletePriceListGroupLine,
         addPriceListGroupLine,
         updatePriceListGroupLine,
+        getRecieverPorts,
+        getRecieverPortById,
+        deleteRecieverPort,
+        addRecieverPort,
+        updateRecieverPort,
+        getLines,
+        getLineById,
+        deleteLine,
+        addLine,
+        updateLine,
+        getCars,
+        getCarById,
+        deleteCar,
+        deleteCarImages,
+        addCar,
+        updateCar,
         error,
         success,
         recordsCount,
@@ -1646,6 +2076,18 @@ const AdminService = ({ children }) => {
         users,
         user,
         myPriceList,
+        carStatuses,
+        allCarMarks,
+        allCarModels,
+        allRecieverPorts,
+        recieverPort,
+        allLines,
+        line,
+        cars,
+        car,
+        recieverPorts,
+        lines,
+        dealers,
       }}
     >
       {children}

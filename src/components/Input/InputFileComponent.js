@@ -9,6 +9,9 @@ const InputFileComponent = ({
   validationRegex,
   multiple,
   onFileSelected,
+  containerClass,
+  className,
+  labelClass,
 }) => {
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -26,17 +29,19 @@ const InputFileComponent = ({
   };
 
   return (
-    <div>
-      <label>{label}</label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        name={name}
-        required={required}
-        multiple={multiple}
-        accept="image/*"
-        onChange={handleFileChange}
-      ></input>
+    <div className="form-group row">
+      <label className={labelClass}>{label}</label>
+      <div className={containerClass}>
+        <input
+          type={type}
+          placeholder={placeholder}
+          name={name}
+          required={required}
+          multiple={multiple}
+          accept="image/*"
+          onChange={handleFileChange}
+        ></input>
+      </div>
     </div>
   );
 };

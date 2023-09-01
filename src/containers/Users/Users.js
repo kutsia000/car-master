@@ -40,6 +40,13 @@ const Users = () => {
   }, []);
 
   useEffect(() => {
+    //console.log(userId);
+    if (userId) {
+      handleOpenDialog();
+    }
+  }, [userId]);
+
+  useEffect(() => {
     if (userTypes) {
       const labels = userTypes.map((ut) => {
         return ut.name;
@@ -85,6 +92,9 @@ const Users = () => {
   };
 
   const handleEditClick = (id) => () => {
+    //console.log(id);
+    setIsOpen(true);
+    navigate(`/${lang}/admin/dashboard/users/${id}`);
     //setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
   };
 
@@ -93,7 +103,7 @@ const Users = () => {
   };
 
   const handleProcessRowUpdate = (newRow, oldRow) => {
-    console.log([newRow, oldRow]);
+    //console.log([newRow, oldRow]);
     const ut = userTypes.find((type) => type.name === newRow.userTypeName);
     if (ut) {
       newRow.userTypeId = ut.id;
@@ -139,8 +149,8 @@ const Users = () => {
   };
 
   const columns = [
-    { field: 'id', headerName: 'Id', width: 50 },
-    { field: 'userTypeId', headerName: 'userTypeId', width: 150 },
+    { field: 'id', headerName: 'Id', width: 50, hideable: true },
+    { field: 'userTypeId', headerName: 'userTypeId', width: 150, hideable: true },
     {
       field: 'userTypeName',
       headerName: 'UserType',
@@ -148,8 +158,9 @@ const Users = () => {
       editable: true,
       type: 'singleSelect',
       valueOptions: comboUserTypes,
+      hideable: true,
     },
-    { field: 'priceListGroupsId', headerName: 'priceListGroupsId', width: 150 },
+    { field: 'priceListGroupsId', headerName: 'priceListGroupsId', width: 150, hideable: true },
     {
       field: 'priceListGroupName',
       headerName: 'priceListGroupName',
@@ -157,6 +168,7 @@ const Users = () => {
       editable: true,
       type: 'singleSelect',
       valueOptions: comboPriceListGroups,
+      hideable: true,
     },
     {
       field: 'userName',
@@ -165,12 +177,13 @@ const Users = () => {
       sortable: true,
       filterable: true,
       editable: true,
+      hideable: true,
     },
-    { field: 'firstName', headerName: 'firstName', width: 150, editable: true },
-    { field: 'lastName', headerName: 'lastName', width: 150, editable: true },
-    { field: 'personalId', headerName: 'personalId', width: 150 },
+    { field: 'firstName', headerName: 'firstName', width: 150, editable: true, hideable: true },
+    { field: 'lastName', headerName: 'lastName', width: 150, editable: true, hideable: true },
+    { field: 'personalId', headerName: 'personalId', width: 150, hideable: true },
     { field: 'email', headerName: 'email', width: 150 },
-    { field: 'phoneNumber', headerName: 'phoneNumber', width: 150 },
+    { field: 'phoneNumber', headerName: 'phoneNumber', width: 150, hideable: true },
     {
       field: 'dateBirth',
       headerName: 'dateBirth',
@@ -178,6 +191,7 @@ const Users = () => {
       editable: true,
       valueGetter: ({ value }) => value && new Date(value),
       type: 'date',
+      hideable: true,
     },
     {
       field: 'actions',
@@ -203,18 +217,21 @@ const Users = () => {
     },
   ];
 
-  const handleCellEditStop = React.useCallback((params, event) => {
-    //event.defaultMuiPrevented = true;
-    console.log(params);
-  }, []);
-
   if (loading) {
     return <LoadingMarkUp />;
   }
 
   return (
     <>
+      {isOpen && (
+        <Dialog onClose={handleCloseDialog}>
+          <User handleCloseDialog={handleCloseDialog}></User>
+        </Dialog>
+      )}
       <div>
+        <button type="button" className="btn btn-md btn-success" onClick={handleOpenDialog}>
+          new
+        </button>
         <button type="button" className="btn btn-md btn-primary" onClick={(e) => handleSave(e)}>
           save
         </button>
@@ -224,29 +241,23 @@ const Users = () => {
           getRowId={(row) => row.id}
           rows={users}
           onRowEditStop={handleRowEditStop}
-          // onCellEditStop={handleCellEditStop}
           processRowUpdate={handleProcessRowUpdate}
           onProcessRowUpdateError={(error) => {
             //console.log(error);
           }}
           columns={columns}
           sx={{ overflowX: 'scroll' }}
-          columnVisibilityModel={{
-            // Hide columns status and traderName, the other columns will remain visible
-            userTypeId: false,
-            priceListGroupsId: false,
-          }}
           {...users}
           initialState={{
             ...users.initialState,
             pagination: { paginationModel: { pageSize: 5 } },
           }}
-          localeText={{
-            toolbarFilters: 'ფილტრი',
-            columnMenuHideColumn: 'დამალვა',
-            toolbarColumnsLabel: 'სვეტები',
-            toolbarFiltersLabel: 'ფილტრი',
-          }}
+          // localeText={{
+          //   toolbarFilters: 'ფილტრი',
+          //   columnMenuHideColumn: 'დამალვა',
+          //   toolbarColumnsLabel: 'სვეტები',
+          //   toolbarFiltersLabel: 'ფილტრი',
+          // }}
           pageSizeOptions={[5, 10, 25]}
           slots={{
             toolbar: GridToolbar,

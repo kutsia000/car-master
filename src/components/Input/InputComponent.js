@@ -13,20 +13,21 @@ const InputComponent = ({
   containerClass,
   className,
   labelClass,
+  error,
 }) => {
   //const [value, setValue] = useState('');
-  const [error, setError] = useState('');
+  //const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const inputValue = e.target.value;
     //setValue(inputValue);
 
     if (required && inputValue.trim() === '') {
-      setError(`${label} is required.`);
+      //setError(`${label} is required.`);
     } else if (validationRegex && !validationRegex.test(inputValue)) {
-      setError(`Invalid ${label}.`);
+      //setError(`Invalid ${label}.`);
     } else {
-      setError('');
+      // setError('');
     }
     onChange(e);
   };
@@ -35,6 +36,7 @@ const InputComponent = ({
     <div className="form-group row">
       <label htmlFor={id} className={labelClass}>
         {label}
+        {required && <span style={{ color: '#dc3545' }}>*</span>}
       </label>
       <div className={containerClass}>
         <input
@@ -47,8 +49,8 @@ const InputComponent = ({
           className={error ? `${className} is-invalid` : className}
           onChange={handleChange}
         />
+        {error && <span className="invalid-feedback">{error}</span>}
       </div>
-      {error && <span className="error-message">{error}</span>}
     </div>
   );
 };

@@ -7,6 +7,44 @@ const DealerService = ({ children }) => {
   const [error, setError] = useState(null);
   const [notifications, setNotifications] = useState(null);
   const [success, setSuccess] = useState(true);
+  const [cars, setCars] = useState(null);
+  const [car, setCar] = useState(null);
+
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+
+  function jsonToFormData(data) {
+    const formData = new FormData();
+
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        const value = data[key];
+
+        if (Array.isArray(value)) {
+          for (let item of value) {
+            if (item instanceof File) {
+              formData.append(key, item);
+            } else {
+              formData.append(key, JSON.stringify(value));
+            }
+          }
+        } else {
+          if (value instanceof File) {
+            formData.append(key, value);
+          } else {
+            if (value !== null) {
+              formData.append(key, value);
+            }
+          }
+        }
+      }
+    }
+
+    return formData;
+  }
 
   const getDealerHome = async () => {
     try {
@@ -49,9 +87,77 @@ const DealerService = ({ children }) => {
     }
   };
 
+  const getCars = async () => {
+    try {
+      const response = await dealerApi.get('/Dealer/GetCars');
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, cars, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          const carsTemp = cars.map((car) => {
+            if (!car.recieverPortId) {
+              car.recieverPortName = '';
+            }
+            if (!car.lineId) {
+              car.lineName = '';
+            }
+            if (!car.userId) {
+              car.fullName = '';
+            }
+            return car;
+          });
+          setCars(carsTemp);
+          //setRecordsCount(recordsCount);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const updateCar = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await dealerApi.patch('/Cars/UpdateCar', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, car, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setCar(car);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
   return (
     <DealerServiceContext.Provider
-      value={{ getDealerHome, agreeNotification, success, error, notifications }}
+      value={{
+        getDealerHome,
+        agreeNotification,
+        getCars,
+        updateCar,
+        cars,
+        car,
+        success,
+        error,
+        notifications,
+      }}
     >
       {children}
     </DealerServiceContext.Provider>

@@ -71,6 +71,9 @@ const AdminDashboard = () => {
             <li>
               <Link to={`/${lang}/admin/dashboard/mypricelist`}>my price list</Link>
             </li>
+            <li>
+              <Link to={`/${lang}/admin/dashboard/cars`}>cars</Link>
+            </li>
           </ul>
         </nav>
       </header>
