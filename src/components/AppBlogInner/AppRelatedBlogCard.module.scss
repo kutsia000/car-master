@@ -1,0 +1,41 @@
+.AppRelatedBlogCard {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+
+  figure {
+    margin: 0;
+    a {
+      display: block;
+      height: 100%;
+      img {
+        border-radius: 4px;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+  }
+
+  &__title {
+    color: var(--color-white);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: var(--font-base);
+    font-size: var(--font-size--sm);
+    font-style: normal;
+    font-weight: var(--font-weight-medium);
+    opacity: 0.9;
+    line-height: normal;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: var(--color-red);
+    }
+  }
+}

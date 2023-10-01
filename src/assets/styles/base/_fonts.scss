@@ -1,0 +1,7 @@
+@include get-font('FiraGo', '../../fonts/FiraGo-Bold', 700, bold, woff2);
+@include get-font('FiraGo', '../../fonts/FiraGo-Medium', 500, medium, woff2);
+@include get-font('FiraGo', '../../fonts/FiraGo-Regular', 400, normal, woff2);
+
+@include get-font('FiraGoI', '../../fonts/FiraGO-BoldItalic', 700, bold, woff2);
+@include get-font('FiraGoI', '../../fonts/FiraGO-MediumItalic', 500, medium, woff2);
+@include get-font('FiraGoI', '../../fonts/FiraGO-RegularItalic', 400, normal, woff2);

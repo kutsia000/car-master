@@ -1,0 +1,53 @@
+.AppCustomerCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 465px;
+  margin: 0 auto;
+  padding: 34px;
+  gap: 26px;
+  border-radius: 12px;
+  border: 1px solid var(--color-red);
+  background: var(--color-gray-900);
+  box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.04);
+
+  &__review {
+    color: var(--color-white);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: FiraGO;
+    font-size: var(--font-size--lg);
+    font-weight: var(--font-weight-normal);
+    line-height: 32px;
+    letter-spacing: 0.2px;
+    padding-bottom: 26px;
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 2px;
+        background-color: var(--color-white);
+      }
+  }
+
+  &__customer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__name {
+    color: var(--color-white);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Poppins;
+    font-size: var(--font-size--xs);
+    font-style: normal;
+    font-weight: var(--font-weight-large);
+    line-height: 22px;
+    letter-spacing: 0.25px;
+  }
+}

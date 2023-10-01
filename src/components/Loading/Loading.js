@@ -1,8 +1,10 @@
+import styles from './Loading.module.scss'
+
 const LoadingMarkUp = () => {
   return (
     <>
-      <div className="py-4 text-center">
-        <h3>Loading...</h3>
+      <div className={styles.Loader}>
+       <div className={styles.Loader__circle}/>
       </div>
     </>
   );

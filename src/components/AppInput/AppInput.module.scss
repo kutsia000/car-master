@@ -1,0 +1,64 @@
+.AppInput {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+
+  label {
+    color: var(--color-white);
+    font-feature-settings: 'case' on;
+    font-family: var(--font-base);
+    font-size: var(--font-size--md);
+    font-style: normal;
+    font-weight: var(--font-weight-normal);
+    line-height: 159%;
+    letter-spacing: 0.16px;
+  }
+
+  &__wrapper {
+    width: 100%;
+    input {
+      width: 100%;
+      padding: 12px 24px;
+      border-radius: 4px;
+      border: 1px solid var(--color-white);
+      color: var(--color-white);
+      &::placeholder{
+        color: var(--color-white);
+        opacity: 0.76;
+        font-family: var(--font-base);
+        font-feature-settings: 'case' on;
+      }
+    }
+    svg {
+      position: absolute;
+      z-index: 22;
+    }
+  }
+
+  &__currency {
+    position: absolute;
+    width: 10px;
+    height: 25px;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-white);
+    font-family: var(--font-base);
+    font-size: var(--font-size--xl);
+    font-style: normal;
+    font-weight: var(--font-weight-normal);
+    line-height: 159%;
+    letter-spacing: 0.16px;
+  }
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}

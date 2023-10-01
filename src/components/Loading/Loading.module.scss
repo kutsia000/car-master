@@ -1,0 +1,31 @@
+.Loader {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-gray-900);
+  z-index: 2;
+
+  &__circle {
+    margin: auto;
+    top: calc(50% - 100px);
+    border: 5px solid var(--color-gray-100);
+    border-radius: 50%;
+    border-top: 7px solid var(--color-red);
+    width: 100px;
+    height: 100px;
+    animation: spinner 2s ease infinite;
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import ButtonComponent from '../../../../components/Button/ButtonComponent';
+import AppButton from '../../../../components/AppButton/AppButton';
 import { AuthServiceContext } from '../../../../services/AuthService';
 //import LoadingMarkUp from '../../../../components/Loading/Loading';
 
@@ -15,7 +15,7 @@ const LogOut = () => {
 
   return (
     <>
-      <ButtonComponent label={t('logout')} type="button" onClick={handleClick} />
+      <AppButton label={t('logout')} type="button" onClick={handleClick} />
     </>
   );
 };

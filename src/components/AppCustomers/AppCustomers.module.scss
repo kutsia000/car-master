@@ -1,0 +1,22 @@
+.AppCustomers {
+  position: relative;
+  display: block;
+  background-color: var(--color-black);
+
+  &__wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 70px 40px 140px;
+    @media (max-width: 1024px) {
+
+    }
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+        width: 100%;
+        align-items: center;
+    }
+  }
+}

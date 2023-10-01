@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { AuthServiceContext } from '../../services/AuthService';
 import InputComponent from '../../components/Input/InputComponent';
-//import ButtonComponent from '../../components/Button/ButtonComponent';
+//import AppButton from '../../components/Button/AppButton';
 
 const LoginForm = () => {
   const { login, error } = useContext(AuthServiceContext);

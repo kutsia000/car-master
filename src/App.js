@@ -28,20 +28,25 @@ import MyPriceListPage from './pages/Common/MyPriceListPage';
 import CarsPage from './pages/Admin/CarsPage';
 import CarInside from './containers/Cars/CarInside';
 import DealerCarsPage from './pages/Dealer/DealerCarsPage';
+import '../src/assets/styles/main.scss';
+import ContactPage from './pages/ContactPage';
+import BlogPage from './pages/BlogPage';
+import BlogInnerPage from './pages/BlogInnerPage';
+import CarInnerPage from './pages/CarInnerPage';
 
 function App() {
   return (
     <>
-      <div className="container">
-        <div className="d-flex flex-column align-items-start">
+      {/* <div className="container"> */}
+        {/* <div className="d-flex flex-column align-items-start"> */}
           {/* <h1 className="font-weight-normal mb-3">{t('welcome_message')}</h1> */}
           <Router>
             <Routes>
-              <Route path="/" element={<Landing />} />
-              <Route path={`/:lang?`} element={<Landing />}>
+              {/* <Route path="/" element={<Landing />} /> */}
+              <Route path={`/:lang?`} element={<CarInnerPage />}>
                 <Route index element={<Home />} />
                 <Route path={`/:lang/about`} element={<About />} />
-                <Route path={`/:lang/contact`} element={<Contact />} />
+                <Route path={`/:lang/contact`} element={<ContactPage />} />
                 <Route path={`/:lang/blogs`} element={<LandingBlogs />} />
                 <Route path={`/:lang/blogs/:blogId`} element={<LandingBlog />} />
                 <Route path={`/:lang/becomedealer`} element={<BecomeDealerPage />} />
@@ -59,7 +64,7 @@ function App() {
                   path={`/:lang/admin/dashboard/reviews/:reviewId`}
                   element={<ReviewsPage />}
                 />
-                <Route path={`/:lang/admin/dashboard/blogs`} element={<BlogsPage />} />
+                <Route path={`/:lang/admin/dashboard/blogs`} element={<BlogPage />} />
                 <Route path={`/:lang/admin/dashboard/blogs/:blogId`} element={<BlogsPage />} />
                 <Route
                   path={`/:lang/admin/dashboard/notifications`}
@@ -123,8 +128,8 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>
-        </div>
-      </div>
+        {/* </div> */}
+      {/* </div> */}
     </>
   );
 }

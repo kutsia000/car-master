@@ -1,0 +1,78 @@
+.AppCarCard {
+  position: relative;
+  display: grid;
+
+  figure {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 235px;
+    margin: 0;
+    img {
+      height: 100%;
+    }
+    @media (max-width: 1280px) {
+      height: 180px;
+    }
+
+    @media (max-width: 1024px) {
+      height: 300px;
+    }
+  }
+  &__details {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--color-gray-900);
+    padding: 20px 0;
+    color: var(--color-white);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__model {
+    color: var(--color-red);
+    text-align: center;
+    font-family: var(--font-base);
+    font-size: var(--font-size--xl);
+    font-style: normal;
+    font-weight: var(--font-weight-medium);
+    line-height: 159%; /* 38.16px */
+    letter-spacing: 0.24px;
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+  }
+
+  &__link {
+    width: fit-content;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      max-width: 130px;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 2px;
+      background-color: var(--color-white);
+    }
+  }
+
+  &__price {
+    color: var(--color-white);
+    text-align: center;
+    font-family: var(--font-base);
+    font-size: var(--font-size--xl);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 159%; /* 38.16px */
+    letter-spacing: 0.48px;
+    user-select: none;
+  }
+}

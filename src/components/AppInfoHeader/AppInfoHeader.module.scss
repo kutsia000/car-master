@@ -1,0 +1,36 @@
+.AppInfoHeader {
+  &__container {
+    position: relative;
+    background-color: var(--color-gray-900);
+    width: 100vw;
+    padding: 4px 0 8px;
+    border-bottom: 1px solid #FFF;
+  }
+
+  &__wrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__info {
+    display: flex;
+    gap: 37px;
+    @media (max-width: 768px) {
+      gap: 20px;
+    }
+  }
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  &__icon {
+    font-family: var(--font-base);
+    color: var(--color-white);
+    font-size: var(--font-size--md);
+    font-weight: var(--font-weight-normal);
+  }
+}

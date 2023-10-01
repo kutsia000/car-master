@@ -1,0 +1,68 @@
+.AppContactCard {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 600px;
+  max-height: 300px;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  z-index: 2;
+  border-radius: 6px;
+  background: var(--color-gray-800);
+  padding: 40px 28px;
+  color: var(--color-white);
+  font-feature-settings: 'case' on;
+  font-family: var(--font-base);
+  font-weight: var(--font-weight-normal);
+  font-style: normal;
+  line-height: normal;
+  @media (max-width: 1440px) {
+    max-width: 500px;
+  }
+  @media (max-width: 768px) {
+    max-width: 400px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    font-size: var(--font-size--xl);
+  }
+
+  &__title {
+    font-size: var(--font-size--md-display);
+    padding-bottom: 18px;
+    margin-bottom: 46px;
+    width: 90%;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 40%;
+      bottom: 0;
+      left: 0;
+      height: 6px;
+      border-radius: 8px;
+      background-color: var(--color-red);
+      z-index: 3;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 2px;
+      border-radius: 1px;
+      background-color: #b3b3b3;
+    }
+  }
+}

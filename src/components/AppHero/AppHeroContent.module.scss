@@ -1,0 +1,58 @@
+.AppHeroContent {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: fit-content;
+  user-select: none;
+  z-index: 1;
+  top: 240px;
+
+  @media (max-width: 1440px) {
+    left: 10%;
+  }
+
+  &__title {
+    color: var(--color-white);
+    font-feature-settings: 'case' on;
+    font-family: var(--font-base);
+    font-size: var(--font-size--lg-display);
+    font-weight: var(--font-weight-normal);
+    line-height: normal;
+    letter-spacing: 0.36px;
+    width: fit-content;
+    background-color: var(--color-red);
+    padding: 16px 120px 34px 24px;
+    border-radius: 4px;
+    @media (max-width: 420px) {
+      padding: 8px 32px 16px 12px;
+    }
+  }
+
+  &__desc {
+    margin-left: 24px;
+    margin-top: -40px;
+    padding: 40px 32px;
+    color: var(--color-white);
+    font-family: var(--font-base);
+    font-size: var(--font-size--lg);
+    font-weight: var(--font-weight-normal);
+    letter-spacing: 0.18px;
+    width: fit-content;
+    max-width: 760px;
+    border-radius: 5px;
+    background: var(
+      --acacacac,
+      linear-gradient(
+        92deg,
+        rgba(7, 7, 7, 0.39) 1.37%,
+        rgba(7, 7, 7, 0.53) 51.36%,
+        rgba(0, 0, 0, 0.47) 100%
+      )
+    );
+    @media (max-width: 420px) {
+      padding: 12px 14px;
+      margin-top: -14px;
+      max-width: 300px;
+    }
+  }
+}

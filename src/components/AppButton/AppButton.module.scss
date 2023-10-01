@@ -1,0 +1,44 @@
+.AppButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  gap: 8px;
+  background-color: var(--color-red);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .4s ease;
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &__title {
+    color: var(--color-white);
+    font-feature-settings: 'case' on;
+    font-family: var(--font-base);
+    font-size: var(--font-size--lg);
+    font-weight: var(--font-weight-medium);
+  }
+
+  &.AppButton--left {
+    :nth-child(1) {
+      order: 2;
+    }
+    :nth-child(2) {
+      order: 1;
+    }
+  }
+
+  &.AppButton--large {
+    padding: 12px 24px;
+  }
+  &.AppButton--full {
+    padding: 14px 106px;
+    width: 100%;
+  }
+
+  &.AppButton--icon {
+    background-color: transparent;
+    padding: 0;
+  }
+}

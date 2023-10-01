@@ -1,0 +1,23 @@
+.AppCalculator {
+  position: relative;
+  display: block;
+  background-color: var(--color-black);
+  padding: 20px 0;
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    @media (max-width: 1024px) {
+      flex-direction: column;
+    }
+  }
+
+  &__wrapper {
+    background-color: var(--color-gray-900);
+    padding: 60px 50px;
+    width: 100%;
+  }
+}
