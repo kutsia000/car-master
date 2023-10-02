@@ -4,11 +4,11 @@ import AppLink from '../AppLink';
 import AppImage from '../AppImage/AppImage';
 import AppDate from '../AppBlogInner/AppDate';
 
-export default function AppBlogCard({ src, date, title, description }) {
+export default function AppBlogCard({ src, date, title, description, href }) {
   return (
     <article className={styles.AppBlogCard}>
       <figure className={styles.AppBlogCard__figure}>
-        <AppLink>
+        <AppLink href={href}>
           <AppImage src={src} />
         </AppLink>
       </figure>

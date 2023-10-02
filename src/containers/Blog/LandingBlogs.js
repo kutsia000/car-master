@@ -1,87 +1,29 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { LandingServiceContext } from '../../services/LandingServices/LandingService';
-import LoadingMarkUp from '../../components/Loading/Loading';
-import { Link, useLocation, createSearchParams, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { AxiosInterceptor } from '../../services/AxiosInterceptor';
+import { LandingService } from '../../services/LandingServices/LandingService';
+import AppBlog from '../../components/AppBlog/AppBlog';
+import AppInfoHeader from '../../components/AppInfoHeader/AppInfoHeader';
+import AppHeader from '../Header/AppHeader';
+import MapDrawer from '../../components/MapDrawers/MapDrawer';
+import AppFooter from '../../containers/Footer/AppFooter';
 
 const LandingBlogs = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const queryParams = new URLSearchParams(location.search);
-  const { getBlogs, blogs, recordsCount } = useContext(LandingServiceContext);
-  const [page, setPage] = useState(parseInt(queryParams.get('page')) || 1);
-  const [pageSize, setPageSize] = useState(parseInt(queryParams.get('pageSize')) || 6);
-  const { t, i18n } = useTranslation();
-  //console.log(getReviews);
-  const [loading, setLoading] = useState(true);
-  const lang = i18n.language || 'en';
-  const [params, setParams] = useState({
-    id: null,
-    languageCode: lang,
-    page: page,
-    pageSize: pageSize,
-  });
-
-  const totalPages = Math.ceil(recordsCount / pageSize);
-
-  const fetchBlogs = async () => {
-    await getBlogs(params);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchBlogs();
-  }, [page, pageSize]);
-
-  useEffect(() => {
-    if (blogs) {
-      //console.log(blogs);
-    }
-  }, [blogs]);
-
-  const handlePreviousPage = () => {
-    const tmp = Math.max(page - 1, 1);
-    setParams((prevParams) => ({
-      ...prevParams,
-      page: tmp,
-    }));
-    handlePageChange(tmp);
-  };
-
-  const handleNextPage = () => {
-    const tmp = Math.min(page + 1, totalPages);
-    setParams((prevParams) => ({
-      ...prevParams,
-      page: tmp,
-    }));
-    handlePageChange(tmp);
-  };
-
-  const handlePageChange = (event) => {
-    setPage(event);
-    navigate({
-      search: createSearchParams({
-        page: event,
-      }).toString(),
-    });
-  };
-
-  const truncateText = (text, maxLength) => {
-    maxLength = maxLength || 150;
-    if (text.length <= maxLength) {
-      return text;
-    } else {
-      return text.slice(0, maxLength - 3) + '...';
-    }
-  };
-
-  if (loading) {
-    return <LoadingMarkUp />;
-  }
+  // if (loading) {
+  //   return <LoadingMarkUp />;
+  // }
 
   return (
     <>
-      {blogs &&
+      <AxiosInterceptor>
+        <LandingService>
+          <AppInfoHeader />
+          <AppHeader />
+          <AppBlog />
+          <MapDrawer />
+          <AppFooter />
+        </LandingService>
+      </AxiosInterceptor>
+      {/* {blogs &&
         blogs.map((blog) => {
           return (
             <div key={blog.blogContents[0].id}>
@@ -97,7 +39,7 @@ const LandingBlogs = () => {
       <span>{page}</span>
       <button onClick={handleNextPage} disabled={page === totalPages}>
         Next
-      </button>
+      </button> */}
     </>
   );
 };

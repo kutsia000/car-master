@@ -25,17 +25,21 @@ const Landing = () => {
         <Footer></Footer>
       </LandingService>
     </AxiosInterceptor> */}
-      <AppInfoHeader />
-      <AppHeader />
-      <AppHeroSlider />
-      <AppCheckCar/>
-      <AppFindCar />
-      <AppService/>
-      <AppCalculator/>
-      <AppFindYourOffer/>
-      <AppCustomers/>
-      <MapDrawer/>
-      <AppFooter/>
+      <AxiosInterceptor>
+        <LandingService>
+          <AppInfoHeader />
+          <AppHeader />
+          <AppHeroSlider />
+          <AppCheckCar />
+          <AppFindCar />
+          <AppService />
+          <AppCalculator />
+          <AppFindYourOffer />
+          <AppCustomers />
+          <MapDrawer />
+          <AppFooter />
+        </LandingService>
+      </AxiosInterceptor>
     </>
   );
 };

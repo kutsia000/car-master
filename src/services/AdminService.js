@@ -1160,7 +1160,7 @@ const AdminService = ({ children }) => {
   const addLocation = async (reqBody) => {
     try {
       const fData = jsonToFormData(reqBody);
-      const response = await adminInstance.post('/Locations/AddAuction', fData, config);
+      const response = await adminInstance.post('/Locations/AddLocation', fData, config);
       setError(null);
       if (response.status === 200) {
         const { isSuccess, location, message } = response.data;

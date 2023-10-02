@@ -4,6 +4,7 @@ import { LandingServiceContext } from '../../services/LandingServices/LandingSer
 import { useLocation, useNavigate } from 'react-router-dom';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
+import Landing from '../../pages/Landing/Landing';
 
 const Home = () => {
   const { t, i18n } = useTranslation();
@@ -29,30 +30,31 @@ const Home = () => {
   }
 
   return (
-    <>
-      <form onSubmit={handleSearch}>
-        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <div className="row">
-            <InputComponent
-              label="VINCode"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              type="text"
-              className="form-control"
-              id="vincode"
-              required={true}
-              name="vincode"
-              value={vinCode}
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-          <button type="submit" className="btn btn-sm btn-primary">
-            search
-          </button>
-        </div>
-      </form>
-      home
-    </>
+    <Landing />
+    // <>
+    //   <form onSubmit={handleSearch}>
+    //     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    //       <div className="row">
+    //         <InputComponent
+    //           label="VINCode"
+    //           labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
+    //           type="text"
+    //           className="form-control"
+    //           id="vincode"
+    //           required={true}
+    //           name="vincode"
+    //           value={vinCode}
+    //           containerClass="col-sm-12 col-md-8 col-lg-8"
+    //           onChange={(e) => handleChange(e)}
+    //         />
+    //       </div>
+    //       <button type="submit" className="btn btn-sm btn-primary">
+    //         search
+    //       </button>
+    //     </div>
+    //   </form>
+    //   home
+    // </>
   );
 };
 
