@@ -27,7 +27,7 @@
       a {
         color: var(--color-white) !important;
       }
-      &.active {
+      &:active {
         &::after{
           content: "";
           position: absolute;
@@ -74,7 +74,7 @@
         letter-spacing: 0.18px;
         opacity: 0.95;
         padding-left: 10px;
-        &.active {
+        &:active {
           &::after{
             display: none;
           }

@@ -44,10 +44,9 @@ const Navigation = ({ header, footer }) => {
       {header && (
         <div className={styles.AppMenuList__right}>
           <AppButton iconButton>
-            <SearchIcon />
+            <LanguageSelector />
           </AppButton>
           <Link to={`/${lang}/login`}>login</Link>
-          {/* <LanguageSelector /> */}
         </div>
       )}
     </nav>

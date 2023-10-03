@@ -1,9 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Landing from './pages/Landing/Landing';
 import Home from './containers/Home/Home';
-import About from './containers/About/About';
-import Contact from './containers/Contact/Contact';
 import LandingBlogs from './containers/Blog/LandingBlogs';
 import LoginPage from './pages/Login/LoginPage';
 import AdminDashboard from './pages/Admin/AdminPage';
@@ -33,6 +30,7 @@ import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
 import BlogInnerPage from './pages/BlogInnerPage';
 import CarInnerPage from './pages/CarInnerPage';
+import AboutUsPage from './pages/AboutUsPage';
 function App() {
   return (
     <>
@@ -44,7 +42,7 @@ function App() {
           {/* <Route path="/" element={<Landing />} /> */}
           <Route path={`/:lang?`}>
             <Route index element={<Home />} />
-            <Route path={`/:lang/about`} element={<About />} />
+            <Route path={`/:lang/about`} element={<AboutUsPage />} />
             <Route path={`/:lang/contact`} element={<ContactPage />} />
             <Route path={`/:lang/blogs`} element={<LandingBlogs />} />
             <Route path={`/:lang/blogs/:blogId`} element={<LandingBlog />} />
