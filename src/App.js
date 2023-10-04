@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './containers/Home/Home';
 import LandingBlogs from './containers/Blog/LandingBlogs';
-import LoginPage from './pages/Login/LoginPage';
+import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/Admin/AdminPage';
 import DealerDashboard from './pages/Dealer/DealerPage';
 import EmployeeDashboard from './pages/Employee/EmployeePage';
