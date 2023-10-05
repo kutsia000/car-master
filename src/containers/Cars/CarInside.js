@@ -3,33 +3,41 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { LandingServiceContext } from '../../services/LandingServices/LandingService';
 import LoadingMarkUp from '../../components/Loading/Loading';
+import CarInnerPage from '../../pages/CarInnerPage';
+import { AxiosInterceptor } from '../../services/AxiosInterceptor';
+import { LandingService } from '../../services/LandingServices/LandingService';
 
 const CarInside = () => {
-  const { car, searchCar, success, error } = useContext(LandingServiceContext);
-  const { t, i18n } = useTranslation();
-  const [loading, setLoading] = useState(true);
-  const { vinCode } = useParams();
+  // const { car, searchCar, success, error } = useContext(LandingServiceContext);
+  // const { t, i18n } = useTranslation();
+  // const [loading, setLoading] = useState(true);
+  // const { vinCode } = useParams();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await searchCar(vinCode);
-      setLoading(false);
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await searchCar(vinCode);
+  //     setLoading(false);
+  //   };
 
-    if (vinCode) {
-      fetchData();
-    } else {
-      setLoading(false);
-    }
-  }, []);
+  //   if (vinCode) {
+  //     fetchData();
+  //   } else {
+  //     setLoading(false);
+  //   }
+  // }, []);
 
-  if (loading) {
-    return <LoadingMarkUp />;
-  }
+  // if (loading) {
+  //   return <LoadingMarkUp />;
+  // }
 
   return (
     <>
-      {car && (
+      <AxiosInterceptor>
+        <LandingService>
+          <CarInnerPage />
+        </LandingService>
+      </AxiosInterceptor>
+      {/* {car && (
         <>
           <div className="col-xs-12 col-sm-12 col-lg-12">
             <div className="card">
@@ -120,7 +128,7 @@ const CarInside = () => {
             ></iframe>
           </div>
         </>
-      )}
+      )} */}
     </>
   );
 };
