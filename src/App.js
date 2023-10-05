@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './containers/Home/Home';
 import About from './containers/About/About';
 import LandingBlogs from './containers/Blog/LandingBlogs';
-import LoginPage from './pages/Login/LoginPage';
+import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/Admin/AdminPage';
 import DealerDashboard from './pages/Dealer/DealerPage';
 import EmployeeDashboard from './pages/Employee/EmployeePage';
@@ -31,6 +31,7 @@ import BlogPage from './pages/BlogPage';
 import CarInside from './containers/Cars/CarInside';
 import CarInnerPage from './pages/CarInnerPage';
 
+import AboutUsPage from './pages/AboutUsPage';
 function App() {
   return (
     <>
@@ -42,7 +43,7 @@ function App() {
           {/* <Route path="/" element={<Landing />} /> */}
           <Route path={`/:lang?`}>
             <Route index element={<Home />} />
-            <Route path={`/:lang/about`} element={<About />} />
+            <Route path={`/:lang/about`} element={<AboutUsPage />} />
             <Route path={`/:lang/contact`} element={<ContactPage />} />
             <Route path={`/:lang/blogs`} element={<LandingBlogs />} />
             <Route path={`/:lang/blogs/:blogId`} element={<LandingBlog />} />

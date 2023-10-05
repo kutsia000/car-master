@@ -22,7 +22,7 @@ const GlobeIcon = ({ width = 24, height = 24 }) => (
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
-    fill="currentColor"
+    fill="#fff"
     className="bi bi-globe"
     viewBox="0 0 16 16"
   >
@@ -57,7 +57,7 @@ const LanguageSelector = () => {
     <div className="d-flex justify-content-end">
       <div className="dropdown">
         <button
-          className="btn btn-link dropdown-toggle"
+          className="btn text-white dropdown-toggle"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
