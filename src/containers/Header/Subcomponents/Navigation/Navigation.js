@@ -30,7 +30,7 @@ const Navigation = ({ header, footer }) => {
           <Link to={`/${lang}/about`}>{t('navigation_about')}</Link>
         </li>
         <li>
-          <Link to={`/${lang}/contact`}>{t('navigation_contact')}</Link>
+          <Link to={`/${lang}/services`}>{t('navigation_services')}</Link>
         </li>
         <li>
           <Link to={`/${lang}/blogs`}>{t('navigation_blogs')}</Link>
@@ -40,6 +40,9 @@ const Navigation = ({ header, footer }) => {
             <Link to={`/${lang}/becomedealer`}>{t('navigation_becomedealer')}</Link>
           </li>
         )}
+        <li>
+          <Link to={`/${lang}/contact`}>{t('navigation_contact')}</Link>
+        </li>
       </ul>
       {header && (
         <div className={styles.AppMenuList__right}>

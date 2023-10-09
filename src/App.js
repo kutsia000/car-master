@@ -31,6 +31,7 @@ import CarInside from './containers/Cars/CarInside';
 import CarInnerPage from './pages/CarInnerPage';
 
 import AboutUsPage from './pages/AboutUsPage';
+import ServicesPage from './pages/ServicesPage';
 function App() {
   return (
     <>
@@ -47,6 +48,7 @@ function App() {
             <Route path={`/:lang/blogs`} element={<LandingBlogs />} />
             <Route path={`/:lang/blogs/:blogId`} element={<LandingBlog />} />
             <Route path={`/:lang/becomedealer`} element={<BecomeDealerPage />} />
+            <Route path={`/:lang/services`} element={<ServicesPage />} />
             <Route path={`/:lang/car`} element={<CarInside />} />
             <Route path={`/:lang/car/:vinCode`} element={<CarInside />} />
           </Route>
