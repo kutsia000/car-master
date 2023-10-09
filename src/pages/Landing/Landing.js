@@ -1,5 +1,4 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
 import { AxiosInterceptor } from '../../services/AxiosInterceptor';
 import { LandingService } from '../../services/LandingServices/LandingService';
 import AppInfoHeader from '../../components/AppInfoHeader/AppInfoHeader';

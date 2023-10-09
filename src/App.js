@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './containers/Home/Home';
+import About from './containers/About/About';
 import LandingBlogs from './containers/Blog/LandingBlogs';
 import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/Admin/AdminPage';
@@ -23,13 +24,13 @@ import PriceListGroupLinesPage from './pages/Admin/PriceListGroupLinesPage';
 import UsersPage from './pages/Admin/UsersPage';
 import MyPriceListPage from './pages/Common/MyPriceListPage';
 import CarsPage from './pages/Admin/CarsPage';
-import CarInside from './containers/Cars/CarInside';
 import DealerCarsPage from './pages/Dealer/DealerCarsPage';
 import '../src/assets/styles/main.scss';
 import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
-import BlogInnerPage from './pages/BlogInnerPage';
+import CarInside from './containers/Cars/CarInside';
 import CarInnerPage from './pages/CarInnerPage';
+
 import AboutUsPage from './pages/AboutUsPage';
 function App() {
   return (

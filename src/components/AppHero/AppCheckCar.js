@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './AppCheckCar.module.scss';
 import AppContainer from '../../layout/AppContainer/AppContainer';
 import AppArticleTitle from '../AppArticleTitle/AppArticleTitle';
 import AppInput from '../AppInput/AppInput';
 import AppButton from '../AppButton/AppButton';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 export default function AppCheckCar() {
+  const { t, i18n } = useTranslation();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [vinCode, setVinCode] = useState('');
+  const lang = i18n.language || 'en';
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setVinCode(value);
+  };
+
+  const handleSearch = async (e) => {
+    //e.preventDefault();
+    if (!vinCode) return;
+    navigate(`/${lang}/car/${vinCode}`);
+  };
+
   return (
     <section className={styles.AppCheckCar}>
       <AppContainer>
@@ -15,9 +34,13 @@ export default function AppCheckCar() {
             description="შეიყვანეთ ავტომობილის ნომერი მონაცემების შესამომწებლად"
           />
           <div className={styles.AppCheckCar__search}>
-            <AppInput type="text" placeholder="მაგალითად: #23142324" />
-            <AppButton label="მოძებნა" leftIcon large>
-                <SearchIcon/>
+            <AppInput
+              type="text"
+              placeholder="მაგალითად: #23142324"
+              onChange={(e) => handleChange(e)}
+            />
+            <AppButton label="მოძებნა" leftIcon large onClick={(e) => handleSearch(e)}>
+              <SearchIcon />
             </AppButton>
           </div>
         </div>
