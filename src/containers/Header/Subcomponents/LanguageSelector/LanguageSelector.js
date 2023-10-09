@@ -57,20 +57,34 @@ const LanguageSelector = () => {
         }}
       >
         <ul>
-          {languages.map(({ code, country_code }) => (
-            <li key={country_code}>
-              <a
-                key={country_code}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLanguageChange(code);
-                }}
-                href={code}
-              >
-                <AppImage src={`/images/language-${code}.svg`} />
-              </a>
-            </li>
-          ))}
+          <li key={currentLanguage.country_code}>
+            <a
+              key={currentLanguage.country_code}
+              href={currentLanguageCode}
+              style={{ cursor: 'default' }}
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              <AppImage src={`/images/language-${currentLanguageCode}.svg`} />
+            </a>
+          </li>
+          {languages
+            .filter((lang) => lang.code !== currentLanguageCode)
+            .map(({ code, country_code }) => (
+              <li key={country_code}>
+                <a
+                  key={country_code}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLanguageChange(code);
+                  }}
+                  href={code}
+                >
+                  <AppImage src={`/images/language-${code}.svg`} />
+                </a>
+              </li>
+            ))}
         </ul>
       </div>
     </div>

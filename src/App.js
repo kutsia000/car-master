@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './containers/Home/Home';
-import About from './containers/About/About';
 import LandingBlogs from './containers/Blog/LandingBlogs';
 import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/Admin/AdminPage';
