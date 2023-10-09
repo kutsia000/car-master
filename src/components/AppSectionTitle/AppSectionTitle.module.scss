@@ -7,6 +7,9 @@
   max-width: 700px;
   width: fit-content;
   margin: 0 auto;
+  @media (max-width: 768px) {
+    padding-top: 42px;
+  }
   &__heading {
     font-feature-settings: 'case' on;
     font-size: var(--font-size--md-display);
@@ -27,9 +30,9 @@
       height: 2px;
       border-radius: 8px;
     }
-}
+  }
 
-&__desc {
+  &__desc {
     font-style: normal;
     font-size: var(--font-size--xl);
     font-weight: var(--font-weight-normal);

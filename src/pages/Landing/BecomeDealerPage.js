@@ -6,6 +6,7 @@ import AppInfoHeader from '../../components/AppInfoHeader/AppInfoHeader';
 import AppHeader from '../../containers/Header/AppHeader';
 import MapDrawer from '../../components/MapDrawers/MapDrawer';
 import AppFooter from '../../containers/Footer/AppFooter';
+import AppPageTitle from '../../components/AppPageTitle/AppPageTitle';
 
 const BecomeDealerPage = () => {
   return (
@@ -13,6 +14,7 @@ const BecomeDealerPage = () => {
       <LandingService>
         <AppInfoHeader />
         <AppHeader />
+        <AppPageTitle title="გახდი დილერი" />
         <BecomeDealer />
         <MapDrawer />
         <AppFooter />
