@@ -29,7 +29,7 @@ import '../src/assets/styles/main.scss';
 import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
 import CarInside from './containers/Cars/CarInside';
-import CarInnerPage from './pages/CarInnerPage';
+// import BlogsPage from './pages/Admin/BlogsPage';
 
 import AboutUsPage from './pages/AboutUsPage';
 function App() {
@@ -59,7 +59,7 @@ function App() {
           <Route path={`/:lang/admin/dashboard`} element={<AdminDashboard />}>
             <Route path={`/:lang/admin/dashboard/reviews`} element={<ReviewsPage />} />
             <Route path={`/:lang/admin/dashboard/reviews/:reviewId`} element={<ReviewsPage />} />
-            <Route path={`/:lang/admin/dashboard/blogs`} element={<BlogPage />} />
+            <Route path={`/:lang/admin/dashboard/blogs`} element={<BlogsPage />} />
             <Route path={`/:lang/admin/dashboard/blogs/:blogId`} element={<BlogsPage />} />
             <Route path={`/:lang/admin/dashboard/notifications`} element={<NotificationsPage />} />
             <Route
