@@ -1,8 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import InputComponent from '../../components/Input/InputComponent';
 import MaskedInput from '../../components/Input/MaskedInput';
+import styles from './BecomeDealer.module.scss';
 import { LandingServiceContext } from '../../services/LandingServices/LandingService';
 import LoadingMarkUp from '../../components/Loading/Loading';
+import AppButton from '../../components/AppButton/AppButton';
+import AppContainer from '../../layout/AppContainer/AppContainer';
+import AppSectionTitle from '../../components/AppSectionTitle/AppSectionTitle';
 
 const BecomeDealer = () => {
   const { addDealerRequest, error, success } = useContext(LandingServiceContext);
@@ -75,8 +79,53 @@ const BecomeDealer = () => {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <section className={styles.BecomeDealer}>
+      <AppContainer>
+        <AppSectionTitle title="დაგვიკავშრიდით" />
+        <div className={styles.BecomeDealer__formWrap}>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <InputComponent
+                label="fullName"
+                placeholder="Enter your fullName"
+                type="text"
+                name="fullName"
+                onChange={(e) => handleChange(e)}
+                required
+                value={formData.fullName}
+              />
+              <MaskedInput
+                label="phone Number"
+                id="phoneNumber"
+                name="phoneNumber"
+                onChange={handlePhoneChange}
+                mask="999-999-999"
+                value={formData.phoneNumber}
+                isValid={isPhoneValid}
+                errorMessage={phoneError}
+              />
+              <InputComponent
+                label="EMail"
+                placeholder="Enter your eMail"
+                type="email"
+                name="eMail"
+                onChange={(e) => handleChange(e)}
+                value={formData.eMail}
+              />
+            </div>
+            <textarea
+              rows="4"
+              cols="80"
+              placeholder="მოგვწერეთ თუ რა სახის დახმარება გჭირდებათ ჩვენგან და ჩვენი გუნდი უმოკლეს დროში დაგიკავშირდებთ"
+            />
+            <AppButton label="გაგზავნა" large type={'submit'} />
+            {mainError && <p className={styles.BecomeDealer__errorMessage}>{mainError}</p>}
+          </form>
+        </div>
+      </AppContainer>
+    </section>
+
+    /* <form onSubmit={handleSubmit}>
         <InputComponent
           label="fullName"
           placeholder="Enter your fullName"
@@ -113,9 +162,8 @@ const BecomeDealer = () => {
           value={formData.text}
         />
         <button type="submit">submit</button>
-        {mainError && <p className="error-message">{mainError}</p>}
-      </form>
-    </>
+        
+      </form> */
   );
 };
 

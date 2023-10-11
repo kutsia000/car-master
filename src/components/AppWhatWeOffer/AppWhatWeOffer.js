@@ -15,7 +15,7 @@ export default function AppWhatWeOffer() {
         <article className={styles.AppWhatWeOffer__wrap}>
           <AppServiceCard
             src={'/images/car.svg'}
-            title="კომპორტი"
+            title="კომპოტი"
             subtitle="კომპანია გაგიწევთ კომფორტულ მომსახურებას, რაც გულისხმობს მისაღებ ფასს, სწრაფ და უსაფრთხო ტრანსპორტირებას."
           />
           <AppServiceCard

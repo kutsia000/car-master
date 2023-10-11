@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './containers/Home/Home';
-import About from './containers/About/About';
 import LandingBlogs from './containers/Blog/LandingBlogs';
 import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/Admin/AdminPage';
@@ -32,6 +31,7 @@ import CarInside from './containers/Cars/CarInside';
 // import BlogsPage from './pages/Admin/BlogsPage';
 
 import AboutUsPage from './pages/AboutUsPage';
+import ServicesPage from './pages/ServicesPage';
 function App() {
   return (
     <>
@@ -48,6 +48,7 @@ function App() {
             <Route path={`/:lang/blogs`} element={<LandingBlogs />} />
             <Route path={`/:lang/blogs/:blogId`} element={<LandingBlog />} />
             <Route path={`/:lang/becomedealer`} element={<BecomeDealerPage />} />
+            <Route path={`/:lang/services`} element={<ServicesPage />} />
             <Route path={`/:lang/car`} element={<CarInside />} />
             <Route path={`/:lang/car/:vinCode`} element={<CarInside />} />
           </Route>
