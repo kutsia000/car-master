@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 //const apiUrl = process.env.REACT_APP_API_URL;
 
 const adminApi = axios.create({
-  baseURL: 'https://localhost:7164/api',
+  baseURL: 'https://api.cl1ne.ge/api',
   // headers: {
   //   post: {
   //     'Content-Type': 'application/json',
