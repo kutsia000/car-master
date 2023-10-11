@@ -5,10 +5,14 @@
   height: fit-content;
   user-select: none;
   z-index: 1;
-  top: 240px;
+  top: 200px;
 
   @media (max-width: 1440px) {
     left: 10%;
+  }
+  @media (max-width: 768px) {
+    top: 300px;
+    left: 20px;
   }
 
   &__title {
@@ -49,6 +53,12 @@
         rgba(0, 0, 0, 0.47) 100%
       )
     );
+    @media (max-width: 1024px) {
+      max-width: 600px;
+    }
+    @media (max-width: 768px) {
+      max-width: 80%;
+    }
     @media (max-width: 420px) {
       padding: 12px 14px;
       margin-top: -14px;

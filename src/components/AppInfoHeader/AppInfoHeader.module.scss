@@ -5,6 +5,9 @@
     width: 100vw;
     padding: 4px 0 8px;
     border-bottom: 1px solid #FFF;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   &__wrap{

@@ -1,0 +1,28 @@
+.MobileNavigation {
+  display: none;
+  @media (max-width: 1040px) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__list {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__burger {
+    cursor: pointer;
+    figure{
+        margin: 0;
+    }
+  }
+}
