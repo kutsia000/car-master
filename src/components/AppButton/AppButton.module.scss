@@ -7,7 +7,7 @@
   background-color: var(--color-red);
   cursor: pointer;
   border-radius: 4px;
-  transition: all .4s ease;
+  transition: all 0.4s ease;
   &:hover {
     opacity: 0.8;
   }
@@ -35,6 +35,9 @@
   &.AppButton--full {
     padding: 14px 106px;
     width: 100%;
+  }
+  &.AppButton--transparent {
+    background-color: transparent;
   }
 
   &.AppButton--icon {

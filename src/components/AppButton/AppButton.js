@@ -6,6 +6,7 @@ const AppButton = ({
   label,
   type,
   onClick,
+  transparent,
   loading,
   leftIcon,
   rightIcon,
@@ -23,6 +24,7 @@ const AppButton = ({
   return (
     <button
       className={classNames(styles.AppButton, {
+        [styles['AppButton--transparent']]: transparent,
         [styles['AppButton--left']]: leftIcon,
         [styles['AppButton--right']]: rightIcon,
         [styles['AppButton--large']]: large,

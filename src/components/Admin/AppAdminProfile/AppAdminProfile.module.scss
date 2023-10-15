@@ -1,0 +1,32 @@
+.AppAdminProfile {
+    margin-left: 240px;
+  &__user {
+    position: relative;
+    width: 460px;
+    background-color: var(--color-gray-900);
+    text-align: center;
+    margin: 30px auto;
+    padding: 20px 0;
+    &--title {
+      color: #fff;
+      font-family: Helvetica Neue LT GEO;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 144.2%;
+      letter-spacing: 0.2px;
+      margin-bottom: 20px;
+    }
+    &--Details {
+      color: #fff;
+      display: grid;
+      flex-direction: column;
+      justify-content: start;
+      align-items: start;
+      row-gap: 20px;
+      grid-template-columns: repeat(2, 2fr);
+      max-width: fit-content;
+      margin: 0 auto;
+    }
+  }
+}

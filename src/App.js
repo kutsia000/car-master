@@ -25,13 +25,13 @@ import MyPriceListPage from './pages/Common/MyPriceListPage';
 import CarsPage from './pages/Admin/CarsPage';
 import DealerCarsPage from './pages/Dealer/DealerCarsPage';
 import '../src/assets/styles/main.scss';
-import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
 import CarInside from './containers/Cars/CarInside';
-// import BlogsPage from './pages/Admin/BlogsPage';
-
+import ContactPage from './pages/ContactPage';
+import AdminProfilePage from './pages/AdminProfilePage';
 import AboutUsPage from './pages/AboutUsPage';
 import ServicesPage from './pages/ServicesPage';
+
 function App() {
   return (
     <>
@@ -44,7 +44,7 @@ function App() {
           <Route path={`/:lang?`}>
             <Route index element={<Home />} />
             <Route path={`/:lang/about`} element={<AboutUsPage />} />
-            <Route path={`/:lang/contact`} element={<ContactPage />} />
+            <Route path={`/:lang/contact`} element={<AdminProfilePage />} />
             <Route path={`/:lang/blogs`} element={<LandingBlogs />} />
             <Route path={`/:lang/blogs/:blogId`} element={<LandingBlog />} />
             <Route path={`/:lang/becomedealer`} element={<BecomeDealerPage />} />
