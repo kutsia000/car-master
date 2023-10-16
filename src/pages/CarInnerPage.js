@@ -33,12 +33,25 @@ export default function CarInnerPage() {
   // if (loading) {
   //   return <LoadingMarkUp />;
   // }
-  const images = {
-    first: '/images/car-inner-1.jpg',
-    second: '/images/car-inner-2.jpg',
-    third: '/images/car-inner-3.jpg',
-    fourth: '/images/car-inner-4.jpg',
-  };
+  const images = [
+    {
+      original: "/images/car-inner-1.jpg",
+      thumbnail: "/images/car-inner-1.jpg",
+    },
+    {
+      original: "/images/car-inner-2.jpg",
+      thumbnail: "/images/car-inner-2.jpg",
+    },
+    {
+      original: "/images/car-inner-3.jpg",
+      thumbnail: "/images/car-inner-3.jpg",
+    },
+    {
+      original: "/images/car-inner-4.jpg",
+      thumbnail: "/images/car-inner-4.jpg",
+    },
+  ]
+
 
   const iframeUrl = 'https://www.youtube.com/embed/8YFcnEaKfTk?si=tZlbo35hVOiLVz59';
 

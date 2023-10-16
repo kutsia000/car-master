@@ -2,8 +2,6 @@ import React, { useContext, useState } from 'react';
 import AppSectionTitle from '../../AppSectionTitle/AppSectionTitle';
 import { AuthServiceContext } from '../../../services/AuthService';
 import styles from './AppAdminProfile.module.scss';
-import InputComponent from '../../Input/InputComponent';
-import AppButton from '../../AppButton/AppButton';
 
 export default function AppAdminProfile() {
   const [formValues, setFormValues] = useState({
