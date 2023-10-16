@@ -237,32 +237,34 @@ const Users = () => {
         </button>
       </div>
       <div style={{ width: '1280px' }}>
-        <DataGrid
-          getRowId={(row) => row.id}
-          rows={users}
-          onRowEditStop={handleRowEditStop}
-          processRowUpdate={handleProcessRowUpdate}
-          onProcessRowUpdateError={(error) => {
-            //console.log(error);
-          }}
-          columns={columns}
-          sx={{ overflowX: 'scroll' }}
-          {...users}
-          initialState={{
-            ...users.initialState,
-            pagination: { paginationModel: { pageSize: 5 } },
-          }}
-          // localeText={{
-          //   toolbarFilters: 'ფილტრი',
-          //   columnMenuHideColumn: 'დამალვა',
-          //   toolbarColumnsLabel: 'სვეტები',
-          //   toolbarFiltersLabel: 'ფილტრი',
-          // }}
-          pageSizeOptions={[5, 10, 25]}
-          slots={{
-            toolbar: GridToolbar,
-          }}
-        />
+        {users && (
+          <DataGrid
+            getRowId={(row) => row.id}
+            rows={users}
+            onRowEditStop={handleRowEditStop}
+            processRowUpdate={handleProcessRowUpdate}
+            onProcessRowUpdateError={(error) => {
+              //console.log(error);
+            }}
+            columns={columns}
+            sx={{ overflowX: 'scroll' }}
+            {...users}
+            initialState={{
+              ...users.initialState,
+              pagination: { paginationModel: { pageSize: 5 } },
+            }}
+            // localeText={{
+            //   toolbarFilters: 'ფილტრი',
+            //   columnMenuHideColumn: 'დამალვა',
+            //   toolbarColumnsLabel: 'სვეტები',
+            //   toolbarFiltersLabel: 'ფილტრი',
+            // }}
+            pageSizeOptions={[5, 10, 25]}
+            slots={{
+              toolbar: GridToolbar,
+            }}
+          />
+        )}
       </div>
     </>
   );
