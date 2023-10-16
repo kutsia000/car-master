@@ -2,6 +2,7 @@ import React from 'react';
 import AppAdminHeader from '../components/Admin/AppAdminHeader/AppAdminHeader';
 import AdminDashboard from '../components/Admin/AppAdminDashboard/Dashboard';
 import AppAdminHomeFilter from '../components/Admin/AppAdminHomeFilter/AppAdminHomeFilter';
+import AppAdminDialog from '../components/Admin/AppAdminDialog/AppAdminDialog';
 
 export default function AdminHomePage() {
   return (
@@ -22,6 +23,7 @@ export default function AdminHomePage() {
           <AppAdminHomeFilter />
         </div>
       </div>
+      {/* <AppAdminDialog /> */}
     </>
   );
 }
