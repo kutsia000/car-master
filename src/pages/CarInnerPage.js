@@ -51,8 +51,6 @@ export default function CarInnerPage() {
       thumbnail: "/images/car-inner-4.jpg",
     },
   ]
-
-
   const iframeUrl = 'https://www.youtube.com/embed/8YFcnEaKfTk?si=tZlbo35hVOiLVz59';
 
   return (

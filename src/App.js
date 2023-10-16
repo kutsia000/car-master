@@ -31,7 +31,6 @@ import ContactPage from './pages/ContactPage';
 import AdminProfilePage from './pages/AdminProfilePage';
 import AboutUsPage from './pages/AboutUsPage';
 import ServicesPage from './pages/ServicesPage';
-import CarInnerPage from './pages/CarInnerPage';
 
 function App() {
   return (
@@ -44,7 +43,7 @@ function App() {
           {/* <Route path="/" element={<Landing />} /> */}
           <Route path={`/:lang?`}>
             <Route index element={<Home />} />
-            <Route path={`/:lang/about`} element={<CarInnerPage />} />
+            <Route path={`/:lang/about`} element={<AboutUsPage />} />
             <Route path={`/:lang/contact`} element={<AdminProfilePage />} />
             <Route path={`/:lang/blogs`} element={<LandingBlogs />} />
             <Route path={`/:lang/blogs/:blogId`} element={<LandingBlog />} />

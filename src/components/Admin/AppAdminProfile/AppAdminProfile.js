@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import AppSectionTitle from '../../AppSectionTitle/AppSectionTitle';
 import { AuthServiceContext } from '../../../services/AuthService';
 import styles from './AppAdminProfile.module.scss';
+import AppButton from '../../AppButton/AppButton';
 
 export default function AppAdminProfile() {
   const [formValues, setFormValues] = useState({
@@ -29,6 +30,15 @@ export default function AppAdminProfile() {
           <span>როლი:</span>
           <span>Dealer</span>
         </div>
+      </div>
+      <div className={styles.AppAdminProfile__user}>
+        <h3 className={styles['AppAdminProfile__user--title']}>პაროლის ცვლილება</h3>
+        <form className={styles['AppAdminProfile__user--form']}>
+          <input type="text" placeholder="ძველი პაროლი" />
+          <input type="text" placeholder="ახალი პაროლი" />
+          <input type="text" placeholder="გაიმეორეთ ახალი პაროლი" />
+          <AppButton label={'შეცვლა'} full/>
+        </form>
       </div>
     </div>
   );
