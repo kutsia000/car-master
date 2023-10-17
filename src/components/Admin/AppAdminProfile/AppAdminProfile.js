@@ -19,7 +19,7 @@ export default function AppAdminProfile() {
   };
 
   return (
-    <div style={{ background: 'black', flex: 1, marginLeft: 240, marginTop: 100 }}>
+    <>
       <AppSectionTitle title={'პროფილი'} subtitle={'სურვილის შემთხვევაში შეცვალეთ მონაცემები'} />
       <div className={styles.AppAdminProfile__user}>
         <h3 className={styles['AppAdminProfile__user--title']}>მომხარებელი</h3>
@@ -40,6 +40,6 @@ export default function AppAdminProfile() {
           <AppButton label={'შეცვლა'} full/>
         </form>
       </div>
-    </div>
+    </>
   );
 }
