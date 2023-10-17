@@ -58,7 +58,8 @@ function App() {
             <Route path={`/:lang/dealer/dashboard/mypricelist`} element={<MyPriceListPage />} />
             <Route path={`/:lang/dealer/dashboard/cars`} element={<DealerCarsPage />} />
           </Route>
-          <Route path={`/:lang/admin/dashboard`} element={<AdminDashboard />}>
+          <Route path={`/:lang/admin/dashboard`} element={<AdminHomePage />}>
+            <Route path={`/:lang/admin/dashboard/profile`} element={<AdminProfilePage />} />
             <Route path={`/:lang/admin/dashboard/reviews`} element={<ReviewsPage />} />
             <Route path={`/:lang/admin/dashboard/reviews/:reviewId`} element={<ReviewsPage />} />
             <Route path={`/:lang/admin/dashboard/blogs`} element={<BlogsPage />} />

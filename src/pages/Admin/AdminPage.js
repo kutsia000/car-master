@@ -6,17 +6,18 @@ import AdminDashboard from '../../components/Admin/AppAdminDashboard/Dashboard';
 import { AxiosInterceptor } from '../../services/AxiosInterceptor';
 //import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
+import AppAdminHeader from '../../components/Admin/AppAdminHeader/AppAdminHeader';
 
 const AdminDashboardPage = () => {
   // const { i18n } = useTranslation();
   // const lang = i18n.language || 'en';
   return (
     <>
-      <h1>admin dashboard</h1>
       <AuthService>
         <AxiosInterceptor>
-          <LogOut />
           <AdminService>
+            <AppAdminHeader />
+            <LogOut />
             <AdminDashboard />
             <Outlet />
           </AdminService>

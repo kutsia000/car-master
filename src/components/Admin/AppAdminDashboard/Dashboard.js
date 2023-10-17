@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import styles from './Dashboard.module.scss'
+import styles from './Dashboard.module.scss';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AdminServiceContext } from '../../../services/AdminService';
@@ -31,8 +31,17 @@ const AdminDashboard = () => {
       <nav className={styles.AdminDashboard}>
         <ul>
           <li>
+            <Link to={`/${lang}/admin/dashboard/profile`}>
+              <span className={styles.AdminDashboard__link} style={{ color: 'black ' }}>
+                profile
+              </span>
+            </Link>
+          </li>
+          <li>
             <Link to={`/${lang}/admin/dashboard/users`}>
-              <span className={styles.AdminDashboard__link} style={{ color: 'black ' }}>users</span>
+              <span className={styles.AdminDashboard__link} style={{ color: 'black ' }}>
+                users
+              </span>
             </Link>
           </li>
           <li>
