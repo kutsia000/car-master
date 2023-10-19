@@ -47,12 +47,13 @@ const Users = () => {
   }, [userId]);
 
   useEffect(() => {
+    console.log(userTypes);
     if (userTypes) {
       const labels = userTypes.map((ut) => {
         return ut.name;
       });
       setComboUserTypes(labels);
-      //console.log(labels);
+      console.log(labels);
     }
   }, [userTypes]);
 
@@ -247,7 +248,13 @@ const Users = () => {
               //console.log(error);
             }}
             columns={columns}
-            sx={{ overflowX: 'scroll' }}
+            sx={{
+              overflowX: 'scroll',
+              background: 'white',
+              '& .MuiInputBase-input': {
+                color: 'black !important',
+              },
+            }}
             {...users}
             initialState={{
               ...users.initialState,

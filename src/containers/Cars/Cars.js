@@ -567,36 +567,41 @@ const Cars = () => {
       </div>
       <label>{editedRows.length} row(s) affected</label>
       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <DataGrid
-          getRowId={(row) => row.id}
-          rows={cars}
-          columns={columns}
-          onRowEditStop={handleRowEditStop}
-          processRowUpdate={handleProcessRowUpdate}
-          onProcessRowUpdateError={(error) => {
-            //console.log(error);
-          }}
-          {...cars}
-          initialState={{
-            ...cars.initialState,
-            pagination: { paginationModel: { pageSize: 10 } },
-            columns: {
-              columnVisibilityModel: {
-                carStatusId: false,
-                userId: false,
-                auctionId: false,
-                portId: false,
-                locationId: false,
-                lineId: false,
-                recieverPortId: false,
+        {cars && (
+          <DataGrid
+            getRowId={(row) => row.id}
+            rows={cars}
+            columns={columns}
+            onRowEditStop={handleRowEditStop}
+            processRowUpdate={handleProcessRowUpdate}
+            onProcessRowUpdateError={(error) => {
+              //console.log(error);
+            }}
+            {...cars}
+            initialState={{
+              ...cars.initialState,
+              pagination: { paginationModel: { pageSize: 10 } },
+              columns: {
+                columnVisibilityModel: {
+                  carStatusId: false,
+                  userId: false,
+                  auctionId: false,
+                  portId: false,
+                  locationId: false,
+                  lineId: false,
+                  recieverPortId: false,
+                },
               },
-            },
-          }}
-          pageSizeOptions={[10, 15, 25]}
-          slots={{
-            toolbar: GridToolbar,
-          }}
-        />
+            }}
+            pageSizeOptions={[10, 15, 25]}
+            slots={{
+              toolbar: GridToolbar,
+            }}
+            sx={{
+              background: 'white',
+            }}
+          />
+        )}
       </div>
     </>
   );

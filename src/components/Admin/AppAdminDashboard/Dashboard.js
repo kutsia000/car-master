@@ -8,23 +8,23 @@ import LoadingMarkUp from '../../Loading/Loading';
 const AdminDashboard = () => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  // const { home } = useContext(AdminServiceContext);
-  // useEffect(() => {
-  //   const callHome = async () => {
-  //     //console.log(home);
-  //     await home();
-  //     setLoading(false);
-  //     //console.log(['dashboard', response]);
-  //   };
+  const { home } = useContext(AdminServiceContext);
+  useEffect(() => {
+    const callHome = async () => {
+      //console.log(home);
+      await home();
+      setLoading(false);
+      //console.log(['dashboard', response]);
+    };
 
-  //   callHome();
-  // }, []);
+    callHome();
+  }, []);
 
-  // if (loading) {
-  //   return <LoadingMarkUp />;
-  // }
+  if (loading) {
+    return <LoadingMarkUp />;
+  }
 
   return (
     <>

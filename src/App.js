@@ -32,6 +32,7 @@ import AdminProfilePage from './pages/AdminProfilePage';
 import AboutUsPage from './pages/AboutUsPage';
 import ServicesPage from './pages/ServicesPage';
 import AdminHomePage from './pages/AdminHomePage';
+import AdminDashboardPage from './pages/Admin/AdminPage';
 
 function App() {
   return (
