@@ -237,7 +237,7 @@ const Users = () => {
           save
         </button>
       </div>
-      <div style={{ width: '1280px' }}>
+      <div>
         {users && (
           <DataGrid
             getRowId={(row) => row.id}
