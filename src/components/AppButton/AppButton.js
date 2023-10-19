@@ -13,7 +13,8 @@ const AppButton = ({
   large,
   full,
   children,
-  iconButton
+  iconButton,
+  color
 }) => {
   const handleClick = () => {
     if (onClick && typeof onClick === 'function') {
@@ -30,12 +31,14 @@ const AppButton = ({
         [styles['AppButton--large']]: large,
         [styles['AppButton--full']]: full,
         [styles['AppButton--icon']]: iconButton,
+        [styles['AppButton--ColorIcon']]: iconButton && color,
       })}
+      style={{backgroundColor: color}}
       type={type}
       onClick={handleClick}
       disabled={loading}
     >
-      <span className={styles.AppButton__title}>{label}</span>
+      {!iconButton && <span className={styles.AppButton__title}>{label}</span>}
       {children}
     </button>
   );
