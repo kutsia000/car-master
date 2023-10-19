@@ -42,6 +42,7 @@ const Cars = () => {
     allRecieverPorts,
     allLines,
     carStatuses,
+    userTypes,
   } = useContext(AdminServiceContext);
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(true);
@@ -121,6 +122,10 @@ const Cars = () => {
 
     setComboYears(yearOptions);
   }, []);
+
+  // useEffect(() => {
+  //   console.log(userTypes);
+  // }, [userTypes]);
 
   useEffect(() => {
     if (carId) {

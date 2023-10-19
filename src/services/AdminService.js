@@ -126,7 +126,7 @@ const AdminService = ({ children }) => {
           setAllRecieverPorts(recieverPorts);
           setAllLines(lines);
           setDealers(dealers);
-          console.log(userTypes);
+          //console.log(userTypes);
         }
         //console.log(code);
       }

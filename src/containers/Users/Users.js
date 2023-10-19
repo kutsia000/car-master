@@ -53,7 +53,7 @@ const Users = () => {
         return ut.name;
       });
       setComboUserTypes(labels);
-      console.log(labels);
+      //console.log(labels);
     }
   }, [userTypes]);
 

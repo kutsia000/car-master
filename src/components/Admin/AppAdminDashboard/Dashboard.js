@@ -8,6 +8,7 @@ import LoadingMarkUp from '../../Loading/Loading';
 const AdminDashboard = () => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
+  //console.log(AdminServiceContext);
   const [loading, setLoading] = useState(true);
 
   const { home } = useContext(AdminServiceContext);

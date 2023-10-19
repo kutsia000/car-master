@@ -5,11 +5,11 @@ import { AdminService } from '../../services/AdminService';
 
 const UsersPage = () => {
   return (
-    <AxiosInterceptor>
-      <AdminService>
-        <Users />
-      </AdminService>
-    </AxiosInterceptor>
+    // <AxiosInterceptor>
+    //   <AdminService>
+    <Users />
+    //   </AdminService>
+    // </AxiosInterceptor>
   );
 };
 

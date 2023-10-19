@@ -7,6 +7,7 @@ import { AxiosInterceptor } from '../../services/AxiosInterceptor';
 //import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
 import AppAdminHeader from '../../components/Admin/AppAdminHeader/AppAdminHeader';
+import AdminHomePage from '../AdminHomePage';
 
 const AdminDashboardPage = () => {
   // const { i18n } = useTranslation();
@@ -19,7 +20,8 @@ const AdminDashboardPage = () => {
             <AppAdminHeader />
             <LogOut />
             <AdminDashboard />
-            <Outlet />
+            <AdminHomePage />
+            {/* <Outlet /> */}
           </AdminService>
         </AxiosInterceptor>
       </AuthService>
