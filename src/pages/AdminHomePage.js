@@ -11,26 +11,27 @@ export default function AdminHomePage() {
   return (
     <>
       <AppAdminHeader />
-      <div style={{ display: 'flex' }}>
-        <AxiosInterceptor>
-          <AdminService>
+
+      <AxiosInterceptor>
+        <AdminService>
+          <div
+            style={{
+              padding: '100px 0',
+              position: 'absolute',
+              width: 'calc(100vw - 240px)',
+              height: 'fit-content',
+              background: 'black',
+              right: 0,
+              top: 0,
+            }}
+          >
             <AdminDashboard />
-            <div
-              style={{
-                background: 'black',
-                height: '100vh',
-                width: 'calc(100% - 240px)',
-                top: 100,
-                left: 240,
-                padding: 20,
-              }}
-            >
-              <Outlet />
-              {/* <AppAdminHomeFilter /> */}
-            </div>
-          </AdminService>
-        </AxiosInterceptor>
-      </div>
+            <Outlet />
+            {/* <AppAdminHomeFilter /> */}
+          </div>
+        </AdminService>
+      </AxiosInterceptor>
+
       {/* <AppAdminDialog /> */}
     </>
   );
