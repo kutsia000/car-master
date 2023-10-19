@@ -1,0 +1,15 @@
+.Dialog {
+  display: block;
+  position: relative;
+  padding: 20px;
+  border: 10px solid var(--color-gray-900);
+  color: var(--color-white);
+  border-radius: 10px;
+  margin: 15px;
+
+  &--close {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
+import AppButton from '../../components/AppButton/AppButton';
 
 const Auction = ({ handleCloseDialog }) => {
   const { auction, getAuctionById, addAuction, updateAuction, error, success } =
@@ -128,7 +129,9 @@ const Auction = ({ handleCloseDialog }) => {
           onChange={(e) => handleInputChange(e)}
         />
         {error ? error : null}
-        <button type="submit">submit</button>
+        <div style={{top: 18}}>
+        <AppButton type={'submit'} label={'submit'} full/>
+        </div>
       </form>
     </>
   );
