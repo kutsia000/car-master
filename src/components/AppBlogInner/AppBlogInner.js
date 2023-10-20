@@ -76,7 +76,9 @@ export default function AppBlogInner() {
 
   return (
     <section className={styles.AppBlogInner}>
-      <AppHeroFigure src={blog && mainUrl + blog.mainImageUrl} />
+      <div style={{height: 380}}>
+        <AppHeroFigure src={blog && mainUrl + blog.mainImageUrl} />
+      </div>
       <AppContainer>
         <div className={styles.AppBlogInner__container}>
           {blog && (
