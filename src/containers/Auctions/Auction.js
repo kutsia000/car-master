@@ -130,7 +130,7 @@ const Auction = ({ handleCloseDialog }) => {
         />
         {error ? error : null}
         <div style={{top: 18}}>
-        <AppButton type={'submit'} label={'submit'} full/>
+          <AppButton type={'submit'} label={'submit'} full/>
         </div>
       </form>
     </>

@@ -6,6 +6,7 @@ import { PaginationControl } from 'react-bootstrap-pagination-control';
 import Dialog from '../../components/Dialog/Dialog';
 import Notification from './Notification';
 import { Link, useLocation, createSearchParams, useNavigate, useParams } from 'react-router-dom';
+import AppButton from '../../components/AppButton/AppButton';
 
 const Notifications = () => {
   const location = useLocation();
@@ -76,16 +77,20 @@ const Notifications = () => {
     return <LoadingMarkUp />;
   }
 
-  //console.log(recordsCount);
+  if (isOpen) { 
+    return (
+    <Dialog onClose={handleCloseDialog}>
+      <Notification handleCloseDialog={handleCloseDialog} />
+    </Dialog>
+    )
+  }
+
   return (
     <>
       {/* <Link to={`/${lang}/admin/dashboard/notification/`}>{t('new')}</Link> */}
-      <button onClick={handleOpenDialog}>{t('new')}</button>
-      {isOpen && (
-        <Dialog onClose={handleCloseDialog}>
-          <Notification handleCloseDialog={handleCloseDialog} />
-        </Dialog>
-      )}
+      <div className='new-button'>
+      <AppButton large label={'new'} onClick={handleOpenDialog} color={'#0c2d57'} />
+      </div>
       <div>
         <table>
           <thead>

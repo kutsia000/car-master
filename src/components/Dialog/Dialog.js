@@ -5,15 +5,13 @@ import styles from './Dialog.module.scss';
 const Dialog = ({ onClose, children }) => {
   return (
     <div className={styles.Dialog} open onClose={onClose}>
-      <div className={styles.AppAdminDialog}>
-        <div>
-          <div>{children}</div>
-        </div>
-        <div className={styles['Dialog--close']} onClick={onClose}>
-          <figure style={{ cursor: 'pointer', width: 'fit-content', margin: 0 }}>
-            <CloseIcon />
-          </figure>
-        </div>
+      <div className={styles.Dialog__content}>
+        <div>{children}</div>
+      </div>
+      <div className={styles['Dialog--close']} onClick={onClose}>
+        <figure style={{ cursor: 'pointer', width: 'fit-content', margin: 0 }}>
+          <CloseIcon />
+        </figure>
       </div>
     </div>
   );
