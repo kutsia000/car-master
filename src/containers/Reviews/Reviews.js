@@ -83,7 +83,7 @@ const Reviews = () => {
   return (
     <>
       <div className={styles.Reviews__new}>
-        <AppButton large label={'new'} onClick={handleOpenDialog} color={'#0c2d57'}/>
+        <AppButton large label={'new'} onClick={handleOpenDialog} color={'#0c2d57'} />
       </div>
       {isOpen && (
         <Dialog onClose={handleCloseDialog}>

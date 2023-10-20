@@ -41,7 +41,7 @@ const PriceListGroupLines = () => {
   };
 
   useEffect(() => {
-    if (selPriceListGroups) {
+    if (selPriceListGroups && selPriceListGroups.length > 0) {
       setActiveGroup(selPriceListGroups[0].id);
     }
   }, [selPriceListGroups]);
@@ -159,27 +159,29 @@ const PriceListGroupLines = () => {
           <PriceListGroupLine handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
-      <DataGrid
-        getRowId={(row) => row.lineId}
-        rows={priceListGroupLines}
-        columns={columns}
-        sx={{ overflowX: 'scroll' }}
-        {...priceListGroupLines}
-        initialState={{
-          ...priceListGroupLines.initialState,
-          pagination: { paginationModel: { pageSize: 5 } },
-        }}
-        localeText={{
-          toolbarFilters: 'ფილტრი',
-          columnMenuHideColumn: 'დამალვა',
-          toolbarColumnsLabel: 'სვეტები',
-          toolbarFiltersLabel: 'ფილტრი',
-        }}
-        pageSizeOptions={[5, 10, 25]}
-        slots={{
-          toolbar: GridToolbar,
-        }}
-      />
+      {priceListGroupLines && (
+        <DataGrid
+          getRowId={(row) => row.lineId}
+          rows={priceListGroupLines}
+          columns={columns}
+          sx={{ overflowX: 'scroll' }}
+          {...priceListGroupLines}
+          initialState={{
+            ...priceListGroupLines.initialState,
+            pagination: { paginationModel: { pageSize: 5 } },
+          }}
+          localeText={{
+            toolbarFilters: 'ფილტრი',
+            columnMenuHideColumn: 'დამალვა',
+            toolbarColumnsLabel: 'სვეტები',
+            toolbarFiltersLabel: 'ფილტრი',
+          }}
+          pageSizeOptions={[5, 10, 25]}
+          slots={{
+            toolbar: GridToolbar,
+          }}
+        />
+      )}
       {/* <div>
         <table>
           <thead>

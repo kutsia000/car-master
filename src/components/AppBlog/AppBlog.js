@@ -39,7 +39,7 @@ export default function AppBlog() {
 
   useEffect(() => {
     if (blogs) {
-      //console.log(blogs);
+      console.log(blogs);
     }
   }, [blogs]);
 
@@ -92,7 +92,7 @@ export default function AppBlog() {
               return (
                 <AppBlogCard
                   key={blog.blogContents[0].id}
-                  src="/images/blog-card-1.jpg"
+                  src={'https://cl1ne.ge' + blog.mainImageUrl}
                   title={blog.blogContents[0].title}
                   date="19.01.2023"
                   description={truncateText(blog.blogContents[0].content, 150)}
