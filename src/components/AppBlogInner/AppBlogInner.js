@@ -15,6 +15,8 @@ export default function AppBlogInner() {
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [imageUrls, setImageUrls] = useState(null);
+  const [appTop, setAppTop] = useState('');
+  const [appBottom, setAppBottom] = useState('');
   const { blogId } = useParams();
   const lang = i18n.language || 'en';
   const [params, setParams] = useState({
@@ -44,8 +46,23 @@ export default function AppBlogInner() {
 
         setImageUrls(urls);
       }
+      splitStringIntoFirst50Words(blog.blogContents[0].content);
     }
   }, [blog]);
+
+  function splitStringIntoFirst50Words(inputString) {
+    // Use a regular expression to split the string into an array of words
+    const words = inputString.split(/\s+/);
+
+    // Extract the first 50 words
+    const first50Words = words.slice(0, 50);
+
+    // Extract the remaining words
+    const remainingWords = words.slice(50);
+
+    setAppTop(first50Words);
+    setAppBottom(remainingWords);
+  }
 
   if (loading) {
     return <LoadingMarkUp />;
@@ -59,15 +76,15 @@ export default function AppBlogInner() {
 
   return (
     <section className={styles.AppBlogInner}>
-      <AppHeroFigure src="/images/blog-inner.jpg" />
+      <AppHeroFigure src={blog && mainUrl + blog.mainImageUrl} />
       <AppContainer>
         <div className={styles.AppBlogInner__container}>
           {blog && (
             <AppBlogInnerDetails
               images={imageUrls ? imageUrls : []}
-              title="ავტომობილების იმპორტის წესი იცვლება"
-              articleTop="2022 წლის 2 ნოემბერს, კავკასიის ავტოიმპორტმა სოციალური პასუხისმგებლობის ფარგლებში, გლდანის მაჟორიტარ კონსტანტინე ზარნაძესთან და ადგილობრივ მოსახლეობასთან ერთად, გამწვანების მორიგი ღონისძიება გამართა."
-              articleBottom="2022 წლის 2 ნოემბერს, კავკასიის ავტოიმპორტმა სოციალური პასუხისმგებლობის ფარგლებში, გლდანის მაჟორიტარ კონსტანტინე ზარნაძესთან და ადგილობრივ მოსახლეობასთან ერთად, გამწვანების მორიგი ღონისძიება გამართა."
+              title={blog.blogContents[0].title}
+              articleTop={appTop}
+              articleBottom={appBottom}
               date="19.01.2023"
             />
           )}
