@@ -5,12 +5,8 @@ import AppAdminProfile from '../components/Admin/AppAdminProfile/AppAdminProfile
 
 export default function AdminProfilePage() {
   return (
-    <>
-      {/* <AppAdminHeader /> */}
-      <div>
-        {/* <AdminDashboard /> */}
-        <AppAdminProfile />
-      </div>
-    </>
+    <div style={{paddingBottom: 40}}>
+      <AppAdminProfile />
+    </div>
   );
 }

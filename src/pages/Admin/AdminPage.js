@@ -18,7 +18,6 @@ const AdminDashboardPage = () => {
         <AxiosInterceptor>
           <AdminService>
             <AppAdminHeader />
-            <LogOut />
             <AdminDashboard />
             <AdminHomePage />
             {/* <Outlet /> */}
