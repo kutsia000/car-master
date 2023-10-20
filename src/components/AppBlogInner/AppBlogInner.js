@@ -14,12 +14,15 @@ export default function AppBlogInner() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(true);
+  const [imageUrls, setImageUrls] = useState(null);
   const { blogId } = useParams();
   const lang = i18n.language || 'en';
   const [params, setParams] = useState({
     id: blogId,
     languageCode: lang,
   });
+
+  const mainUrl = 'https://cl1ne.ge';
 
   const fetchBlog = async () => {
     if (blogId) {
@@ -34,7 +37,13 @@ export default function AppBlogInner() {
 
   useEffect(() => {
     if (blog) {
-      //console.log(blog);
+      if (blog.imageURLs) {
+        var urls = blog.imageURLs.map((b) => {
+          return mainUrl + b;
+        });
+
+        setImageUrls(urls);
+      }
     }
   }, [blog]);
 
@@ -47,18 +56,21 @@ export default function AppBlogInner() {
     second: '/images/blog-inner-2.jpg',
     third: '/images/blog-inner-3.jpg',
   };
+
   return (
     <section className={styles.AppBlogInner}>
       <AppHeroFigure src="/images/blog-inner.jpg" />
       <AppContainer>
         <div className={styles.AppBlogInner__container}>
-          <AppBlogInnerDetails
-            images={src}
-            title="ავტომობილების იმპორტის წესი იცვლება"
-            articleTop="2022 წლის 2 ნოემბერს, კავკასიის ავტოიმპორტმა სოციალური პასუხისმგებლობის ფარგლებში, გლდანის მაჟორიტარ კონსტანტინე ზარნაძესთან და ადგილობრივ მოსახლეობასთან ერთად, გამწვანების მორიგი ღონისძიება გამართა."
-            articleBottom="2022 წლის 2 ნოემბერს, კავკასიის ავტოიმპორტმა სოციალური პასუხისმგებლობის ფარგლებში, გლდანის მაჟორიტარ კონსტანტინე ზარნაძესთან და ადგილობრივ მოსახლეობასთან ერთად, გამწვანების მორიგი ღონისძიება გამართა."
-            date="19.01.2023"
-          />
+          {blog && (
+            <AppBlogInnerDetails
+              images={imageUrls ? imageUrls : []}
+              title="ავტომობილების იმპორტის წესი იცვლება"
+              articleTop="2022 წლის 2 ნოემბერს, კავკასიის ავტოიმპორტმა სოციალური პასუხისმგებლობის ფარგლებში, გლდანის მაჟორიტარ კონსტანტინე ზარნაძესთან და ადგილობრივ მოსახლეობასთან ერთად, გამწვანების მორიგი ღონისძიება გამართა."
+              articleBottom="2022 წლის 2 ნოემბერს, კავკასიის ავტოიმპორტმა სოციალური პასუხისმგებლობის ფარგლებში, გლდანის მაჟორიტარ კონსტანტინე ზარნაძესთან და ადგილობრივ მოსახლეობასთან ერთად, გამწვანების მორიგი ღონისძიება გამართა."
+              date="19.01.2023"
+            />
+          )}
           <AppRelatedBlogs />
         </div>
       </AppContainer>

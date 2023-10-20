@@ -47,7 +47,7 @@ function App() {
           <Route path={`/:lang?`}>
             <Route index element={<Home />} />
             <Route path={`/:lang/about`} element={<AboutUsPage />} />
-            <Route path={`/:lang/contact`} element={<AdminHomePage />} />
+            <Route path={`/:lang/contact`} element={<ContactPage />} />
             <Route path={`/:lang/blogs`} element={<LandingBlogs />} />
             <Route path={`/:lang/blogs/:blogId`} element={<LandingBlog />} />
             <Route path={`/:lang/becomedealer`} element={<BecomeDealerPage />} />

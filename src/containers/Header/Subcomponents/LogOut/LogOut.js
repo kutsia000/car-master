@@ -5,17 +5,17 @@ import { AuthServiceContext } from '../../../../services/AuthService';
 //import LoadingMarkUp from '../../../../components/Loading/Loading';
 
 const LogOut = () => {
-  // const { logout } = useContext(AuthServiceContext);
-  // const { t } = useTranslation();
-  // // //const lang = i18n.language || 'en';
+  const { logout } = useContext(AuthServiceContext);
+  const { t } = useTranslation();
+  // //const lang = i18n.language || 'en';
 
-  // const handleClick = async () => {
-  //   await logout();
-  // };
+  const handleClick = async () => {
+    await logout();
+  };
 
   return (
     <div>
-      <AppButton label={'logout'} leftIcon transparent large type="button">
+      <AppButton label={'logout'} leftIcon transparent large type="button" onClick={handleClick}>
         <LogoutIcon />
       </AppButton>
     </div>
