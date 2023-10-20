@@ -17,6 +17,7 @@ export default function AppBlogInner() {
   const [imageUrls, setImageUrls] = useState(null);
   const [appTop, setAppTop] = useState('');
   const [appBottom, setAppBottom] = useState('');
+  const [dt, setDt] = useState('');
   const { blogId } = useParams();
   const lang = i18n.language || 'en';
   const [params, setParams] = useState({
@@ -46,6 +47,16 @@ export default function AppBlogInner() {
 
         setImageUrls(urls);
       }
+      const dateObject = new Date(blog.blogContents[0].rd);
+
+      // Get the individual date components
+      const day = dateObject.getDate().toString().padStart(2, '0');
+      const month = (dateObject.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
+      const year = dateObject.getFullYear();
+
+      // Format the date as "dd/MM/yyyy"
+      const formattedDate = `${day}/${month}/${year}`;
+      setDt(formattedDate);
       splitStringIntoFirst50Words(blog.blogContents[0].content);
     }
   }, [blog]);
@@ -68,15 +79,15 @@ export default function AppBlogInner() {
     return <LoadingMarkUp />;
   }
 
-  const src = {
-    first: '/images/blog-inner-1.jpg',
-    second: '/images/blog-inner-2.jpg',
-    third: '/images/blog-inner-3.jpg',
-  };
+  // const src = {
+  //   first: '/images/blog-inner-1.jpg',
+  //   second: '/images/blog-inner-2.jpg',
+  //   third: '/images/blog-inner-3.jpg',
+  // };
 
   return (
     <section className={styles.AppBlogInner}>
-      <div style={{height: 380}}>
+      <div style={{ height: 380 }}>
         <AppHeroFigure src={blog && mainUrl + blog.mainImageUrl} />
       </div>
       <AppContainer>
@@ -87,7 +98,7 @@ export default function AppBlogInner() {
               title={blog.blogContents[0].title}
               articleTop={appTop}
               articleBottom={appBottom}
-              date="19.01.2023"
+              date={dt}
             />
           )}
           <AppRelatedBlogs />

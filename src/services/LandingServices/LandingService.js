@@ -48,7 +48,9 @@ const LandingService = ({ children }) => {
 
   const getLandingHome = async (reqBody) => {
     try {
-      const response = await landginApi.post('/Landing/Home', reqBody);
+      console.log(reqBody);
+      var fData = jsonToFormData(reqBody);
+      const response = await landginApi.get('/Landing/Home', { params: reqBody });
       if (response.status === 200) {
         const { isSuccess, message, reviews, blogs } = response.data;
         if (!isSuccess) {

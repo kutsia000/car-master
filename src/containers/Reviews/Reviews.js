@@ -99,14 +99,6 @@ const Reviews = () => {
               <th>text</th>
               <th>Edit</th>
               <th>Delete</th>
-              <th>ID</th>
-              <th>fullName</th>
-              <th>text</th>
-              <th>Edit</th>
-              <th>Delete</th>
-              <th>text</th>
-              <th>Edit</th>
-              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -133,28 +125,6 @@ const Reviews = () => {
                         <DeleteIcon />
                       </AppButton>
                     </td>
-                    <td>{review.id}</td>
-                    <td>{review.fullName}</td>
-                    <td>{review.text}</td>
-                    <td>
-                      <Link to={`/${lang}/admin/dashboard/reviews/${review.id}`}>
-                        <AppButton iconButton color={'#0c2d57'}>
-                          <EditIcon />
-                        </AppButton>
-                      </Link>
-                    </td>
-                    <td>
-                      <AppButton
-                        iconButton
-                        color={'rgba(219, 45, 46, .8)'}
-                        onClick={() => handleDelete(review.id)}
-                      >
-                        <DeleteIcon />
-                      </AppButton>
-                    </td>
-                    <td>{review.id}</td>
-                    <td>{review.fullName}</td>
-                    <td>{review.text}</td>
                   </tr>
                 );
               })}

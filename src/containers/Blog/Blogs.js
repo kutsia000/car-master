@@ -8,6 +8,10 @@ import { PaginationControl } from 'react-bootstrap-pagination-control';
 import Dialog from '../../components/Dialog/Dialog';
 import Blog from './Blog';
 import { useParams } from 'react-router-dom';
+import styles from './Blogs.module.scss';
+import AppButton from '../../components/AppButton/AppButton';
+import EditIcon from '../../components/Icons/EditIcon';
+import DeleteIcon from '../../components/Icons/DeleteIcon';
 
 const Blogs = () => {
   const location = useLocation();
@@ -61,10 +65,6 @@ const Blogs = () => {
     fetchBlogs();
   };
 
-  if (loading) {
-    return <LoadingMarkUp />;
-  }
-
   const handlePageChange = (event) => {
     setPage(event);
     navigate({
@@ -74,17 +74,23 @@ const Blogs = () => {
     });
   };
 
+  if (loading) {
+    return <LoadingMarkUp />;
+  }
+
   isOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
   return (
     <>
-      <button onClick={handleOpenDialog}>{t('new')}</button>
+      <div className={styles.Blogs__new}>
+        <AppButton large label={t('new')} onClick={handleOpenDialog} color={'#0c2d57'} />
+      </div>
       {isOpen && (
         <Dialog onClose={handleCloseDialog}>
           <Blog handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
-      <div>
-        <table>
+      <div className={styles.Blogs}>
+        <table className={styles.Blogs__table}>
           <thead>
             <tr>
               <th>ID</th>
@@ -103,10 +109,20 @@ const Blogs = () => {
                     <td>{blog.blogContents[0].title}</td>
                     <td>{blog.blogContents[0].content}</td>
                     <td>
-                      <Link to={`/${lang}/admin/dashboard/blogs/${blog.id}`}>edit</Link>
+                      <Link to={`/${lang}/admin/dashboard/blogs/${blog.id}`}>
+                        <AppButton iconButton color={'#0c2d57'}>
+                          <EditIcon />
+                        </AppButton>
+                      </Link>
                     </td>
                     <td>
-                      <button onClick={() => handleDelete(blog.id)}>delete</button>
+                      <AppButton
+                        iconButton
+                        color={'rgba(219, 45, 46, .8)'}
+                        onClick={() => handleDelete(blog.id)}
+                      >
+                        <DeleteIcon />
+                      </AppButton>
                     </td>
                   </tr>
                 );

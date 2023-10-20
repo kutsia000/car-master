@@ -5,6 +5,7 @@ import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
 import InputFileComponent from '../../components/Input/InputFileComponent';
+import AppButton from '../../components/AppButton/AppButton';
 
 const Review = ({ handleCloseDialog }) => {
   const { review, getReview, addReview, updateReview, error } = useContext(AdminServiceContext);
@@ -129,7 +130,8 @@ const Review = ({ handleCloseDialog }) => {
           onFileSelected={handleFileChange}
         />
         {error ? error : null}
-        <button type="submit">submit</button>
+        <AppButton type={'submit'} full label="submit" />
+        {/* <button type="submit">submit</button> */}
       </form>
     </>
   );

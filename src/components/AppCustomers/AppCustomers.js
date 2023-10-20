@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styles from './AppCustomers.module.scss';
 import AppContainer from '../../layout/AppContainer/AppContainer';
 import AppSectionTitle from '../AppSectionTitle/AppSectionTitle';
 import AppCustomerCard from './AppCustomerCard';
+import { LandingServiceContext } from '../../services/LandingServices/LandingService';
 
 export default function AppCustomers() {
+  const { reviews } = useContext(LandingServiceContext);
+
+  useEffect(() => {
+    console.log(reviews);
+  }, [reviews]);
+
   return (
     <section className={styles.AppCustomers}>
       <AppContainer>
