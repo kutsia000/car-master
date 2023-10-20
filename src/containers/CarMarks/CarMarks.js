@@ -74,6 +74,8 @@ const CarMarks = () => {
   if (loading) {
     return <LoadingMarkUp />;
   }
+  
+  isOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
 
   return (
     <>

@@ -76,7 +76,8 @@ const Notifications = () => {
   if (loading) {
     return <LoadingMarkUp />;
   }
-
+  isOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
+  
   if (isOpen) { 
     return (
     <Dialog onClose={handleCloseDialog}>

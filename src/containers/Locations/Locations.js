@@ -72,7 +72,7 @@ const Locations = () => {
   if (loading) {
     return <LoadingMarkUp />;
   }
-
+  isOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
   return (
     <>
       <button onClick={handleOpenDialog}>new</button>
