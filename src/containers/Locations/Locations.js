@@ -6,6 +6,10 @@ import Dialog from '../../components/Dialog/Dialog';
 import Location from './Location';
 import { PaginationControl } from 'react-bootstrap-pagination-control';
 import { Link, useLocation, createSearchParams, useNavigate, useParams } from 'react-router-dom';
+import AppButton from '../../components/AppButton/AppButton';
+import EditIcon from '../../components/Icons/EditIcon';
+import DeleteIcon from '../../components/Icons/DeleteIcon';
+import styles from './Locations.module.scss';
 
 const Locations = () => {
   const location = useLocation();
@@ -75,15 +79,17 @@ const Locations = () => {
   isOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
   return (
     <>
-      <button onClick={handleOpenDialog}>new</button>
+      <div className={styles.Locations__new}>
+        <AppButton large label={'new'} onClick={handleOpenDialog} color={'#0c2d57'} />
+      </div>
       {isOpen && (
         <Dialog onClose={handleCloseDialog}>
           <Location handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
       <div>
-        <table>
-          <thead>
+        <table className={styles.Locations}>
+          <thead className={styles.Locations__table}>
             <tr>
               <th>ID</th>
               <th>Name</th>
@@ -99,10 +105,21 @@ const Locations = () => {
                     <td>{location.id}</td>
                     <td>{location.name}</td>
                     <td>
-                      <Link to={`/${lang}/admin/dashboard/locations/${location.id}`}>edit</Link>
+                      <Link to={`/${lang}/admin/dashboard/locations/${location.id}`}>
+                        <AppButton iconButton color={'#0c2d57'}>
+                          <EditIcon />
+                        </AppButton>
+                      </Link>
                     </td>
                     <td>
-                      <button onClick={() => handleDelete(location.id)}>delete</button>
+                      <AppButton
+                        iconButton
+                        color={'rgba(219, 45, 46, .8)'}
+                        onClick={() => handleDelete(location.id)}
+                      >
+                        <DeleteIcon />
+                      </AppButton>
+                      {/* <button onClick={() => handleDelete(location.id)}>delete</button> */}
                     </td>
                   </tr>
                 );

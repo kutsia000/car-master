@@ -110,6 +110,7 @@ const AdminService = ({ children }) => {
           recieverPorts,
           lines,
           dealers,
+          userDTO,
         } = response.data;
         if (!isSuccess) {
           setError(message);
@@ -126,6 +127,7 @@ const AdminService = ({ children }) => {
           setAllRecieverPorts(recieverPorts);
           setAllLines(lines);
           setDealers(dealers);
+          setUser(userDTO);
           //console.log(userTypes);
         }
         //console.log(code);
@@ -183,6 +185,26 @@ const AdminService = ({ children }) => {
       }
     } catch (error) {
       setError(error);
+    }
+  };
+
+  const resetPassword = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post('/Admin/ResetPassword', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setError(response.statusText);
+      }
+    } catch (ex) {
+      setError(error);
+      setSuccess(false);
     }
   };
 
@@ -1966,6 +1988,7 @@ const AdminService = ({ children }) => {
     <AdminServiceContext.Provider
       value={{
         home,
+        resetPassword,
         getUsers,
         getUserById,
         registerUser,

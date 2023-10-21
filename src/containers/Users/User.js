@@ -6,6 +6,7 @@ import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
 import Select from 'react-select';
 import { validateForm } from '../../utils/formValidation';
+import AppButton from '../../components/AppButton/AppButton';
 
 const User = ({ handleCloseDialog }) => {
   const {
@@ -211,164 +212,138 @@ const User = ({ handleCloseDialog }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="card">
-          <div className="card-body">
-            {/* <label className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-form-label">
+        {/* <div className="card">
+          <div className="card-body"> */}
+        {/* <label className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-form-label">
                 username
               </label> */}
-            <InputComponent
-              label="userName"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              type="text"
-              className="form-control"
-              id="userName"
-              required={true}
-              name="userName"
-              value={formData.userName}
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              onChange={(e) => handleInputChange(e)}
-              error={errors.userName}
+        <InputComponent
+          label="userName"
+          type="text"
+          id="userName"
+          required={true}
+          name="userName"
+          value={formData.userName}
+          onChange={(e) => handleInputChange(e)}
+          error={errors.userName}
+        />
+        <InputComponent
+          label="firstName"
+          type="text"
+          id="firstName"
+          required={true}
+          name="firstName"
+          value={formData.firstName}
+          onChange={(e) => handleInputChange(e)}
+          error={errors.firstName}
+        />
+        <InputComponent
+          label="lastName"
+          type="text"
+          id="lastName"
+          required={true}
+          name="lastName"
+          value={formData.lastName}
+          onChange={(e) => handleInputChange(e)}
+          error={errors.lastName}
+        />
+        <InputComponent
+          label="personalId"
+          type="text"
+          id="personalId"
+          required={true}
+          name="personalId"
+          value={formData.personalId}
+          onChange={(e) => handleInputChange(e)}
+          error={errors.personalId}
+        />
+        <InputComponent
+          label="email"
+          type="text"
+          id="email"
+          required={false}
+          name="email"
+          value={formData.email}
+          onChange={(e) => handleInputChange(e)}
+          error={errors.email}
+        />
+        <InputComponent
+          label="phoneNumber"
+          type="text"
+          id="phoneNumber"
+          required={false}
+          name="phoneNumber"
+          value={formData.phoneNumber}
+          onChange={(e) => handleInputChange(e)}
+          error={errors.phoneNumber}
+        />
+        <InputComponent
+          label="passwordHash"
+          type="password"
+          id="passwordHash"
+          required={userId ? false : true}
+          name="passwordHash"
+          value={formData.passwordHash}
+          onChange={(e) => handleInputChange(e)}
+          error={errors.passwordHash}
+        />
+        <InputComponent
+          label="dateBirth"
+          type="date"
+          id="dateBirth"
+          required={true}
+          name="dateBirth"
+          value={formData.dateBirth}
+          onChange={(e) => handleInputChange(e)}
+          error={errors.dateBirth}
+        />
+        <div className="form-group row">
+          <label htmlFor="userTypes" className="col-sm-12 col-md-4 col-lg-4 col-form-label">
+            usertypes
+          </label>
+          <div className="col-sm-12 col-md-8 col-lg-8">
+            <Select
+              id="userTypes"
+              options={selUserTypes}
+              onChange={handleUserTypeChange}
+              isSearchable
+              placeholder="select"
+              value={selectedUserType}
             />
-            <InputComponent
-              label="firstName"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              type="text"
-              className="form-control"
-              id="firstName"
-              required={true}
-              name="firstName"
-              value={formData.firstName}
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              onChange={(e) => handleInputChange(e)}
-              error={errors.firstName}
-            />
-            <InputComponent
-              label="lastName"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              type="text"
-              className="form-control"
-              id="lastName"
-              required={true}
-              name="lastName"
-              value={formData.lastName}
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              onChange={(e) => handleInputChange(e)}
-              error={errors.lastName}
-            />
-            <InputComponent
-              label="personalId"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              type="text"
-              className="form-control"
-              id="personalId"
-              required={true}
-              name="personalId"
-              value={formData.personalId}
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              onChange={(e) => handleInputChange(e)}
-              error={errors.personalId}
-            />
-            <InputComponent
-              label="email"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              type="text"
-              className="form-control"
-              id="email"
-              required={false}
-              name="email"
-              value={formData.email}
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              onChange={(e) => handleInputChange(e)}
-              error={errors.email}
-            />
-            <InputComponent
-              label="phoneNumber"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              type="text"
-              className="form-control"
-              id="phoneNumber"
-              required={false}
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              onChange={(e) => handleInputChange(e)}
-              error={errors.phoneNumber}
-            />
-            <InputComponent
-              label="passwordHash"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              type="password"
-              className="form-control"
-              id="passwordHash"
-              required={userId ? false : true}
-              name="passwordHash"
-              value={formData.passwordHash}
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              onChange={(e) => handleInputChange(e)}
-              error={errors.passwordHash}
-            />
-            <InputComponent
-              label="dateBirth"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              type="date"
-              className="form-control"
-              id="dateBirth"
-              required={true}
-              name="dateBirth"
-              value={formData.dateBirth}
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              onChange={(e) => handleInputChange(e)}
-              error={errors.dateBirth}
-            />
-            <div className="form-group row">
-              <label htmlFor="userTypes" className="col-sm-12 col-md-4 col-lg-4 col-form-label">
-                usertypes
-              </label>
-              <div className="col-sm-12 col-md-8 col-lg-8">
-                <Select
-                  id="userTypes"
-                  options={selUserTypes}
-                  onChange={handleUserTypeChange}
-                  isSearchable
-                  placeholder="select"
-                  value={selectedUserType}
-                />
-                {errors.userTypeId && (
-                  <span
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      marginTop: '0.25rem',
-                      fontSize: '.875rem',
-                      color: '#dc3545',
-                    }}
-                  >
-                    {errors.userTypeId}
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className="form-group row">
-              <label
-                htmlFor="pricelistgroup"
-                className="col-sm-12 col-md-4 col-lg-4 col-form-label"
+            {errors.userTypeId && (
+              <span
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  marginTop: '0.25rem',
+                  fontSize: '.875rem',
+                  color: '#dc3545',
+                }}
               >
-                price list group
-              </label>
-              <div className="col-sm-12 col-md-8 col-lg-8">
-                <Select
-                  id="pricelistgroup"
-                  options={priceListGroups}
-                  onChange={handlePriceListGroupChange}
-                  isSearchable
-                  placeholder="select"
-                  value={selectedPriceListGroup}
-                />
-              </div>
-            </div>
-            <button type="submit">submit</button>
+                {errors.userTypeId}
+              </span>
+            )}
           </div>
         </div>
+        <div className="form-group row">
+          <label htmlFor="pricelistgroup" className="col-sm-12 col-md-4 col-lg-4 col-form-label">
+            price list group
+          </label>
+          <div className="col-sm-12 col-md-8 col-lg-8">
+            <Select
+              id="pricelistgroup"
+              options={priceListGroups}
+              onChange={handlePriceListGroupChange}
+              isSearchable
+              placeholder="select"
+              value={selectedPriceListGroup}
+            />
+          </div>
+        </div>
+        <AppButton type={'submit'} large label={'submit'} />
+        {/* <button type="submit">submit</button> */}
+        {/* </div>
+        </div> */}
       </form>
     </>
   );

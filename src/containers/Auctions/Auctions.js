@@ -6,6 +6,10 @@ import Dialog from '../../components/Dialog/Dialog';
 import Auction from './Auction';
 import { PaginationControl } from 'react-bootstrap-pagination-control';
 import { Link, useLocation, createSearchParams, useNavigate, useParams } from 'react-router-dom';
+import AppButton from '../../components/AppButton/AppButton';
+import EditIcon from '../../components/Icons/EditIcon';
+import DeleteIcon from '../../components/Icons/DeleteIcon';
+import styles from './Auctions.module.scss';
 
 const Auctions = () => {
   const location = useLocation();
@@ -76,15 +80,17 @@ const Auctions = () => {
   isOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
   return (
     <>
-      <button onClick={handleOpenDialog}>new</button>
+      <div className={styles.Auctions__new}>
+        <AppButton large label={'new'} onClick={handleOpenDialog} color={'#0c2d57'} />
+      </div>
       {isOpen && (
         <Dialog onClose={handleCloseDialog}>
           <Auction handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
       <div>
-        <table>
-          <thead>
+        <table className={styles.Auctions}>
+          <thead className={styles.Auctions__table}>
             <tr>
               <th>ID</th>
               <th>AuctionName</th>
@@ -104,10 +110,21 @@ const Auctions = () => {
                     <td>{auction.url}</td>
                     <td>{auction.trackingUrl}</td>
                     <td>
-                      <Link to={`/${lang}/admin/dashboard/auctions/${auction.id}`}>edit</Link>
+                      <Link to={`/${lang}/admin/dashboard/auctions/${auction.id}`}>
+                        <AppButton iconButton color={'#0c2d57'}>
+                          <EditIcon />
+                        </AppButton>
+                      </Link>
                     </td>
                     <td>
-                      <button onClick={() => handleDelete(auction.id)}>delete</button>
+                      <AppButton
+                        iconButton
+                        color={'rgba(219, 45, 46, .8)'}
+                        onClick={() => handleDelete(auction.id)}
+                      >
+                        <DeleteIcon />
+                      </AppButton>
+                      {/* <button onClick={() => handleDelete(auction.id)}>delete</button> */}
                     </td>
                   </tr>
                 );

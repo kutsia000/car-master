@@ -7,6 +7,7 @@ import InputComponent from '../../components/Input/InputComponent';
 import Select from 'react-select';
 import { validateCarForm } from '../../utils/carFormValidation';
 import InputFileComponent from '../../components/Input/InputFileComponent';
+import AppButton from '../../components/AppButton/AppButton';
 
 const Car = ({ handleCloseDialog }) => {
   const {
@@ -699,7 +700,7 @@ const Car = ({ handleCloseDialog }) => {
               required={false}
               onFileSelected={handleImagesChange}
             />
-            <button type="submit">submit</button>
+            <AppButton type={'submit'} full label="submit" />
           </form>
         </div>
       </div>

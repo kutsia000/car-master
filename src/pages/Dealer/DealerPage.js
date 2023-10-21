@@ -3,8 +3,10 @@ import LogOut from '../../containers/Header/Subcomponents/LogOut/LogOut';
 import { AuthService } from '../../services/AuthService';
 import { AxiosInterceptor } from '../../services/AxiosInterceptor';
 import { DealerService } from '../../services/Dealer/DealerService';
-import { Outlet } from 'react-router-dom';
+
 import DealerDashboard from '../../containers/Dealer/Dashboard';
+import AppAdminHeader from '../../components/Admin/AppAdminHeader/AppAdminHeader';
+import DealerHomePage from './DealerHomePage';
 
 const DealerDashboardPage = () => {
   return (
@@ -13,8 +15,9 @@ const DealerDashboardPage = () => {
         <AxiosInterceptor>
           <LogOut />
           <DealerService>
+            <AppAdminHeader />
             <DealerDashboard />
-            <Outlet />
+            <DealerHomePage />
           </DealerService>
         </AxiosInterceptor>
       </AuthService>

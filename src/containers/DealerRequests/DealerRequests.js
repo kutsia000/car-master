@@ -4,6 +4,10 @@ import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import { PaginationControl } from 'react-bootstrap-pagination-control';
 import { useLocation, createSearchParams, useNavigate } from 'react-router-dom';
+import AppButton from '../../components/AppButton/AppButton';
+import EditIcon from '../../components/Icons/EditIcon';
+import DeleteIcon from '../../components/Icons/DeleteIcon';
+import styles from './DealerRequests.module.scss';
 
 const DealerRequests = () => {
   const location = useLocation();
@@ -67,8 +71,8 @@ const DealerRequests = () => {
   return (
     <>
       <div>
-        <table>
-          <thead>
+        <table className={styles.DealerRequests}>
+          <thead className={styles.DealerRequests__table}>
             <tr>
               <th>ID</th>
               <th>fullName</th>

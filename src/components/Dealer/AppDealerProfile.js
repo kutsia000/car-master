@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import AppSectionTitle from '../../AppSectionTitle/AppSectionTitle';
-import styles from './AppAdminProfile.module.scss';
-import AppButton from '../../AppButton/AppButton';
-import { AdminServiceContext } from '../../../services/AdminService';
+import AppSectionTitle from '../AppSectionTitle/AppSectionTitle';
+import styles from '../Admin/AppAdminProfile/AppAdminProfile.module.scss';
+import AppButton from '../AppButton/AppButton';
+import { DealerServiceContext } from '../../services/Dealer/DealerService';
 
-export default function AppAdminProfile() {
-  const { user, resetPassword, success, message } = useContext(AdminServiceContext);
+export default function AppDealerProfile() {
   const [userName, setUserName] = useState('');
   const [userType, setUserType] = useState('');
   const [formValues, setFormValues] = useState({
@@ -13,12 +12,12 @@ export default function AppAdminProfile() {
     password: '',
   });
 
-  useEffect(() => {
-    if (user) {
-      setUserName(user.userName);
-      setUserType(user.userTypeName);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     setUserName(user.userName);
+  //     setUserType(user.userTypeName);
+  //   }
+  // }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,10 +29,10 @@ export default function AppAdminProfile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await resetPassword(formValues);
-    if (success) {
-      alert('პაროლი შეიცვალა');
-    }
+    //await resetPassword(formValues);
+    // if (success) {
+    //   alert('პაროლი შეიცვალა');
+    // }
   };
 
   return (

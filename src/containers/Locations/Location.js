@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
+import AppButton from '../../components/AppButton/AppButton';
 
 const Location = ({ handleCloseDialog }) => {
   const { Location, getLocationById, addLocation, updateLocation, error, success } =
@@ -103,7 +104,7 @@ const Location = ({ handleCloseDialog }) => {
         />
 
         {error ? error : null}
-        <button type="submit">submit</button>
+        <AppButton type={'submit'} full label="submit" />
       </form>
     </>
   );

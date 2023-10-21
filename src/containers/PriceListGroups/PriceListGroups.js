@@ -6,6 +6,10 @@ import Dialog from '../../components/Dialog/Dialog';
 import PriceListGroup from './PriceListGroup';
 import { PaginationControl } from 'react-bootstrap-pagination-control';
 import { Link, useLocation, createSearchParams, useNavigate, useParams } from 'react-router-dom';
+import AppButton from '../../components/AppButton/AppButton';
+import EditIcon from '../../components/Icons/EditIcon';
+import DeleteIcon from '../../components/Icons/DeleteIcon';
+import styles from './PriceListGroups.module.scss';
 
 const PriceListGroups = () => {
   const location = useLocation();
@@ -73,17 +77,21 @@ const PriceListGroups = () => {
     return <LoadingMarkUp />;
   }
 
+  isOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
+
   return (
     <>
-      <button onClick={handleOpenDialog}>new</button>
+      <div className={styles.PriceListGroups__new}>
+        <AppButton large label={'new'} onClick={handleOpenDialog} color={'#0c2d57'} />
+      </div>
       {isOpen && (
         <Dialog onClose={handleCloseDialog}>
           <PriceListGroup handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
       <div>
-        <table>
-          <thead>
+        <table className={styles.PriceListGroups}>
+          <thead className={styles.PriceListGroups__table}>
             <tr>
               <th>ID</th>
               <th>Name</th>
@@ -100,11 +108,20 @@ const PriceListGroups = () => {
                     <td>{priceListGroup.name}</td>
                     <td>
                       <Link to={`/${lang}/admin/dashboard/pricelistgroups/${priceListGroup.id}`}>
-                        edit
+                        <AppButton iconButton color={'#0c2d57'}>
+                          <EditIcon />
+                        </AppButton>
                       </Link>
                     </td>
                     <td>
-                      <button onClick={() => handleDelete(priceListGroup.id)}>delete</button>
+                      <AppButton
+                        iconButton
+                        color={'rgba(219, 45, 46, .8)'}
+                        onClick={() => handleDelete(priceListGroup.id)}
+                      >
+                        <DeleteIcon />
+                      </AppButton>
+                      {/* <button onClick={() => handleDelete(priceListGroup.id)}>delete</button> */}
                     </td>
                   </tr>
                 );

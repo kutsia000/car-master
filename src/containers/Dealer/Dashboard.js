@@ -3,42 +3,36 @@ import { useTranslation } from 'react-i18next';
 import { DealerServiceContext } from '../../services/Dealer/DealerService';
 import NotificationDialog from '../Notification/NotificationDialog';
 import LoadingMarkUp from '../../components/Loading/Loading';
+import { Link } from 'react-router-dom';
+import styles from '../../components/Admin/AppAdminDashboard/Dashboard.module.scss';
 
 const DealerDashboard = () => {
-  const { getDealerHome, notifications, agreeNotification, error, success } =
-    useContext(DealerServiceContext);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
-  const [loading, setLoading] = useState(true);
-
-  const fetchData = async () => {
-    await getDealerHome();
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const handleNotificationAgree = async () => {
-    if (notifications) {
-      if (notifications[0]) {
-        await agreeNotification(notifications[0].id);
-        fetchData();
-      }
-    }
-  };
-
-  if (loading) {
-    return <LoadingMarkUp />;
-  }
-
   return (
     <>
-      {notifications && (
-        <NotificationDialog notification={notifications[0]} handleAgree={handleNotificationAgree} />
-      )}
-      delaer dashboard
+      <nav className={styles.AdminDashboard}>
+        <ul>
+          <li>
+            <Link to={`/${lang}/dealer/dashboard/profile`}>
+              <span className={styles.AdminDashboard__link} style={{ color: 'black ' }}>
+                profile
+              </span>
+            </Link>
+          </li>
+
+          <li>
+            <Link to={`/${lang}/dealer/dashboard/mypricelist`} style={{ color: 'black' }}>
+              <span style={{ color: 'black ' }}>mypricelist</span>
+            </Link>
+          </li>
+          <li>
+            <Link to={`/${lang}/dealer/dashboard/cars`} style={{ color: 'black' }}>
+              <span style={{ color: 'black ' }}>cars</span>
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </>
   );
 };

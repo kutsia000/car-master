@@ -6,6 +6,10 @@ import Dialog from '../../components/Dialog/Dialog';
 import Port from './Port';
 import { PaginationControl } from 'react-bootstrap-pagination-control';
 import { Link, useLocation, createSearchParams, useNavigate, useParams } from 'react-router-dom';
+import AppButton from '../../components/AppButton/AppButton';
+import EditIcon from '../../components/Icons/EditIcon';
+import DeleteIcon from '../../components/Icons/DeleteIcon';
+import styles from './Ports.module.scss';
 
 const Ports = () => {
   const location = useLocation();
@@ -71,18 +75,20 @@ const Ports = () => {
   if (loading) {
     return <LoadingMarkUp />;
   }
-
+  isOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
   return (
     <>
-      <button onClick={handleOpenDialog}>new</button>
+      <div className={styles.Ports__new}>
+        <AppButton large label={'new'} onClick={handleOpenDialog} color={'#0c2d57'} />
+      </div>
       {isOpen && (
         <Dialog onClose={handleCloseDialog}>
           <Port handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
       <div>
-        <table>
-          <thead>
+        <table className={styles.Ports}>
+          <thead className={styles.Ports__table}>
             <tr>
               <th>ID</th>
               <th>Name</th>
@@ -98,10 +104,21 @@ const Ports = () => {
                     <td>{port.id}</td>
                     <td>{port.name}</td>
                     <td>
-                      <Link to={`/${lang}/admin/dashboard/ports/${port.id}`}>edit</Link>
+                      <Link to={`/${lang}/admin/dashboard/ports/${port.id}`}>
+                        <AppButton iconButton color={'#0c2d57'}>
+                          <EditIcon />
+                        </AppButton>
+                      </Link>
                     </td>
                     <td>
-                      <button onClick={() => handleDelete(port.id)}>delete</button>
+                      <AppButton
+                        iconButton
+                        color={'rgba(219, 45, 46, .8)'}
+                        onClick={() => handleDelete(port.id)}
+                      >
+                        <DeleteIcon />
+                      </AppButton>
+                      {/* <button onClick={() => handleDelete(port.id)}>delete</button> */}
                     </td>
                   </tr>
                 );

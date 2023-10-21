@@ -5,6 +5,7 @@ import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
 import InputFileComponent from '../../components/Input/InputFileComponent';
+import AppButton from '../../components/AppButton/AppButton';
 
 const Blog = ({ handleCloseDialog }) => {
   const { blog, getBlogByIdAllLanguages, addBlog, updateBlog, error, success } =
@@ -147,7 +148,7 @@ const Blog = ({ handleCloseDialog }) => {
           onFileSelected={handleImagesChange}
         />
         {error && <label>{error}</label>}
-        <button type="submit">Submit</button>
+        <AppButton type={'submit'} full label="submit" />
       </form>
     </>
   );

@@ -11,8 +11,10 @@ import {
   GridToolbar,
   GridRowEditStopReasons,
 } from '@mui/x-data-grid';
+import AppButton from '../../components/AppButton/AppButton';
 import DeleteIcon from '../../components/Icons/DeleteIcon';
 import EditIcon from '../../components/Icons/EditIcon';
+import styles from './Users.module.scss';
 
 const Users = () => {
   const location = useLocation();
@@ -229,14 +231,28 @@ const Users = () => {
           <User handleCloseDialog={handleCloseDialog}></User>
         </Dialog>
       )}
-      <div>
-        <button type="button" className="btn btn-md btn-success" onClick={handleOpenDialog}>
+      <div className="row" style={{ marginBottom: '20px' }}>
+        <div className={styles.Users__new}>
+          <AppButton type="button" large label={'new'} onClick={handleOpenDialog} />
+        </div>
+        {/* <button type="button" className="btn btn-md btn-success" onClick={handleOpenDialog}>
           new
-        </button>
-        <button type="button" className="btn btn-md btn-primary" onClick={(e) => handleSave(e)}>
+        </button> */}
+        <div className={styles.Users__new}>
+          <AppButton
+            type={'button'}
+            large
+            label={'save'}
+            onClick={(e) => handleSave(e)}
+            color={'#0c2d57'}
+          />
+        </div>
+        {/* <button type="button" className="btn btn-md btn-primary" onClick={(e) => handleSave(e)}>
           save
-        </button>
+        </button> */}
+        <label style={{ color: 'white' }}>{editedRows.length} row(s) affected</label>
       </div>
+
       <div>
         {users && (
           <DataGrid
