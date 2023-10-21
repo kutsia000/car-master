@@ -9,7 +9,7 @@ export default function AppCustomers() {
   const { reviews } = useContext(LandingServiceContext);
 
   useEffect(() => {
-    console.log(reviews);
+    //console.log(reviews);
   }, [reviews]);
 
   return (
@@ -20,7 +20,18 @@ export default function AppCustomers() {
           subtitle="გაეცანი ჩვენი მომხარებლების შეფასებებს ჩვენს შესახებ"
         />
         <div className={styles.AppCustomers__wrap}>
-          <AppCustomerCard
+          {reviews &&
+            reviews.map((review) => {
+              return (
+                <AppCustomerCard
+                  key={review.div}
+                  review={review.text}
+                  name={review.fullName}
+                  image={'https://cl1ne.ge' + review.imgUrl}
+                />
+              );
+            })}
+          {/* <AppCustomerCard
             review="ძალიან კარგი სერვისი და თავისი საქმის პროფესიონალები. რეკომენდაციას ვუწევ Carline -ს !"
             name="მაია ჭიღლაძე"
           />
@@ -31,7 +42,7 @@ export default function AppCustomers() {
           <AppCustomerCard
             review="პირველად ვისარგებლე ამ კომპანიის სერვისით , არ ვიცოდი რა იქნებოდა თუმცა არ ვნანობ ! ! !"
             name="ლაშა მურადაშვილი"
-          />
+          /> */}
         </div>
       </AppContainer>
     </section>

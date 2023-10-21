@@ -2,16 +2,16 @@ import React from 'react';
 import styles from './AppCustomerCard.module.scss';
 import AppImage from '../AppImage/AppImage';
 
-export default function AppCustomerCard({ review, name }) {
+export default function AppCustomerCard({ review, name, image }) {
   return (
     <article className={styles.AppCustomerCard}>
-      <figure style={{width: "48px", height: "48px"}}>
+      <figure style={{ width: '48px', height: '48px' }}>
         <MarksIcon />
       </figure>
       <span className={styles.AppCustomerCard__review}>{review}</span>
       <div className={styles.AppCustomerCard__customer}>
         <figure>
-          <AppImage src={'/images/customer.jpg'} />
+          <AppImage src={image} />
         </figure>
         <h3 className={styles.AppCustomerCard__name}>{name}</h3>
       </div>
