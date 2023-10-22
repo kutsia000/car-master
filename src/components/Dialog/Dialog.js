@@ -6,7 +6,7 @@ const Dialog = ({ onClose, children }) => {
   return (
     <div className={styles.Dialog} open onClose={onClose}>
       <div className={styles.Dialog__content}>
-        <div>{children}</div>
+        <div style={{height: '100%'}}>{children}</div>
       </div>
       <div className={styles['Dialog--close']} onClick={onClose}>
         <figure style={{ cursor: 'pointer', width: 'fit-content', margin: 0 }}>
