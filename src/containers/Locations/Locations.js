@@ -87,9 +87,9 @@ const Locations = () => {
           <Location handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
-      <div>
-        <table className={styles.Locations}>
-          <thead className={styles.Locations__table}>
+      <div className={styles.Locations}>
+        <table className={styles.Locations__table}>
+          <thead>
             <tr>
               <th>ID</th>
               <th>Name</th>

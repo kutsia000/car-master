@@ -90,11 +90,12 @@ const CarModels = () => {
           <CarModel handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
-      <div>
-        <table className={styles.CarModels}>
-          <thead className={styles.CarModels__table}>
+      <div className={styles.CarModels}>
+        <table className={styles.CarModels__table}>
+          <thead>
             <tr>
               <th>ID</th>
+              <th>CarMark</th>
               <th>Name</th>
               <th>Edit</th>
               <th>Delete</th>

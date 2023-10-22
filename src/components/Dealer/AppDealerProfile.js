@@ -7,17 +7,18 @@ import { DealerServiceContext } from '../../services/Dealer/DealerService';
 export default function AppDealerProfile() {
   const [userName, setUserName] = useState('');
   const [userType, setUserType] = useState('');
+  const { user, resetPassword, success, message } = useContext(DealerServiceContext);
   const [formValues, setFormValues] = useState({
     username: '',
     password: '',
   });
 
-  // useEffect(() => {
-  //   if (user) {
-  //     setUserName(user.userName);
-  //     setUserType(user.userTypeName);
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (user) {
+      setUserName(user.userName);
+      setUserType(user.userTypeName);
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,10 +30,18 @@ export default function AppDealerProfile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //await resetPassword(formValues);
-    // if (success) {
-    //   alert('პაროლი შეიცვალა');
-    // }
+    if (formValues.password.length < 8) {
+      alert('პაროლი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს');
+      return;
+    }
+    await resetPassword(formValues);
+    if (success) {
+      alert('პაროლი შეიცვალა');
+      setFormValues((prevValues) => ({
+        username: '',
+        password: '',
+      }));
+    }
   };
 
   return (

@@ -88,9 +88,9 @@ const Auctions = () => {
           <Auction handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
-      <div>
-        <table className={styles.Auctions}>
-          <thead className={styles.Auctions__table}>
+      <div className={styles.Auctions}>
+        <table className={styles.Auctions__table}>
+          <thead>
             <tr>
               <th>ID</th>
               <th>AuctionName</th>

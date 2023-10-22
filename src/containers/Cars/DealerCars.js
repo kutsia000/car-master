@@ -344,7 +344,7 @@ const DealerCars = () => {
           save
         </button>
       </div>
-      <label>{editedRows.length} row(s) affected</label>
+      <label style={{ color: 'white' }}>{editedRows.length} row(s) affected</label>
       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <DataGrid
           getRowId={(row) => row.id}
@@ -374,6 +374,13 @@ const DealerCars = () => {
           pageSizeOptions={[10, 15, 25]}
           slots={{
             toolbar: GridToolbar,
+          }}
+          sx={{
+            overflowX: 'scroll',
+            background: 'white',
+            '& .MuiInputBase-input': {
+              color: 'black !important',
+            },
           }}
         />
       </div>

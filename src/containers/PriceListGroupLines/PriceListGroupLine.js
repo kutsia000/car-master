@@ -82,6 +82,7 @@ const PriceListGroupLine = ({ handleCloseDialog }) => {
   }, [selPriceListGroups]);
 
   useEffect(() => {
+    //console.log(selLocations);
     if (selLocations) {
       let opts = selLocations.map((item) => ({
         value: item.id,

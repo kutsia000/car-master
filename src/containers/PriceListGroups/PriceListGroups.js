@@ -89,9 +89,9 @@ const PriceListGroups = () => {
           <PriceListGroup handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
-      <div>
-        <table className={styles.PriceListGroups}>
-          <thead className={styles.PriceListGroups__table}>
+      <div className={styles.PriceListGroups}>
+        <table className={styles.PriceListGroups__table}>
+          <thead>
             <tr>
               <th>ID</th>
               <th>Name</th>

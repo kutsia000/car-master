@@ -31,6 +31,7 @@ import AdminProfilePage from './pages/AdminProfilePage';
 import AboutUsPage from './pages/AboutUsPage';
 import ServicesPage from './pages/ServicesPage';
 import DealerProfilePage from './pages/Dealer/DealerProfilePage';
+import DealerPriceListPage from './pages/Common/DealerPriceList';
 
 function App() {
   return (
@@ -55,7 +56,7 @@ function App() {
           <Route path={`/:lang/login`} element={<LoginPage />} />
           <Route path={`/:lang/dealer/dashboard`} element={<DealerDashboard />}>
             <Route path={`/:lang/dealer/dashboard/profile`} element={<DealerProfilePage />} />
-            <Route path={`/:lang/dealer/dashboard/mypricelist`} element={<MyPriceListPage />} />
+            <Route path={`/:lang/dealer/dashboard/mypricelist`} element={<DealerPriceListPage />} />
             <Route path={`/:lang/dealer/dashboard/cars`} element={<DealerCarsPage />} />
           </Route>
           <Route path={`/:lang/admin/dashboard`} element={<AdminDashboard />}>

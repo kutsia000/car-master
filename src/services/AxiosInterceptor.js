@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 const adminInstance = axios.create({
   //'https://api.cl1ne.ge/api',
   //'https://localhost:7164/api',
-  baseURL: 'https://api.cl1ne.ge/api',
+  baseURL: 'https://localhost:7164/api',
   headers: {
     post: {
       'Content-Type': 'application/json',

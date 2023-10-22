@@ -7,8 +7,10 @@ const DealerService = ({ children }) => {
   const [error, setError] = useState(null);
   const [notifications, setNotifications] = useState(null);
   const [success, setSuccess] = useState(true);
+  const [user, setUser] = useState(null);
   const [cars, setCars] = useState(null);
   const [car, setCar] = useState(null);
+  const [myPriceList, setMyPriceList] = useState(null);
 
   const config = {
     headers: {
@@ -50,11 +52,13 @@ const DealerService = ({ children }) => {
     try {
       const response = await dealerApi.get('/Dealer/Home');
       if (response.status === 200) {
-        const { isSuccess, notifications, message } = response.data;
+        const { isSuccess, userDTO, notifications, myPriceList, message } = response.data;
         setSuccess(isSuccess);
         if (!isSuccess) {
           setError(message);
         } else {
+          setUser(userDTO);
+          setMyPriceList(myPriceList);
           setNotifications(notifications);
         }
       } else {
@@ -125,7 +129,7 @@ const DealerService = ({ children }) => {
   const updateCar = async (reqBody) => {
     try {
       const fData = jsonToFormData(reqBody);
-      const response = await dealerApi.patch('/Cars/UpdateCar', fData, config);
+      const response = await dealerApi.patch('/Dealer/UpdateCar', fData, config);
       setError(null);
       if (response.status === 200) {
         const { isSuccess, car, message } = response.data;
@@ -145,6 +149,26 @@ const DealerService = ({ children }) => {
     }
   };
 
+  const resetPassword = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await dealerApi.post('/Dealer/ResetPassword', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setError(response.statusText);
+      }
+    } catch (ex) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
   return (
     <DealerServiceContext.Provider
       value={{
@@ -152,11 +176,14 @@ const DealerService = ({ children }) => {
         agreeNotification,
         getCars,
         updateCar,
+        resetPassword,
+        user,
         cars,
         car,
         success,
         error,
         notifications,
+        myPriceList,
       }}
     >
       {children}

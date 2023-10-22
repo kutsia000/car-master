@@ -86,9 +86,9 @@ const Ports = () => {
           <Port handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
-      <div>
-        <table className={styles.Ports}>
-          <thead className={styles.Ports__table}>
+      <div className={styles.Ports}>
+        <table className={styles.Ports__table}>
+          <thead>
             <tr>
               <th>ID</th>
               <th>Name</th>

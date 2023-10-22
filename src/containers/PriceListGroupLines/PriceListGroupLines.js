@@ -164,7 +164,13 @@ const PriceListGroupLines = () => {
           getRowId={(row) => row.lineId}
           rows={priceListGroupLines}
           columns={columns}
-          sx={{ overflowX: 'scroll' }}
+          sx={{
+            overflowX: 'scroll',
+            background: 'white',
+            '& .MuiInputBase-input': {
+              color: 'black !important',
+            },
+          }}
           {...priceListGroupLines}
           initialState={{
             ...priceListGroupLines.initialState,

@@ -605,7 +605,11 @@ const Cars = () => {
               toolbar: GridToolbar,
             }}
             sx={{
+              overflowX: 'scroll',
               background: 'white',
+              '& .MuiInputBase-input': {
+                color: 'black !important',
+              },
             }}
           />
         )}

@@ -134,7 +134,7 @@ const Users = () => {
   };
 
   const handleSave = async (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     //console.log(editedRows);
     if (editedRows.length === 0) return;
     setLoading(true);
@@ -142,6 +142,7 @@ const Users = () => {
     editedRows.forEach(async (row) => {
       await updateUser(row);
     });
+    setEditedRows([]);
     setLoading(false);
   };
 
@@ -203,14 +204,14 @@ const Users = () => {
       getActions: ({ id }) => {
         return [
           <GridActionsCellItem
-            icon={<EditIcon />}
+            icon={<EditIcon fill="#FF0000" />}
             label="Edit"
             className="textPrimary"
             onClick={handleEditClick(id)}
             color="inherit"
           />,
           <GridActionsCellItem
-            icon={<DeleteIcon />}
+            icon={<DeleteIcon fill="black" />}
             label="Delete"
             onClick={handleDeleteClick(id)}
             color="inherit"
@@ -231,7 +232,7 @@ const Users = () => {
           <User handleCloseDialog={handleCloseDialog}></User>
         </Dialog>
       )}
-      <div className="row" style={{ marginBottom: '20px' }}>
+      <div style={{ marginBottom: '20px', display: 'flex', flexDirection: 'row' }}>
         <div className={styles.Users__new}>
           <AppButton type="button" large label={'new'} onClick={handleOpenDialog} />
         </div>
@@ -250,9 +251,8 @@ const Users = () => {
         {/* <button type="button" className="btn btn-md btn-primary" onClick={(e) => handleSave(e)}>
           save
         </button> */}
-        <label style={{ color: 'white' }}>{editedRows.length} row(s) affected</label>
       </div>
-
+      <label style={{ color: 'white' }}>{editedRows.length} row(s) affected</label>
       <div>
         {users && (
           <DataGrid
