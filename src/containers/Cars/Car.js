@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { AdminServiceContext } from '../../services/AdminService';
-import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
-import Select from 'react-select';
 import { validateCarForm } from '../../utils/carFormValidation';
 import InputFileComponent from '../../components/Input/InputFileComponent';
 import AppButton from '../../components/AppButton/AppButton';
+import AppSelect from '../../components/AppSelect/AppSelect';
 
 const Car = ({ handleCloseDialog }) => {
   const {
@@ -448,261 +447,249 @@ const Car = ({ handleCloseDialog }) => {
 
   return (
     <>
-      <div className="card">
-        <div className="card-header">
-          <h2>carId : {carId}</h2>
-        </div>
-        <div className="card-body">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group row">
-              <label className="col-sm-12 col-md-4 col-lg-4 col-form-label">
-                CarMark<span style={{ color: '#dc3545' }}>*</span>
-              </label>
-              <div className="col-sm-12 col-md-8 col-lg-8">
-                <Select
-                  // id="carMarks"
-                  options={selCarMarks}
-                  onChange={handleCarMarkSelect}
-                  value={selectedCarMark}
-                  placeholder="select"
-                  isSearchable={true}
-                />
-                {errors.carMarks && (
-                  <span
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      marginTop: '0.25rem',
-                      fontSize: '.875rem',
-                      color: '#dc3545',
-                    }}
-                  >
-                    {errors.carMarks}
-                  </span>
-                )}
-              </div>
+      <div>
+        <h2>carId : {carId}</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group row">
+            <label style={{ marginBottom: '10px' }}>
+              CarMark<span style={{ color: '#dc3545' }}>*</span>
+            </label>
+            <div>
+              <AppSelect
+                //id="carMarks"
+                options={selCarMarks}
+                onChange={handleCarMarkSelect}
+                value={selectedCarMark}
+                placeholder="select"
+                isSearchable={true}
+              />
+              {errors.carMarks && (
+                <span
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    marginTop: '0.25rem',
+                    fontSize: '.875rem',
+                    color: '#dc3545',
+                  }}
+                >
+                  {errors.carMarks}
+                </span>
+              )}
             </div>
-            <div className="form-group row">
-              <label className="col-sm-12 col-md-4 col-lg-4 col-form-label">
-                carModels<span style={{ color: '#dc3545' }}>*</span>
-              </label>
-              <div className="col-sm-12 col-md-8 col-lg-8">
-                <Select
-                  getOptionLabel={({ label }) => label}
-                  options={selCarModels}
-                  onChange={handleCarModelSelect}
-                  value={selectedCarModel}
-                  placeholder={selectedCarModel ? selectedCarModel.label : 'select'}
-                  isSearchable={false}
-                />
-                {errors.carModels && (
-                  <span
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      marginTop: '0.25rem',
-                      fontSize: '.875rem',
-                      color: '#dc3545',
-                    }}
-                  >
-                    {errors.carModels}
-                  </span>
-                )}
-              </div>
+          </div>
+          <div className="form-group row">
+            <label style={{ marginBottom: '10px' }}>
+              carModels<span style={{ color: '#dc3545' }}>*</span>
+            </label>
+            <div>
+              <AppSelect
+                getOptionLabel={({ label }) => label}
+                options={selCarModels}
+                onChange={handleCarModelSelect}
+                value={selectedCarModel}
+                placeholder={selectedCarModel ? selectedCarModel.label : 'select'}
+                isSearchable={false}
+              />
+              {errors.carModels && (
+                <span
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    marginTop: '0.25rem',
+                    fontSize: '.875rem',
+                    color: '#dc3545',
+                  }}
+                >
+                  {errors.carModels}
+                </span>
+              )}
             </div>
-            <div className="form-group row">
-              <label className="col-sm-12 col-md-4 col-lg-4 col-form-label">
-                carStatuses<span style={{ color: '#dc3545' }}>*</span>
-              </label>
-              <div className="col-sm-12 col-md-8 col-lg-8">
-                <Select
-                  // id="carStatuses"
-                  options={selCarStatuses}
-                  onChange={handleCarStatusSelect}
-                  value={selectedCarStatus}
-                  placeholder="select"
-                  isSearchable={true}
-                />
-                {errors.carStatuses && (
-                  <span
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      marginTop: '0.25rem',
-                      fontSize: '.875rem',
-                      color: '#dc3545',
-                    }}
-                  >
-                    {errors.carStatuses}
-                  </span>
-                )}
-              </div>
+          </div>
+          <div className="form-group row">
+            <label style={{ marginBottom: '10px' }}>
+              carStatuses<span style={{ color: '#dc3545' }}>*</span>
+            </label>
+            <div>
+              <AppSelect
+                //id="carStatuses"
+                options={selCarStatuses}
+                onChange={handleCarStatusSelect}
+                value={selectedCarStatus}
+                placeholder="select"
+                isSearchable={true}
+              />
+              {errors.carStatuses && (
+                <span
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    marginTop: '0.25rem',
+                    fontSize: '.875rem',
+                    color: '#dc3545',
+                  }}
+                >
+                  {errors.carStatuses}
+                </span>
+              )}
             </div>
-            <div className="form-group row">
-              <label className="col-sm-12 col-md-4 col-lg-4 col-form-label">
-                Year<span style={{ color: '#dc3545' }}>*</span>
-              </label>
-              <div className="col-sm-12 col-md-8 col-lg-8">
-                <Select
-                  // id="years"
-                  options={years}
-                  onChange={handleYearSelect}
-                  value={selectedYear}
-                  placeholder="select"
-                  isSearchable={true}
-                />
-                {errors.years && (
-                  <span
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      marginTop: '0.25rem',
-                      fontSize: '.875rem',
-                      color: '#dc3545',
-                    }}
-                  >
-                    {errors.years}
-                  </span>
-                )}
-              </div>
+          </div>
+          <div className="form-group row">
+            <label style={{ marginBottom: '10px' }}>
+              Year<span style={{ color: '#dc3545' }}>*</span>
+            </label>
+            <div>
+              <AppSelect
+                //id="years"
+                options={years}
+                onChange={handleYearSelect}
+                value={selectedYear}
+                placeholder="select"
+                isSearchable={true}
+              />
+              {errors.years && (
+                <span
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    marginTop: '0.25rem',
+                    fontSize: '.875rem',
+                    color: '#dc3545',
+                  }}
+                >
+                  {errors.years}
+                </span>
+              )}
             </div>
-            <div className="form-group row">
-              <label className="col-sm-12 col-md-4 col-lg-4 col-form-label">
-                auctions<span style={{ color: '#dc3545' }}>*</span>
-              </label>
-              <div className="col-sm-12 col-md-8 col-lg-8">
-                <Select
-                  // id="auctions"
-                  options={auctions}
-                  onChange={handleAuctionSelect}
-                  value={selectedAuction}
-                  placeholder="select"
-                  isSearchable={true}
-                />
-                {errors.auctions && (
-                  <span
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      marginTop: '0.25rem',
-                      fontSize: '.875rem',
-                      color: '#dc3545',
-                    }}
-                  >
-                    {errors.auctions}
-                  </span>
-                )}
-              </div>
+          </div>
+          <div className="form-group row">
+            <label style={{ marginBottom: '10px' }}>
+              auctions<span style={{ color: '#dc3545' }}>*</span>
+            </label>
+            <div>
+              <AppSelect
+                //id="auctions"
+                options={auctions}
+                onChange={handleAuctionSelect}
+                value={selectedAuction}
+                placeholder="select"
+                isSearchable={true}
+              />
+              {errors.auctions && (
+                <span
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    marginTop: '0.25rem',
+                    fontSize: '.875rem',
+                    color: '#dc3545',
+                  }}
+                >
+                  {errors.auctions}
+                </span>
+              )}
             </div>
-            <div className="form-group row">
-              <label className="col-sm-12 col-md-4 col-lg-4 col-form-label">
-                ports<span style={{ color: '#dc3545' }}>*</span>
-              </label>
-              <div className="col-sm-12 col-md-8 col-lg-8">
-                <Select
-                  // id="ports"
-                  options={ports}
-                  onChange={handlePortSelect}
-                  value={selectedPort}
-                  placeholder="select"
-                  isSearchable={true}
-                />
-                {errors.ports && (
-                  <span
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      marginTop: '0.25rem',
-                      fontSize: '.875rem',
-                      color: '#dc3545',
-                    }}
-                  >
-                    {errors.ports}
-                  </span>
-                )}
-              </div>
+          </div>
+          <div className="form-group row">
+            <label style={{ marginBottom: '10px' }}>
+              ports<span style={{ color: '#dc3545' }}>*</span>
+            </label>
+            <div>
+              <AppSelect
+                // id="ports"
+                options={ports}
+                onChange={handlePortSelect}
+                value={selectedPort}
+                placeholder="select"
+                isSearchable={true}
+              />
+              {errors.ports && (
+                <span
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    marginTop: '0.25rem',
+                    fontSize: '.875rem',
+                    color: '#dc3545',
+                  }}
+                >
+                  {errors.ports}
+                </span>
+              )}
             </div>
-            <div className="form-group row">
-              <label className="col-sm-12 col-md-4 col-lg-4 col-form-label">
-                locations<span style={{ color: '#dc3545' }}>*</span>
-              </label>
-              <div className="col-sm-12 col-md-8 col-lg-8">
-                <Select
-                  // id="locations"
-                  options={locations}
-                  onChange={handleLocationSelect}
-                  value={selectedLocation}
-                  placeholder="select"
-                  isSearchable={true}
-                />
-                {errors.locations && (
-                  <span
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      marginTop: '0.25rem',
-                      fontSize: '.875rem',
-                      color: '#dc3545',
-                    }}
-                  >
-                    {errors.locations}
-                  </span>
-                )}
-              </div>
+          </div>
+          <div className="form-group row">
+            <label style={{ marginBottom: '10px' }}>
+              locations<span style={{ color: '#dc3545' }}>*</span>
+            </label>
+            <div>
+              <AppSelect // id="locations"
+                options={locations}
+                onChange={handleLocationSelect}
+                value={selectedLocation}
+                placeholder="select"
+                isSearchable={true}
+              />
+              {errors.locations && (
+                <span
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    marginTop: '0.25rem',
+                    fontSize: '.875rem',
+                    color: '#dc3545',
+                  }}
+                >
+                  {errors.locations}
+                </span>
+              )}
             </div>
-            <InputComponent
-              label="VINCode"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              type="text"
-              className="form-control"
-              id="vincode"
-              required={true}
-              name="vincode"
-              value={formData.vincode}
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              onChange={(e) => handleInputChange(e)}
-              error={errors.vincode}
-            />
-            <InputComponent
-              label="lotNumber"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              type="text"
-              className="form-control"
-              id="lotNumber"
-              required={true}
-              name="lotNumber"
-              value={formData.lotNumber}
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              onChange={(e) => handleInputChange(e)}
-              error={errors.lotNumber}
-            />
-            <InputFileComponent
-              label="Main Image"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              className="form-control"
-              type="file"
-              id="MainImage"
-              name="MainImage"
-              multiple={false}
-              required={false}
-              onFileSelected={handleMainImageChange}
-            />
-            <InputFileComponent
-              label="images"
-              labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
-              containerClass="col-sm-12 col-md-8 col-lg-8"
-              className="form-control"
-              type="file"
-              id="images"
-              name="images"
-              multiple={true}
-              required={false}
-              onFileSelected={handleImagesChange}
-            />
-            <AppButton type={'submit'} full label="submit" />
-          </form>
-        </div>
+          </div>
+          <InputComponent
+            label="VINCode"
+            type="text"
+            id="vincode"
+            required={true}
+            name="vincode"
+            value={formData.vincode}
+            onChange={(e) => handleInputChange(e)}
+            error={errors.vincode}
+          />
+          <InputComponent
+            label="lotNumber"
+            type="text"
+            id="lotNumber"
+            required={true}
+            name="lotNumber"
+            value={formData.lotNumber}
+            onChange={(e) => handleInputChange(e)}
+            error={errors.lotNumber}
+          />
+          <br />
+          <InputFileComponent
+            label="Main Image"
+            type="file"
+            id="MainImage"
+            name="MainImage"
+            multiple={false}
+            required={false}
+            onFileSelected={handleMainImageChange}
+          />
+          <InputFileComponent
+            label="images"
+            type="file"
+            id="images"
+            name="images"
+            multiple={true}
+            required={false}
+            onFileSelected={handleImagesChange}
+          />
+
+          <div className="form-group row"></div>
+          <div className="form-group row">
+            <AppButton type={'submit'} large label={'submit'} />
+          </div>
+        </form>
       </div>
     </>
   );

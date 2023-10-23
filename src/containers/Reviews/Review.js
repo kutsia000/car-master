@@ -129,8 +129,12 @@ const Review = ({ handleCloseDialog }) => {
           required={true}
           onFileSelected={handleFileChange}
         />
-        {error ? error : null}
-        <AppButton type={'submit'} full label="submit" />
+        {error ? <span style={{ color: 'white' }}>error</span> : null}
+        <div className="form-group row"></div>
+        <div className="form-group row"></div>
+        <div className="form-group row">
+          <AppButton type={'submit'} full label="submit" />
+        </div>
         {/* <button type="submit">submit</button> */}
       </form>
     </>

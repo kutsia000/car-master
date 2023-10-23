@@ -12,6 +12,7 @@ import AppFindYourOffer from '../../components/AppFindYourOffer/AppFindYourOffer
 import AppCheckCar from '../../components/AppHero/AppCheckCar';
 import { LandingServiceContext } from '../../services/LandingServices/LandingService';
 import { useTranslation } from 'react-i18next';
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 
 const Landing = () => {
   const { getLandingHome } = useContext(LandingServiceContext);
@@ -34,29 +35,17 @@ const Landing = () => {
 
   return (
     <>
-      {/* <h1>landing page</h1>
-    <AxiosInterceptor>
-      <LandingService>
-        <Header></Header>
-        <Outlet />
-        <Footer></Footer>
-      </LandingService>
-    </AxiosInterceptor> */}
-      {/* <AxiosInterceptor>
-        <LandingService> */}
       <AppInfoHeader />
       <AppHeader />
       <AppHeroSlider />
       <AppCheckCar />
-      {/* <AppFindCar /> */}
       <AppService />
       <AppCalculator />
       <AppFindYourOffer />
       <AppCustomers />
       <MapDrawer />
+      {/* <MessengerCustomerChat appId="" /> */}
       <AppFooter />
-      {/* </LandingService>
-      </AxiosInterceptor> */}
     </>
   );
 };

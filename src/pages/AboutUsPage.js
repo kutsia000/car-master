@@ -15,8 +15,8 @@ export default function AboutUsPage() {
       <AppHeader />
       <AppPageTitle title="ჩვენს შესახებ" />
       <AppAboutUs />
-      <AppWhatWeOffer/>
-      <AppCustomers/>
+      <AppWhatWeOffer />
+      {/* <AppCustomers/> */}
       <MapDrawer />
       <AppFooter />
     </>

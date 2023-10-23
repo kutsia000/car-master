@@ -7,6 +7,7 @@ import InputComponent from '../../components/Input/InputComponent';
 import Select from 'react-select';
 import { validateForm } from '../../utils/formValidation';
 import AppButton from '../../components/AppButton/AppButton';
+import AppSelect from '../../components/AppSelect/AppSelect';
 
 const User = ({ handleCloseDialog }) => {
   const {
@@ -172,6 +173,7 @@ const User = ({ handleCloseDialog }) => {
   };
 
   const handleUserTypeChange = (selectedOption) => {
+    console.log(selectedOption);
     setSelecteduserType(selectedOption);
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -291,56 +293,59 @@ const User = ({ handleCloseDialog }) => {
           label="dateBirth"
           type="date"
           id="dateBirth"
+          //style={{}}
           required={true}
           name="dateBirth"
           value={formData.dateBirth}
           onChange={(e) => handleInputChange(e)}
           error={errors.dateBirth}
         />
+
         <div className="form-group row">
-          <label htmlFor="userTypes" className="col-sm-12 col-md-4 col-lg-4 col-form-label">
+          <label htmlFor="userTypes" style={{ marginBottom: '10px' }}>
             usertypes
           </label>
-          <div className="col-sm-12 col-md-8 col-lg-8">
-            <Select
-              id="userTypes"
-              options={selUserTypes}
-              onChange={handleUserTypeChange}
-              isSearchable
-              placeholder="select"
-              value={selectedUserType}
-            />
-            {errors.userTypeId && (
-              <span
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  marginTop: '0.25rem',
-                  fontSize: '.875rem',
-                  color: '#dc3545',
-                }}
-              >
-                {errors.userTypeId}
-              </span>
-            )}
-          </div>
+          <AppSelect
+            id="userTypes"
+            options={selUserTypes}
+            onChange={handleUserTypeChange}
+            isSearchable
+            placeholder="select"
+            value={selectedUserType}
+          />
+          {errors.userTypeId && (
+            <span
+              style={{
+                display: 'block',
+                width: '100%',
+                marginTop: '0.25rem',
+                fontSize: '.875rem',
+                color: '#dc3545',
+              }}
+            >
+              {errors.userTypeId}
+            </span>
+          )}
         </div>
+        {/* </div> */}
         <div className="form-group row">
-          <label htmlFor="pricelistgroup" className="col-sm-12 col-md-4 col-lg-4 col-form-label">
+          <label htmlFor="pricelistgroup" style={{ marginBottom: '10px' }}>
             price list group
           </label>
-          <div className="col-sm-12 col-md-8 col-lg-8">
-            <Select
+          <div>
+            <AppSelect
               id="pricelistgroup"
               options={priceListGroups}
               onChange={handlePriceListGroupChange}
               isSearchable
               placeholder="select"
-              value={selectedPriceListGroup}
             />
           </div>
         </div>
-        <AppButton type={'submit'} large label={'submit'} />
+        <div className="form-group row"></div>
+        <div className="form-group row">
+          <AppButton type={'submit'} large label={'submit'} />
+        </div>
         {/* <button type="submit">submit</button> */}
         {/* </div>
         </div> */}

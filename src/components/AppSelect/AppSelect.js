@@ -81,8 +81,8 @@ const customStyles = {
     wordWrap: 'break-word',
     cursor: 'pointer',
     '&:active': {
-        background: 'transparent',
-      },
+      background: 'transparent',
+    },
   }),
   clearIndicator: () => ({
     color: '#475467',
@@ -99,7 +99,9 @@ export default function AppSelect({
   clearable,
   searchable,
   multiple,
+  onChange,
 }) {
+  //console.log(value);
   return (
     <Select
       options={options}
@@ -110,6 +112,7 @@ export default function AppSelect({
       value={value}
       isSearchable={searchable}
       isMulti={multiple}
+      onChange={onChange}
     />
   );
 }

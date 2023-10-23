@@ -70,9 +70,9 @@ const DealerRequests = () => {
 
   return (
     <>
-      <div>
-        <table className={styles.DealerRequests}>
-          <thead className={styles.DealerRequests__table}>
+      <div className={styles.DealerRequests}>
+        <table className={styles.DealerRequests__table}>
+          <thead>
             <tr>
               <th>ID</th>
               <th>fullName</th>

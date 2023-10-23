@@ -17,6 +17,8 @@ import Lightbox from 'react-18-image-lightbox';
 import 'react-18-image-lightbox/style.css';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import styles from './Cars.module.scss';
+import AppButton from '../../components/AppButton/AppButton';
 
 const images = [
   'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
@@ -521,14 +523,14 @@ const Cars = () => {
       getActions: ({ id }) => {
         return [
           <GridActionsCellItem
-            icon={<EditIcon />}
+            icon={<EditIcon fill="#FF0000" />}
             label="Edit"
             className="textPrimary"
             onClick={handleEditClick(id)}
             color="inherit"
           />,
           <GridActionsCellItem
-            icon={<DeleteIcon />}
+            icon={<DeleteIcon fill="black" />}
             label="Delete"
             onClick={handleDeleteClick(id)}
             color="inherit"
@@ -564,16 +566,28 @@ const Cars = () => {
           <Car handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
-      <div>
-        <button type="button" className="btn btn-md btn-success" onClick={handleOpenDialog}>
+      <div style={{ marginBottom: '20px', display: 'flex', flexDirection: 'row' }}>
+        <div className={styles.Cars__new}>
+          <AppButton type="button" large label={'new'} onClick={handleOpenDialog} />
+        </div>
+        {/* <button type="button" className="btn btn-md btn-success" onClick={handleOpenDialog}>
           new
-        </button>
-        <button type="button" className="btn btn-md btn-primary" onClick={(e) => handleSave(e)}>
-          save
-        </button>
+        </button> */}
+        <div className={styles.Cars__new}>
+          <AppButton
+            type={'button'}
+            large
+            label={'save'}
+            onClick={(e) => handleSave(e)}
+            color={'#0c2d57'}
+          />
+        </div>
       </div>
-      <label>{editedRows.length} row(s) affected</label>
-      <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+      <label style={{ color: 'white', padding: '0 40px 0 40px' }}>
+        {editedRows.length} row(s) affected
+      </label>
+      <div style={{ padding: '0 40px 0 40px' }}>
         {cars && (
           <DataGrid
             getRowId={(row) => row.id}

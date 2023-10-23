@@ -6,6 +6,7 @@ import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
 import Select from 'react-select';
 import AppButton from '../../components/AppButton/AppButton';
+import AppSelect from '../../components/AppSelect/AppSelect';
 
 const CarModel = ({ handleCloseDialog }) => {
   const { t, i18n } = useTranslation();
@@ -154,16 +155,22 @@ const CarModel = ({ handleCloseDialog }) => {
           value={formData.carModelName}
           onChange={(e) => handleInputChange(e)}
         />
-        <Select
-          options={options}
-          onChange={handleSelectChange}
-          isSearchable
-          placeholder="select"
-          value={selectedOption}
-        />
+        <div className="form-group row">
+          <label style={{ marginBottom: '5px' }}>carMark</label>
+          <AppSelect
+            options={options}
+            onChange={handleSelectChange}
+            isSearchable
+            placeholder="select"
+            value={selectedOption}
+          />
+        </div>
         {selectError && <p style={{ color: 'red' }}>{selectError}</p>}
         {error ? error : null}
-        <AppButton type={'submit'} full label="submit" />
+        <div className="form-group row"></div>
+        <div className="form-group row">
+          <AppButton type={'submit'} full label="submit" />
+        </div>
       </form>
     </>
   );

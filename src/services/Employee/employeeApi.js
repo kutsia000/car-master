@@ -2,15 +2,13 @@ import axios from 'axios';
 import handleUnauthorizedError from '../../errorHandlers/unAuthorizedhandler';
 import Cookies from 'js-cookie';
 
-const dealerApi = axios.create({
-  //'https://api.cl1ne.ge/api'
-  //'https://localhost:7164/api'
-  baseURL: 'https://api.cl1ne.ge/api',
+const employeeApi = axios.create({
+  baseURL: 'https://localhost:7164/api',
 
   timeout: 20000,
 });
 
-dealerApi.interceptors.request.use((config) => {
+employeeApi.interceptors.request.use((config) => {
   const token = Cookies.get('Token');
   //console.log(['token', token]);
   if (token) {
@@ -21,7 +19,7 @@ dealerApi.interceptors.request.use((config) => {
   }
 });
 
-dealerApi.interceptors.response.use(
+employeeApi.interceptors.response.use(
   (response) => {
     //console.log(response);
     return response;
@@ -40,4 +38,4 @@ dealerApi.interceptors.response.use(
   }
 );
 
-export default dealerApi;
+export default employeeApi;

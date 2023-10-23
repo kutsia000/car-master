@@ -129,8 +129,10 @@ const Auction = ({ handleCloseDialog }) => {
           onChange={(e) => handleInputChange(e)}
         />
         {error ? error : null}
-        <div style={{top: 18}}>
-          <AppButton type={'submit'} label={'submit'} full/>
+        <div className="form-group row"></div>
+        <div className="form-group row"></div>
+        <div className="form-group row">
+          <AppButton type={'submit'} label={'submit'} full />
         </div>
       </form>
     </>

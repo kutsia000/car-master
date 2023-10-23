@@ -93,7 +93,11 @@ const CarMark = ({ handleCloseDialog }) => {
           onChange={(e) => handleInputChange(e)}
         />
         {error ? error : null}
-        <AppButton type={'submit'} full label="submit" />
+        <div className="form-group row"></div>
+        <div className="form-group row"></div>
+        <div className="form-group row">
+          <AppButton type={'submit'} full label="submit" />
+        </div>
       </form>
     </>
   );

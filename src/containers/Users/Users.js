@@ -49,7 +49,7 @@ const Users = () => {
   }, [userId]);
 
   useEffect(() => {
-    console.log(userTypes);
+    //console.log(userTypes);
     if (userTypes) {
       const labels = userTypes.map((ut) => {
         return ut.name;
@@ -154,7 +154,7 @@ const Users = () => {
 
   const columns = [
     { field: 'id', headerName: 'Id', width: 50, hideable: true },
-    { field: 'userTypeId', headerName: 'userTypeId', width: 150, hideable: true },
+    // { field: 'userTypeId', headerName: 'userTypeId', width: 150, hideable: true },
     {
       field: 'userTypeName',
       headerName: 'UserType',
@@ -164,7 +164,7 @@ const Users = () => {
       valueOptions: comboUserTypes,
       hideable: true,
     },
-    { field: 'priceListGroupsId', headerName: 'priceListGroupsId', width: 150, hideable: true },
+    // { field: 'priceListGroupsId', headerName: 'priceListGroupsId', width: 150, hideable: true },
     {
       field: 'priceListGroupName',
       headerName: 'priceListGroupName',
@@ -252,8 +252,10 @@ const Users = () => {
           save
         </button> */}
       </div>
-      <label style={{ color: 'white' }}>{editedRows.length} row(s) affected</label>
-      <div>
+      <label style={{ color: 'white', padding: '0 40px 0 40px' }}>
+        {editedRows.length} row(s) affected
+      </label>
+      <div style={{ padding: '0 40px 0 40px' }}>
         {users && (
           <DataGrid
             getRowId={(row) => row.id}

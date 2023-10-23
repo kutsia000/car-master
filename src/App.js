@@ -5,7 +5,7 @@ import LandingBlogs from './containers/Blog/LandingBlogs';
 import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/Admin/AdminPage';
 import DealerDashboard from './pages/Dealer/DealerPage';
-import EmployeeDashboard from './pages/Employee/EmployeePage';
+import EmployeeDashboardPage from './pages/Employee/EmployeePage';
 import ReviewsPage from './pages/Admin/ReviewsPage';
 import NotFound from './pages/NotFound';
 import BlogsPage from './pages/Admin/BlogsPage';
@@ -32,13 +32,12 @@ import AboutUsPage from './pages/AboutUsPage';
 import ServicesPage from './pages/ServicesPage';
 import DealerProfilePage from './pages/Dealer/DealerProfilePage';
 import DealerPriceListPage from './pages/Common/DealerPriceList';
+import EmployeeProfilePage from './pages/Employee/EmployeeProfilePage';
+import EmployeeCarsPage from './pages/Employee/EmployeeCarsPage';
 
 function App() {
   return (
     <>
-      {/* <div className="container"> */}
-      {/* <div className="d-flex flex-column align-items-start"> */}
-      {/* <h1 className="font-weight-normal mb-3">{t('welcome_message')}</h1> */}
       <Router>
         <Routes>
           {/* <Route path="/" element={<Landing />} /> */}
@@ -109,14 +108,13 @@ function App() {
             <Route path={`/:lang/admin/dashboard/cars/:carId`} element={<CarsPage />} />
             <Route path={`/:lang/admin/dashboard/mypricelist`} element={<MyPriceListPage />} />
           </Route>
-          <Route path={`/:lang/employee/dashboard`} element={<EmployeeDashboard />}>
-            <Route path={`/:lang/employee/dashboard`} element={<MyPriceListPage />} />
+          <Route path={`/:lang/employee/dashboard`} element={<EmployeeDashboardPage />}>
+            <Route path={`/:lang/employee/dashboard/profile`} element={<EmployeeProfilePage />} />
+            <Route path={`/:lang/employee/dashboard/cars`} element={<EmployeeCarsPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-      {/* </div> */}
-      {/* </div> */}
     </>
   );
 }

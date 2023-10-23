@@ -9,6 +9,8 @@ import { useLocation, createSearchParams, useNavigate, useParams } from 'react-r
 import { DataGrid, GridActionsCellItem, GridToolbar } from '@mui/x-data-grid';
 import DeleteIcon from '../../components/Icons/DeleteIcon';
 import EditIcon from '../../components/Icons/EditIcon';
+import styles from './prline.module.scss';
+import AppButton from '../../components/AppButton/AppButton';
 
 const PriceListGroupLines = () => {
   const {
@@ -126,12 +128,12 @@ const PriceListGroupLines = () => {
       width: 80,
       getActions: (params) => [
         <GridActionsCellItem
-          icon={<EditIcon />}
+          icon={<EditIcon fill="#FF0000" />}
           label="edit"
           onClick={() => handleNavigation(params.id)}
         />,
         <GridActionsCellItem
-          icon={<DeleteIcon />}
+          icon={<DeleteIcon fill="black" />}
           label="delete"
           onClick={() => handleDelete(params.id)}
         />,
@@ -141,98 +143,67 @@ const PriceListGroupLines = () => {
 
   return (
     <>
-      {selPriceListGroups &&
-        selPriceListGroups.map((group) => {
-          return (
-            <div
-              style={{ cursor: 'pointer' }}
-              key={group.id}
-              onClick={() => handleGroupChange(group.id)}
-            >
-              {group.name}
-            </div>
-          );
-        })}
-      <button onClick={handleOpenDialog}>new</button>
+      <div style={{ marginTop: '20px' }} className={styles.Prline__new}>
+        {selPriceListGroups &&
+          selPriceListGroups.map((group) => {
+            return (
+              <AppButton
+                key={group.id}
+                type={'button'}
+                large
+                onClick={() => handleGroupChange(group.id)}
+                label={group.name}
+                style={{ cursor: 'pointer' }}
+              />
+            );
+          })}
+      </div>
+      <div style={{ marginTop: '20px' }} className={styles.Prline__new}>
+        <AppButton
+          type={'button'}
+          large
+          onClick={handleOpenDialog}
+          label={'new'}
+          color={'#0c2d57'}
+        />
+      </div>
+      {/* <button onClick={handleOpenDialog}>new</button> */}
       {isOpen && (
         <Dialog onClose={handleCloseDialog}>
           <PriceListGroupLine handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
-      {priceListGroupLines && (
-        <DataGrid
-          getRowId={(row) => row.lineId}
-          rows={priceListGroupLines}
-          columns={columns}
-          sx={{
-            overflowX: 'scroll',
-            background: 'white',
-            '& .MuiInputBase-input': {
-              color: 'black !important',
-            },
-          }}
-          {...priceListGroupLines}
-          initialState={{
-            ...priceListGroupLines.initialState,
-            pagination: { paginationModel: { pageSize: 5 } },
-          }}
-          localeText={{
-            toolbarFilters: 'ფილტრი',
-            columnMenuHideColumn: 'დამალვა',
-            toolbarColumnsLabel: 'სვეტები',
-            toolbarFiltersLabel: 'ფილტრი',
-          }}
-          pageSizeOptions={[5, 10, 25]}
-          slots={{
-            toolbar: GridToolbar,
-          }}
-        />
-      )}
-      {/* <div>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Auction</th>
-              <th>Location</th>
-              <th>Port</th>
-              <th>Price</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pageData &&
-              pageData.map((line) => {
-                return (
-                  <tr key={line.lineId}>
-                    <td>{line.lineId}</td>
-                    <td>{line.auctionName}</td>
-                    <td>{line.locationName}</td>
-                    <td>{line.portName}</td>
-                    <td>{line.price}</td>
-                    <td>
-                      <Link to={`/${lang}/admin/dashboard/pricelistgrouplines/${line.lineId}`}>
-                        edit
-                      </Link>
-                    </td>
-                    <td>
-                      <button onClick={() => handleDelete(line.lineId)}>delete</button>
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
-        <PaginationControl
-          page={page}
-          between={3}
-          total={recordsCount}
-          limit={pageSize}
-          changePage={(page) => handlePageChange(page)}
-          ellipsis={2}
-        />
-      </div> */}
+      <div style={{ padding: '0 40px 0 40px', marginTop: '20px' }}>
+        {priceListGroupLines && (
+          <DataGrid
+            getRowId={(row) => row.lineId}
+            rows={priceListGroupLines}
+            columns={columns}
+            sx={{
+              overflowX: 'scroll',
+              background: 'white',
+              '& .MuiInputBase-input': {
+                color: 'black !important',
+              },
+            }}
+            {...priceListGroupLines}
+            initialState={{
+              ...priceListGroupLines.initialState,
+              pagination: { paginationModel: { pageSize: 5 } },
+            }}
+            localeText={{
+              toolbarFilters: 'ფილტრი',
+              columnMenuHideColumn: 'დამალვა',
+              toolbarColumnsLabel: 'სვეტები',
+              toolbarFiltersLabel: 'ფილტრი',
+            }}
+            pageSizeOptions={[5, 10, 25]}
+            slots={{
+              toolbar: GridToolbar,
+            }}
+          />
+        )}
+      </div>
     </>
   );
 };

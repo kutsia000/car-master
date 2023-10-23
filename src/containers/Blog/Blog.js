@@ -16,7 +16,7 @@ const Blog = ({ handleCloseDialog }) => {
     mainImage: null,
     images: [],
     blogContents: [
-      { languageId: 1, title: '', content: '' },
+      { languageId: 1, title: '', content: '', languageName: 'ქართული' },
       { languageId: 2, title: '', content: '' },
       { languageId: 3, title: '', content: '' },
     ],
@@ -148,7 +148,11 @@ const Blog = ({ handleCloseDialog }) => {
           onFileSelected={handleImagesChange}
         />
         {error && <label>{error}</label>}
-        <AppButton type={'submit'} full label="submit" />
+        <div className="form-group row"></div>
+        <div className="form-group row"></div>
+        <div className="form-group row">
+          <AppButton type={'submit'} full label="submit" />
+        </div>
       </form>
     </>
   );

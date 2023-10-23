@@ -48,6 +48,13 @@ const AuthService = ({ children }) => {
   const logout = async () => {
     try {
       const token = Cookies.get('Token');
+      Cookies.remove('Token');
+
+      localStorage.removeItem('IsAdmin');
+
+      setAuthenticated(false);
+
+      navigate(`/${lang}/login`);
       const response = await api.post(
         '/Auth/LogOut',
         {},
@@ -66,13 +73,6 @@ const AuthService = ({ children }) => {
         }
       }
     } catch (error) {}
-    Cookies.remove('Token');
-
-    localStorage.removeItem('IsAdmin');
-
-    setAuthenticated(false);
-
-    navigate(`/${lang}/login`);
   };
 
   return (

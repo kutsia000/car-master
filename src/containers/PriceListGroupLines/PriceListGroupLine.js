@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
-import Select from 'react-select';
+import AppSelect from '../../components/AppSelect/AppSelect';
+import AppButton from '../../components/AppButton/AppButton';
 
 const PriceListGroupLine = ({ handleCloseDialog }) => {
   const {
@@ -252,15 +253,13 @@ const PriceListGroupLine = ({ handleCloseDialog }) => {
 
   return (
     <>
+      <h2>lineId:{lineId}</h2>
       <form onSubmit={handleSubmit}>
-        <h2>lineId:{lineId}</h2>
         <div className="form-group row">
-          <label htmlFor="pricelistgroup" className="col-sm-12 col-md-4 col-lg-4 col-form-label">
-            price list group
-          </label>
-          <div className="col-sm-12 col-md-8 col-lg-8">
-            <Select
-              id="pricelistgroup"
+          <label style={{ marginBottom: '10px' }}>price list group</label>
+          <div>
+            <AppSelect
+              //id="pricelistgroup"
               options={priceListGroups}
               onChange={handlePriceListGroupChange}
               isSearchable
@@ -271,12 +270,12 @@ const PriceListGroupLine = ({ handleCloseDialog }) => {
           </div>
         </div>
         <div className="form-group row">
-          <label htmlFor="auction" className="col-sm-12 col-md-4 col-lg-4 col-form-label">
+          <label htmlFor="auction" style={{ marginBottom: '10px' }}>
             auction
           </label>
-          <div className="col-sm-12 col-md-8 col-lg-8">
-            <Select
-              id="auction"
+          <div>
+            <AppSelect
+              //id="auction"
               options={auctions}
               onChange={handleAuctionChange}
               isSearchable
@@ -287,12 +286,10 @@ const PriceListGroupLine = ({ handleCloseDialog }) => {
           </div>
         </div>
         <div className="form-group row">
-          <label htmlFor="location" className="col-sm-12 col-md-4 col-lg-4 col-form-label">
-            locations
-          </label>
-          <div className="col-sm-12 col-md-8 col-lg-8">
-            <Select
-              id="location"
+          <label style={{ marginBottom: '10px' }}>locations</label>
+          <div>
+            <AppSelect
+              //id="location"
               options={locations}
               onChange={handleLocationChange}
               isSearchable
@@ -303,12 +300,10 @@ const PriceListGroupLine = ({ handleCloseDialog }) => {
           </div>
         </div>
         <div className="form-group row">
-          <label htmlFor="port" className="col-sm-12 col-md-4 col-lg-4 col-form-label">
-            ports
-          </label>
-          <div className="col-sm-12 col-md-8 col-lg-8">
-            <Select
-              id="port"
+          <label style={{ marginBottom: '10px' }}>ports</label>
+          <div>
+            <AppSelect
+              //id="port"
               options={ports}
               onChange={handlePortChange}
               isSearchable
@@ -320,18 +315,19 @@ const PriceListGroupLine = ({ handleCloseDialog }) => {
         </div>
         <InputComponent
           label="price"
-          labelClass="col-sm-12 col-md-4 col-lg-4 col-form-label"
           type="number"
-          className="form-control"
           id="price"
           required={true}
           name="price"
           value={formData.price}
-          containerClass="col-sm-12 col-md-8 col-lg-8"
           onChange={(e) => handleInputChange(e)}
         />
         {error ? error : null}
-        <button type="submit">submit</button>
+        <div className="form-group row"></div>
+        <div className="form-group row"></div>
+        <div className="form-group row">
+          <AppButton type={'submit'} large label={'submit'} />
+        </div>
       </form>
     </>
   );

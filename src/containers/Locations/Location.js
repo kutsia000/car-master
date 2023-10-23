@@ -104,7 +104,11 @@ const Location = ({ handleCloseDialog }) => {
         />
 
         {error ? error : null}
-        <AppButton type={'submit'} full label="submit" />
+        <div className="form-group row"></div>
+        <div className="form-group row"></div>
+        <div className="form-group row">
+          <AppButton type={'submit'} full label="submit" />
+        </div>
       </form>
     </>
   );
