@@ -495,7 +495,7 @@ const AdminService = ({ children }) => {
 
   const deleteBlog = async (id) => {
     try {
-      const response = await adminInstance.delete(`/Blogs/DeleteBlog?id=${id}`);
+      const response = await adminInstance.delete(`/Blogs/DeleteBlog/${id}`);
       setError(null);
       if (response.status === 200) {
         const { isSuccess, message } = response.data;
