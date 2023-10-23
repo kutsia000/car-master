@@ -145,8 +145,6 @@ const User = ({ handleCloseDialog }) => {
       }
     }
 
-    //console.log(newFormData);
-
     const errors = validateForm(newFormData, t, newFormData.hasOwnProperty('passwordHash'));
     //console.log(errors);
     setErrors(errors);
@@ -350,6 +348,9 @@ const User = ({ handleCloseDialog }) => {
         {/* </div>
         </div> */}
       </form>
+      <div style={{ float: 'right', paddingBottom: 40 }}>
+        <AppButton type={'submit'} large label={'submit'} />
+      </div>
     </>
   );
 };
