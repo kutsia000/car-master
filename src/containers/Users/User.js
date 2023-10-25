@@ -348,9 +348,6 @@ const User = ({ handleCloseDialog }) => {
         {/* </div>
         </div> */}
       </form>
-      <div style={{ float: 'right', paddingBottom: 40 }}>
-        <AppButton type={'submit'} large label={'submit'} />
-      </div>
     </>
   );
 };

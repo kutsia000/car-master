@@ -103,6 +103,7 @@ const BecomeDealer = () => {
                 value={formData.phoneNumber}
                 isValid={isPhoneValid}
                 errorMessage={phoneError}
+                required
               />
               <InputComponent
                 label="EMail"
@@ -117,6 +118,11 @@ const BecomeDealer = () => {
               rows="4"
               cols="80"
               placeholder="მოგვწერეთ თუ რა სახის დახმარება გჭირდებათ ჩვენგან და ჩვენი გუნდი უმოკლეს დროში დაგიკავშირდებთ"
+              required
+              id="text"
+              name="text"
+              onChange={(e) => handleChange(e)}
+              value={formData.text}
             />
             <AppButton label="გაგზავნა" large type={'submit'} />
             {mainError && <p className={styles.BecomeDealer__errorMessage}>{mainError}</p>}

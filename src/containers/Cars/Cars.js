@@ -20,12 +20,12 @@ import { saveAs } from 'file-saver';
 import styles from './Cars.module.scss';
 import AppButton from '../../components/AppButton/AppButton';
 
-const images = [
-  'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
-  'https://th.bing.com/th/id/OIG.lVXjWwlHyIo4QdjnC1YE',
-  'https://1.bp.blogspot.com/-kK7Fxm7U9o0/YN0bSIwSLvI/AAAAAAAACFk/aF4EI7XU_ashruTzTIpifBfNzb4thUivACLcBGAsYHQ/s1280/222.jpg',
-  'https://pixlr.com/images/index/remove-bg.webp',
-];
+// const images = [
+//   'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
+//   'https://th.bing.com/th/id/OIG.lVXjWwlHyIo4QdjnC1YE',
+//   'https://1.bp.blogspot.com/-kK7Fxm7U9o0/YN0bSIwSLvI/AAAAAAAACFk/aF4EI7XU_ashruTzTIpifBfNzb4thUivACLcBGAsYHQ/s1280/222.jpg',
+//   'https://pixlr.com/images/index/remove-bg.webp',
+// ];
 
 const Cars = () => {
   const location = useLocation();
@@ -60,6 +60,7 @@ const Cars = () => {
   const [editedRows, setEditedRows] = useState([]);
   const [lBoxIsOpen, setLBoxIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [images, setImages] = useState([]);
   // const [comboUserTypes, setComboUserTypes] = useState([]);
   // const [comboPriceListGroups, setComboPriceListGroups] = useState([]);
   const lang = i18n.language || 'en';
@@ -70,13 +71,21 @@ const Cars = () => {
     setLoading(false);
   };
 
-  const PhotoCellRenderer = ({ value }) => {
+  const PhotoCellRenderer = ({ id, value }) => {
     return (
       <img
         src={value}
         alt="Photo"
         style={{ maxWidth: '100%', maxHeight: '100px', cursor: 'pointer' }}
-        onClick={() => setLBoxIsOpen(true)}
+        onClick={() => {
+          let car = cars.find((c) => c.id == id);
+          if (car) {
+            let imgs = [car.mainImageUrl, ...car.imageURLs];
+            let images = imgs.map((i) => `https://cl1ne.ge${i}`);
+            setImages(images);
+          }
+          setLBoxIsOpen(true);
+        }}
       />
     );
   };
@@ -97,6 +106,7 @@ const Cars = () => {
 
   const handleDownloadImages = async () => {
     const zip = new JSZip();
+    //console.log(images);
     const fetchPromises = images.map((imageUrl, index) =>
       fetch(imageUrl)
         .then((response) => response.blob())
@@ -188,8 +198,7 @@ const Cars = () => {
   };
 
   const handleSave = async (e) => {
-    e.preventDefault();
-    //console.log(editedRows);
+    //console.log(e);
     if (editedRows.length === 0) return;
     setLoading(true);
 
@@ -220,8 +229,13 @@ const Cars = () => {
     //setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
   };
 
-  const handleDeleteClick = (id) => () => {
+  const handleDeleteClick = async (e, id) => {
+    e.preventDefault();
     //setRows(rows.filter((row) => row.id !== id));
+    if (id) {
+      await deleteCar(id);
+      await fetchData();
+    }
   };
 
   const handleProcessRowUpdate = (newRow, oldRow) => {
@@ -293,12 +307,13 @@ const Cars = () => {
       width: 150,
       headerName: '',
       renderCell: (params) => (
-        <PhotoCellRenderer
-          key={params.id}
-          value={
-            'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80'
-          }
-        />
+        <>
+          <PhotoCellRenderer
+            key={params.id}
+            id={params.id}
+            value={`https://cl1ne.ge${params.value}`}
+          />
+        </>
       ),
     },
     { field: 'carMarkName', headerName: t('column_carMarkName'), width: 150, hideable: true },
@@ -532,7 +547,7 @@ const Cars = () => {
           <GridActionsCellItem
             icon={<DeleteIcon fill="black" />}
             label="Delete"
-            onClick={handleDeleteClick(id)}
+            onClick={(e) => handleDeleteClick(e, id)}
             color="inherit"
           />,
         ];
