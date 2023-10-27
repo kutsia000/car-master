@@ -66,7 +66,7 @@ export default function CarInnerPage() {
     <>
       <AppInfoHeader />
       <AppHeader />
-      {car && (
+      {car ? (
         <>
           <AppCarInner images={images} data={car} />
           <section style={{ background: 'black', padding: '40px 0 60px' }}>
@@ -81,6 +81,16 @@ export default function CarInnerPage() {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen={true}
                 ></iframe>
+              </div>
+            </AppContainer>
+          </section>
+        </>
+      ) : (
+        <>
+          <section style={{ background: 'black', padding: '40px 0 60px' }}>
+            <AppContainer>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <label style={{ color: 'white', fontSize: '48px' }}>Car Not Found</label>
               </div>
             </AppContainer>
           </section>
