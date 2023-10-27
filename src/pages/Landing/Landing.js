@@ -44,9 +44,7 @@ const Landing = () => {
       <AppFindYourOffer />
       <AppCustomers />
       <MapDrawer />
-      <div style={{ zIndex: '999999' }}>
-        <MessengerCustomerChat appId="101834517907650" />
-      </div>
+      <MessengerCustomerChat appId="101834517907650" />
       <AppFooter />
     </>
   );
