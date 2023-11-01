@@ -44,6 +44,7 @@ const Cars = () => {
     allRecieverPorts,
     allLines,
     carStatuses,
+    getCarById,
     userTypes,
   } = useContext(AdminServiceContext);
   const { t, i18n } = useTranslation();
@@ -265,6 +266,7 @@ const Cars = () => {
     }
 
     const location = selLocations.find((loc) => loc.name === newRow.locationName);
+    console.log(location);
     if (location) {
       newRow.locationId = location.id;
       newRow.locationName = location.name;
@@ -349,6 +351,13 @@ const Cars = () => {
     },
     { field: 'vincode', headerName: 'vincode', width: 150, hideable: true, editable: true },
     { field: 'lotNumber', headerName: 'lotNumber', width: 150, hideable: true, editable: true },
+    {
+      field: 'containerNumber',
+      headerName: 'containerNumber',
+      width: 150,
+      hideable: true,
+      editable: true,
+    },
     { field: 'auctionId', headerName: 'auctionId', width: 50 },
     {
       field: 'auctionName',
@@ -572,6 +581,7 @@ const Cars = () => {
           onMovePrevRequest={() => setPhotoIndex((photoIndex + images.length - 1) % images.length)}
           onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % images.length)}
           enableZoom
+          imagePadding={250}
           clickOutsideToClose
           toolbarButtons={[<CustomDownloadButton />]}
         />

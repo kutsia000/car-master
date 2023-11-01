@@ -34,6 +34,7 @@ import DealerProfilePage from './pages/Dealer/DealerProfilePage';
 import DealerPriceListPage from './pages/Common/DealerPriceList';
 import EmployeeProfilePage from './pages/Employee/EmployeeProfilePage';
 import EmployeeCarsPage from './pages/Employee/EmployeeCarsPage';
+import '../src/imageWrapper.css';
 
 function App() {
   return (

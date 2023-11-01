@@ -188,6 +188,7 @@ const Users = () => {
     { field: 'personalId', headerName: 'personalId', width: 150, hideable: true },
     { field: 'email', headerName: 'email', width: 150 },
     { field: 'phoneNumber', headerName: 'phoneNumber', width: 150, hideable: true },
+    { field: 'balance', headerName: 'balance', width: 150, hideable: true, editable: true },
     {
       field: 'dateBirth',
       headerName: 'dateBirth',

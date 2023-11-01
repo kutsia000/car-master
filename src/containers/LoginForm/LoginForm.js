@@ -35,7 +35,9 @@ const LoginForm = () => {
             <AppImage src={'/images/logo.svg'} />
           </figure>
           <h3 className={styles.AppLoginForm__title}>სისტემაში შესვლა</h3>
-          <span className={styles.AppLoginForm__subtitle}>შეიყვანეთ მონაცემები რათა შეძლოთ სისტემაში ავტორიზაცია</span>
+          <span className={styles.AppLoginForm__subtitle}>
+            შეიყვანეთ მონაცემები რათა შეძლოთ სისტემაში ავტორიზაცია
+          </span>
         </div>
         <form onSubmit={handleSubmit}>
           <InputComponent
@@ -55,8 +57,8 @@ const LoginForm = () => {
             name="password"
             required
           />
-          {error && <p>{error}</p>}
-          <AppButton type={'submit'} full label='შესვლა'/>
+          {error && <p style={{ color: 'white' }}>მომხმარებლის საეხლი ან პაროლი არასწორია</p>}
+          <AppButton type={'submit'} full label="შესვლა" />
           {/* validationRegex={/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/}` */}
         </form>
       </div>

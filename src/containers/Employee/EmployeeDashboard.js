@@ -6,8 +6,25 @@ import { Link } from 'react-router-dom';
 import styles from '../../components/Admin/AppAdminDashboard/Dashboard.module.scss';
 
 const EmployeeDashboard = () => {
+  const { home } = useContext(EmployeeServiceContext);
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const callHome = async () => {
+      //console.log(home);
+      await home();
+      setLoading(false);
+      //console.log(['dashboard', response]);
+    };
+
+    callHome();
+  }, []);
+
+  if (loading) {
+    return <LoadingMarkUp />;
+  }
 
   return (
     <>

@@ -8,12 +8,15 @@ import classNames from 'classnames';
 import Lightbox from 'react-18-image-lightbox';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import 'react-18-image-lightbox/style.css';
+import AppCheckCar from '../AppHero/AppCheckCar';
 
 export default function AppCarInner({ images, data }) {
   const [imgs, setImgs] = useState([]);
   const [lightBoxImages, setLightBoxImages] = useState([]);
   const [lBoxIsOpen, setLBoxIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [dt, setDt] = useState('');
 
   useEffect(() => {
     if (data) {
@@ -27,11 +30,15 @@ export default function AppCarInner({ images, data }) {
       setImgs(images);
       let lImages = imgs.map((i) => `https://cl1ne.ge${i}`);
       setLightBoxImages(lImages);
+      if (data.containerNumber) {
+        //console.log(data.containerOpenDate);
+        setDt(data.containerOpenDate);
+      }
     }
   }, [data]);
 
   const handleLightBox = () => {
-    console.log(imgs);
+    //console.log(imgs);
     setLBoxIsOpen(true);
   };
 
@@ -59,7 +66,11 @@ export default function AppCarInner({ images, data }) {
       </button>
     );
   };
-  //console.log(imgs);
+
+  const wrapper = {
+    padding: '200px',
+  };
+  //console.log(Date(data.containerOpenDate));
   return (
     <>
       {lBoxIsOpen && lightBoxImages && (
@@ -73,12 +84,16 @@ export default function AppCarInner({ images, data }) {
           }
           onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % lightBoxImages.length)}
           enableZoom
+          imagePadding={250}
           clickOutsideToClose
           toolbarButtons={[<CustomDownloadButton />]}
         />
       )}
       <section className={styles.AppCarInner}>
         <AppContainer>
+          {/* <div style={{ marginTop: '50px;' }}>
+            <AppCheckCar />
+          </div> */}
           <div className={styles.AppCarInner__wrapper}>
             <div className={styles.AppCarInner__images}>
               {imgs.length > 0 && (
@@ -120,12 +135,12 @@ export default function AppCarInner({ images, data }) {
                 <span>მიმღები პორტი:</span>
                 <span>{data.recieverPortName}</span>
                 <span>კონტეინერის გახსნის თარიღი:</span>
-                <span>{data.containerOpen}</span>
+                <span>{dt}</span>
                 <span>კონტეინერის ნომერი:</span>
                 <span>{data.containerNumber}</span>
                 <span>აუქციონი:</span>
-                {/* <span>{data.auctionName}</span>
-              <span>Interior Color:</span>
+                <span>{data.auctionName}</span>
+                {/* <span>Interior Color:</span>
               <span>Jet Black/Ck Ash</span>
               <span>Stock Number:</span>
               <span>A16347</span> */}

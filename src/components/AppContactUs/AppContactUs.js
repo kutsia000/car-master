@@ -22,8 +22,8 @@ export default function AppContactUs() {
             <AppContactCard name="მობილური" description="+(995) 557 27 27 97">
               <PhoneIcon />
             </AppContactCard>
-            <AppContactCard name="მობილური" description="+(995) 557 27 27 97">
-              <LocationIcon />
+            <AppContactCard name="კომპანიის ტელეფონი" description="0 322 800 803">
+              <PhoneIcon />
             </AppContactCard>
             <AppContactCard name="ელ-ფოსტა" description="info@cline.ge">
               <MailIcon />
