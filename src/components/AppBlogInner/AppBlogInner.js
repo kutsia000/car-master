@@ -25,7 +25,7 @@ export default function AppBlogInner() {
     languageCode: lang,
   });
 
-  const mainUrl = 'https://cl1ne.ge';
+  const mainUrl = 'https://cline.ge';
 
   const fetchBlog = async () => {
     if (blogId) {

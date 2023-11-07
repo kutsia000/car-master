@@ -27,7 +27,7 @@ export default function AppCustomers() {
                   key={review.div}
                   review={review.text}
                   name={review.fullName}
-                  image={'https://cl1ne.ge' + review.imgUrl}
+                  image={'https://cline.ge' + review.imgUrl}
                 />
               );
             })}

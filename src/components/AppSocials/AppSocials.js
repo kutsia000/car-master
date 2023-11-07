@@ -2,8 +2,8 @@ import AppLink from '../AppLink';
 import styles from './AppSocials.module.scss';
 
 export default function AppSocials() {
-  const facebook = 'https://www.facebook.com/';
-  const instagram = 'https://www.instagram.com/';
+  const facebook = 'https://www.facebook.com/101834517907650';
+  const instagram = 'https://www.instagram.com/carline.auto.import';
   const youtube = 'https://www.youtube.com/';
 
   return (
@@ -18,11 +18,11 @@ export default function AppSocials() {
           <InstagramIcon />
         </AppLink>
       </li>
-      <li>
+      {/* <li>
         <AppLink href={youtube}>
           <YoutubeIcon />
         </AppLink>
-      </li>
+      </li> */}
     </ul>
   );
 }

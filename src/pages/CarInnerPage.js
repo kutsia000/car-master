@@ -34,7 +34,7 @@ export default function CarInnerPage() {
   useEffect(() => {
     if (car) {
       let imgs = [car.mainImageUrl, ...car.imageURLs];
-      let images = imgs.map((i) => `https://cl1ne.ge${i}`);
+      let images = imgs.map((i) => `https://cline.ge${i}`);
       setImages(images);
     }
   }, [car]);

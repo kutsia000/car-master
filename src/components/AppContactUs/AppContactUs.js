@@ -16,10 +16,10 @@ export default function AppContactUs() {
         />
         <div className={styles.AppContactUs__details}>
           <div className={styles.AppContactUs__cards}>
-            <AppContactCard name="მისამართი" description="ვაჟა ფშაველას N21">
+            <AppContactCard name="მისამართი" description="ვაჟა ფშაველას N71">
               <LocationIcon />
             </AppContactCard>
-            <AppContactCard name="მობილური" description="+(995) 557 27 27 97">
+            <AppContactCard name="მობილური" description="032 2 800 803">
               <PhoneIcon />
             </AppContactCard>
             <AppContactCard name="კომპანიის ტელეფონი" description="0 322 800 803">

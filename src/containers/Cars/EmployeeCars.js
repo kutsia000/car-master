@@ -71,7 +71,7 @@ const EmployeeCars = () => {
           let car = cars.find((c) => c.id == id);
           if (car) {
             let imgs = [car.mainImageUrl, ...car.imageURLs];
-            let images = imgs.map((i) => `https://cl1ne.ge${i}`);
+            let images = imgs.map((i) => `https://cline.ge${i}`);
             setImages(images);
           }
           setLBoxIsOpen(true);
@@ -301,7 +301,7 @@ const EmployeeCars = () => {
           <PhotoCellRenderer
             key={params.id}
             id={params.id}
-            value={`https://cl1ne.ge${params.value}`}
+            value={`https://cline.ge${params.value}`}
           />
         </>
       ),

@@ -23,12 +23,12 @@ export default function AppCarInner({ images, data }) {
       let imgs = [data.mainImageUrl, ...data.imageURLs];
       let images = imgs.map((i) => {
         return {
-          original: `https://cl1ne.ge${i}`,
-          thumbnail: `https://cl1ne.ge${i}`,
+          original: `https://cline.ge${i}`,
+          thumbnail: `https://cline.ge${i}`,
         };
       });
       setImgs(images);
-      let lImages = imgs.map((i) => `https://cl1ne.ge${i}`);
+      let lImages = imgs.map((i) => `https://cline.ge${i}`);
       setLightBoxImages(lImages);
       if (data.containerNumber) {
         //console.log(data.containerOpenDate);

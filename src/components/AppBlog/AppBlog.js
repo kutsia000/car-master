@@ -92,7 +92,7 @@ export default function AppBlog() {
               return (
                 <AppBlogCard
                   key={blog.blogContents[0].id}
-                  src={'https://cl1ne.ge' + blog.mainImageUrl}
+                  src={'https://cline.ge' + blog.mainImageUrl}
                   title={blog.blogContents[0].title}
                   date="19.01.2023"
                   description={truncateText(blog.blogContents[0].content, 150)}
