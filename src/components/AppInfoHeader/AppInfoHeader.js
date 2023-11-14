@@ -20,7 +20,7 @@ export default function AppInfoHeader() {
             </AppLink>
             <div className={styles.AppInfoHeader__link}>
               <ClockIcon />
-              <span className={styles.AppInfoHeader__icon}>09:00 - 18:00</span>
+              <span className={styles.AppInfoHeader__icon}>10:00 - 18:00</span>
             </div>
           </div>
           <div className={styles.AppInfoHeader__socials}>

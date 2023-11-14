@@ -57,19 +57,19 @@ export default function AppContactUs() {
                 ])}
               >
                 <div>ორშ:</div>
-                <div>09:00 - 18:00</div>
+                <div>10:00 - 18:00</div>
                 <div>სამ:</div>
-                <div>09:00 - 18:00</div>
+                <div>10:00 - 18:00</div>
                 <div>ოთხ:</div>
-                <div>09:00 - 18:00</div>
+                <div>10:00 - 18:00</div>
                 <div>ხუთ:</div>
-                <div>09:00 - 18:00</div>
+                <div>10:00 - 18:00</div>
                 <div>პარ:</div>
-                <div>09:00 - 18:00</div>
+                <div>10:00 - 18:00</div>
                 <div>შაბ:</div>
-                <div>09:00 - 18:00</div>
+                <div>10:00 - 18:00</div>
                 <div>კვი:</div>
-                <div>09:00 - 18:00</div>
+                <div>10:00 - 18:00</div>
               </div>
             </div>
           </div>
