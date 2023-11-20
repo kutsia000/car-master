@@ -19,7 +19,7 @@ export default function AppContactUs() {
             <AppContactCard name="მისამართი" description="ვაჟა ფშაველას N71">
               <LocationIcon />
             </AppContactCard>
-            <AppContactCard name="მობილური" description="032 2 800 803">
+            <AppContactCard name="მობილური" description="557272797">
               <PhoneIcon />
             </AppContactCard>
             <AppContactCard name="კომპანიის ტელეფონი" description="0 322 800 803">
@@ -66,10 +66,10 @@ export default function AppContactUs() {
                 <div>10:00 - 18:00</div>
                 <div>პარ:</div>
                 <div>10:00 - 18:00</div>
-                <div>შაბ:</div>
+                {/* <div>შაბ:</div>
                 <div>10:00 - 18:00</div>
                 <div>კვი:</div>
-                <div>10:00 - 18:00</div>
+                <div>10:00 - 18:00</div> */}
               </div>
             </div>
           </div>
