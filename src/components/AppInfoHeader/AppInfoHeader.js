@@ -14,9 +14,9 @@ export default function AppInfoHeader() {
               <EmailIcon />
               <span className={styles.AppInfoHeader__icon}>info@cline.ge</span>
             </AppLink>
-            <AppLink href={`tel:557272797`} className={styles.AppInfoHeader__link}>
+            <AppLink href={`tel:0322800803`} className={styles.AppInfoHeader__link}>
               <CallIcon />
-              <span className={styles.AppInfoHeader__icon}>557272797</span>
+              <span className={styles.AppInfoHeader__icon}>0 322 800 803</span>
             </AppLink>
             <div className={styles.AppInfoHeader__link}>
               <ClockIcon />
