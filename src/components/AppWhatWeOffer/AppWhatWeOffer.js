@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './AppWhatWeOffer.module.scss'
+import styles from './AppWhatWeOffer.module.scss';
 import AppContainer from '../../layout/AppContainer/AppContainer';
 import AppSectionTitle from '../AppSectionTitle/AppSectionTitle';
 import AppServiceCard from '../AppService/AppServiceCard';
@@ -15,7 +15,7 @@ export default function AppWhatWeOffer() {
         <article className={styles.AppWhatWeOffer__wrap}>
           <AppServiceCard
             src={'/images/car.svg'}
-            title="კომპოტი"
+            title="კომფორტი"
             subtitle="კომპანია გაგიწევთ კომფორტულ მომსახურებას, რაც გულისხმობს მისაღებ ფასს, სწრაფ და უსაფრთხო ტრანსპორტირებას."
           />
           <AppServiceCard

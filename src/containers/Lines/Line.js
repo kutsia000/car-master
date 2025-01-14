@@ -5,40 +5,34 @@ import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
 import AppButton from '../../components/AppButton/AppButton';
-import InputFilePdfComponent from '../../components/Input/InputFilePdfComponent';
 
-const PriceListGroup = ({ handleCloseDialog }) => {
-  const {
-    priceListGroup,
-    getPriceListGroupById,
-    addPriceListGroup,
-    updatePriceListGroup,
-    error,
-    success,
-  } = useContext(AdminServiceContext);
+const Line = ({ handleCloseDialog }) => {
+  const { line, getLineById, addLine, updateLine, error, success } =
+    useContext(AdminServiceContext);
+
   const { t, i18n } = useTranslation();
   //console.log(getReviews);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
-    id: null,
+    id: -1,
     name: '',
-    fileUrl: '',
+    trackingUrl: '',
   });
 
   const lang = i18n.language || 'en';
-  const { priceListGroupId } = useParams();
+  const { lineId } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       const langModel = {
-        id: priceListGroupId,
+        id: lineId,
         languageCode: lang,
       };
-      await getPriceListGroupById(priceListGroupId);
+      await getLineById(lineId);
       setLoading(false);
     };
 
-    if (priceListGroupId) {
+    if (lineId) {
       fetchData();
     } else {
       setLoading(false);
@@ -46,22 +40,27 @@ const PriceListGroup = ({ handleCloseDialog }) => {
   }, []);
 
   useEffect(() => {
-    if (priceListGroup) {
-      if (!priceListGroupId) {
+    if (line) {
+      //console.log(review);
+      if (!lineId) {
+        //formData.fullName = review.fullName;
         setFormData((prevFormData) => ({
           ...prevFormData,
-          id: null,
+          id: -1,
           name: '',
+          trackingUrl: '',
         }));
       } else {
+        //formData.fullName = review.fullName;
         setFormData((prevFormData) => ({
           ...prevFormData,
-          id: priceListGroup.id,
-          name: priceListGroup.name,
+          id: line.id,
+          name: line.name,
+          trackingUrl: line.trackingUrl,
         }));
       }
     }
-  }, [priceListGroup]);
+  }, [line]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -74,27 +73,21 @@ const PriceListGroup = ({ handleCloseDialog }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    if (priceListGroupId) {
-      await updatePriceListGroup(formData);
+    if (lineId) {
+      await updateLine(formData);
     } else {
-      await addPriceListGroup(formData);
+      await addLine(formData);
     }
 
     if (success) {
       setFormData({
         id: -1,
         name: '',
+        trackingUrl: '',
       });
       handleCloseDialog();
     }
     setLoading(false);
-  };
-
-  const handleFileChange = (e) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      fileUrl: e,
-    }));
   };
 
   if (loading) {
@@ -103,10 +96,10 @@ const PriceListGroup = ({ handleCloseDialog }) => {
 
   return (
     <>
-      <h2>PriceListGroup Id:{priceListGroupId}</h2>
+      <h2>line id:{lineId}</h2>
       <form onSubmit={handleSubmit}>
         <InputComponent
-          label="priceListGroupname"
+          label="lineName"
           type="text"
           id="name"
           required={true}
@@ -114,15 +107,16 @@ const PriceListGroup = ({ handleCloseDialog }) => {
           value={formData.name}
           onChange={(e) => handleInputChange(e)}
         />
-        <InputFilePdfComponent
-          label="File"
-          type="file"
-          id="MainImage"
-          name="MainImage"
-          multiple={false}
-          required={false}
-          onFileSelected={handleFileChange}
+        <InputComponent
+          label="trackingUrl"
+          type="text"
+          id="name"
+          required={true}
+          name="trackingUrl"
+          value={formData.trackingUrl}
+          onChange={(e) => handleInputChange(e)}
         />
+
         {error ? error : null}
         <div className="form-group row"></div>
         <div className="form-group row"></div>
@@ -134,4 +128,4 @@ const PriceListGroup = ({ handleCloseDialog }) => {
   );
 };
 
-export default PriceListGroup;
+export default Line;

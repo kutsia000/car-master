@@ -10,7 +10,9 @@ import {
   GridActionsCellItem,
   GridToolbar,
   GridRowEditStopReasons,
+  GridPagination,
 } from '@mui/x-data-grid';
+//import { createTheme } from '@mui/material/styles';
 import DeleteIcon from '../../components/Icons/DeleteIcon';
 import EditIcon from '../../components/Icons/EditIcon';
 import Lightbox from 'react-18-image-lightbox';
@@ -19,6 +21,7 @@ import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import styles from './Cars.module.scss';
 import AppButton from '../../components/AppButton/AppButton';
+import MakeGreenIcon from '../../components/Icons/MakeGreenIcon';
 
 // const images = [
 //   'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
@@ -46,6 +49,7 @@ const Cars = () => {
     carStatuses,
     getCarById,
     userTypes,
+    markCarAsGreen,
   } = useContext(AdminServiceContext);
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(true);
@@ -66,6 +70,11 @@ const Cars = () => {
   // const [comboPriceListGroups, setComboPriceListGroups] = useState([]);
   const lang = i18n.language || 'en';
   const { carId } = useParams();
+  // const muiTheme=createTheme({
+  //   typography: {
+  //     fontSize: 12,
+  //   },
+  // })
 
   const fetchData = async () => {
     await getCars();
@@ -172,7 +181,7 @@ const Cars = () => {
 
   useEffect(() => {
     if (allRecieverPorts) {
-      console.log(allRecieverPorts);
+      //console.log(allRecieverPorts);
       updateComboOptions(allRecieverPorts, setComboRecieverPorts);
     }
   }, [allRecieverPorts]);
@@ -207,21 +216,57 @@ const Cars = () => {
     editedRows.forEach(async (row) => {
       //console.log(row.saleDate instanceof Date);
       if (row.saleDate && row.saleDate instanceof Date) {
-        row.saleDate = row.saleDate.toISOString();
+        //console.log(row.saleDate);
+        let sdt = new Date(row.saleDate.toISOString());
+        let result = formatDate(sdt);
+        row.saleDate = result;
+        //console.log(result);
       }
       if (row.containerEntryDate && row.containerEntryDate instanceof Date) {
-        row.containerEntryDate = row.containerEntryDate.toISOString();
+        let sdt = new Date(row.containerEntryDate.toISOString());
+        let result = formatDate(sdt);
+        row.containerEntryDate = result;
+        //row.containerEntryDate = row.containerEntryDate.toISOString();
       }
       if (row.containerOpenDate && row.containerOpenDate instanceof Date) {
-        row.containerOpenDate = row.containerOpenDate.toISOString();
+        let sdt = new Date(row.containerOpenDate.toISOString());
+        let result = formatDate(sdt);
+        row.containerOpenDate = result;
+        //row.containerOpenDate = row.containerOpenDate.toISOString();
       }
       if (row.greenDate && row.greenDate instanceof Date) {
-        row.greenDate = row.greenDate.toISOString();
+        let sdt = new Date(row.greenDate.toISOString());
+        let result = formatDate(sdt);
+        row.greenDate = result;
+
+        //row.greenDate = row.greenDate.toISOString();
       }
+      //console.log(row.saleDate);
+      //return;
       await updateCar(row);
     });
     setLoading(false);
     setEditedRows([]);
+  };
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    // Customize the format as needed
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+
+  const handleMarkGreen = async (e, id) => {
+    e.preventDefault();
+    if (window.confirm('დარწმუნებული ხართ რომ გსურთ გამწვანება?')) {
+      await markCarAsGreen(id);
+      await fetchData();
+    }
   };
 
   const handleEditClick = (id) => () => {
@@ -267,7 +312,7 @@ const Cars = () => {
     }
 
     const location = selLocations.find((loc) => loc.name === newRow.locationName);
-    console.log(location);
+    //console.log(location);
     if (location) {
       newRow.locationId = location.id;
       newRow.locationName = location.name;
@@ -291,7 +336,7 @@ const Cars = () => {
     const newList = [...editedRows];
 
     index === -1 ? newList.push(newRow) : (newList[index] = newRow);
-
+    console.log(newList);
     setEditedRows(newList);
 
     return newRow;
@@ -304,10 +349,10 @@ const Cars = () => {
   };
 
   const columns = [
-    { field: 'id', headerName: 'Id', width: 50, hideable: true },
+    { field: 'id', headerName: 'Id', width: 20, hideable: true, fontWeight: 'bold' },
     {
       field: 'mainImageUrl',
-      width: 150,
+      width: 60,
       headerName: '',
       renderCell: (params) => (
         <>
@@ -319,13 +364,19 @@ const Cars = () => {
         </>
       ),
     },
-    { field: 'carMarkName', headerName: t('column_carMarkName'), width: 150, hideable: true },
-    { field: 'carModelName', headerName: t('column_carModelName'), width: 150, hideable: true },
+    {
+      field: 'carMarkName',
+      headerName: t('column_carMarkName'),
+      width: 90,
+      hideable: true,
+      fontWeight: 'bold',
+    },
+    { field: 'carModelName', headerName: t('column_carModelName'), width: 80, hideable: true },
     { field: 'carStatusId', headerName: 'carStatusId', width: 50 },
     {
       field: 'carStatusName',
       headerName: t('column_carStatusName'),
-      width: 150,
+      width: 75,
       hideable: true,
       editable: true,
       type: 'singleSelect',
@@ -335,7 +386,7 @@ const Cars = () => {
     {
       field: 'fullName',
       headerName: 'fullName',
-      width: 150,
+      width: 100,
       editable: true,
       type: 'singleSelect',
       valueOptions: comboDealers,
@@ -343,28 +394,38 @@ const Cars = () => {
     },
     {
       field: 'prodYear',
-      headerName: 'ProdYear',
-      width: 150,
+      headerName: 'Year',
+      width: 60,
       editable: true,
       hideable: true,
       type: 'singleSelect',
       valueOptions: comboYears,
     },
     { field: 'vincode', headerName: 'vincode', width: 150, hideable: true, editable: true },
-    { field: 'lotNumber', headerName: 'lotNumber', width: 150, hideable: true, editable: true },
+    { field: 'lotNumber', headerName: 'lotNumber', width: 90, hideable: true, editable: true },
     {
       field: 'containerNumber',
       headerName: 'containerNumber',
-      width: 150,
+      width: 120,
       hideable: true,
       editable: true,
+    },
+    { field: 'lineId', headerName: 'lineId', width: 50 },
+    {
+      field: 'lineName',
+      headerName: 'lineName',
+      editable: true,
+      width: 90,
+      hideable: true,
+      type: 'singleSelect',
+      valueOptions: comboLines,
     },
     { field: 'auctionId', headerName: 'auctionId', width: 50 },
     {
       field: 'auctionName',
-      headerName: 'auctionName',
+      headerName: 'auction',
       editable: true,
-      width: 150,
+      width: 80,
       hideable: true,
       type: 'singleSelect',
       valueOptions: comboAuctions,
@@ -372,9 +433,9 @@ const Cars = () => {
     { field: 'portId', headerName: 'portId', width: 50 },
     {
       field: 'portName',
-      headerName: 'portName',
+      headerName: 'port',
       editable: true,
-      width: 100,
+      width: 50,
       hideable: true,
       type: 'singleSelect',
       valueOptions: comboPorts,
@@ -382,25 +443,33 @@ const Cars = () => {
     { field: 'locationId', headerName: 'locationId', width: 50 },
     {
       field: 'locationName',
-      headerName: 'locationName',
+      headerName: 'location',
       editable: true,
-      width: 150,
+      width: 100,
       hideable: true,
       type: 'singleSelect',
       valueOptions: comboLocations,
     },
     {
       field: 'dealerWin',
-      headerName: 'dealerWin',
-      width: 150,
+      headerName: 'dealerWin $',
+      width: 75,
       hideable: true,
       type: 'number',
       editable: true,
+      cellClassName: (params) => {
+        if (params.row.isGreen) {
+          return 'cell-green';
+        }
+      },
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'saleDate',
       headerName: 'saleDate',
-      width: 150,
+      width: 75,
       hideable: true,
       editable: true,
       type: 'date',
@@ -409,99 +478,114 @@ const Cars = () => {
     {
       field: 'reciever',
       headerName: 'reciever',
-      width: 150,
+      width: 125,
       hideable: true,
       editable: true,
       valueGetter: (params) => params.row.reciever || null,
     },
     {
       field: 'recieverPersonalId',
-      headerName: 'recieverPersonalId',
-      width: 150,
+      headerName: 'reciever PersonalId',
+      width: 130,
       hideable: true,
       editable: true,
     },
-    { field: 'phoneNumber', headerName: 'phoneNumber', width: 150, hideable: true, editable: true },
+    { field: 'phoneNumber', headerName: 'phoneNumber', width: 100, hideable: true, editable: true },
     {
       field: 'auctionPay',
-      headerName: 'auctionPay',
-      width: 150,
+      headerName: 'auction Pay $',
+      width: 90,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'wayPay',
-      headerName: 'wayPay',
-      width: 150,
+      headerName: 'wayPay $',
+      width: 70,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'tempPriceIncrease',
-      headerName: 'tempPriceIncrease',
-      width: 150,
+      headerName: 'temp Price Increase $',
+      width: 145,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'documentPrice',
-      headerName: 'documentPrice',
-      width: 150,
+      headerName: 'document Price $',
+      width: 115,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'fine',
-      headerName: 'fine',
-      width: 100,
+      headerName: 'fine $',
+      width: 45,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'insurance',
-      headerName: 'insurance',
-      width: 150,
+      headerName: 'insurance $',
+      width: 80,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'payOfService',
-      headerName: 'documentPrice',
-      width: 150,
+      headerName: 'pay Of Service $',
+      width: 125,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'transportAmount',
-      headerName: 'transportAmount',
-      width: 150,
+      headerName: 'transport Amount $',
+      width: 125,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
-    { field: 'lineId', headerName: 'lineId', width: 50 },
-    {
-      field: 'lineName',
-      headerName: 'lineName',
-      editable: true,
-      width: 100,
-      hideable: true,
-      type: 'singleSelect',
-      valueOptions: comboLines,
-    },
+
     { field: 'recieverPortId', headerName: 'recieverPortId', width: 50 },
     {
       field: 'recieverPortName',
-      headerName: 'recieverPortName',
+      headerName: 'reciever PortName',
       editable: true,
-      width: 100,
+      width: 120,
       hideable: true,
       type: 'singleSelect',
       valueOptions: comboRecieverPorts,
@@ -509,7 +593,7 @@ const Cars = () => {
     {
       field: 'containerEntryDate',
       headerName: 'containerEntryDate',
-      width: 150,
+      width: 130,
       hideable: true,
       editable: true,
       type: 'date',
@@ -518,7 +602,7 @@ const Cars = () => {
     {
       field: 'containerOpenDate',
       headerName: 'containerOpenDate',
-      width: 150,
+      width: 130,
       hideable: true,
       editable: true,
       type: 'date',
@@ -527,7 +611,7 @@ const Cars = () => {
     {
       field: 'greenDate',
       headerName: 'greenDate',
-      width: 150,
+      width: 90,
       hideable: true,
       editable: true,
       type: 'date',
@@ -536,7 +620,7 @@ const Cars = () => {
     {
       field: 'sublot',
       headerName: 'sublot',
-      width: 150,
+      width: 75,
       hideable: true,
       type: 'number',
       editable: true,
@@ -544,9 +628,15 @@ const Cars = () => {
     {
       field: 'actions',
       type: 'actions',
-      width: 80,
+      width: 120,
       getActions: ({ id }) => {
         return [
+          <GridActionsCellItem
+            icon={<MakeGreenIcon fill="#fff" />}
+            label="MakeGreen"
+            onClick={(e) => handleMarkGreen(e, id)}
+            color="inherit"
+          />,
           <GridActionsCellItem
             icon={<EditIcon fill="#FF0000" />}
             label="Edit"
@@ -564,6 +654,31 @@ const Cars = () => {
       },
     },
   ];
+
+  const CustomComponent = () => {
+    return (
+      <>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+            <div>
+              <AppButton type="button" small label={'new'} onClick={handleOpenDialog} />
+            </div>
+            <div style={{ marginLeft: '10px' }}>
+              <AppButton
+                type={'button'}
+                small
+                label={'save'}
+                onClick={(e) => handleSave(e)}
+                color={'#0c2d57'}
+              />
+            </div>
+            <label style={{ marginLeft: '10px' }}>{editedRows.length} row(s) affected</label>
+          </div>
+          <GridPagination height={'120px'}></GridPagination>
+        </div>
+      </>
+    );
+  };
 
   if (loading) {
     return <LoadingMarkUp />;
@@ -592,28 +707,9 @@ const Cars = () => {
           <Car handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
-      <div style={{ marginBottom: '20px', display: 'flex', flexDirection: 'row' }}>
-        <div className={styles.Cars__new}>
-          <AppButton type="button" large label={'new'} onClick={handleOpenDialog} />
-        </div>
-        {/* <button type="button" className="btn btn-md btn-success" onClick={handleOpenDialog}>
-          new
-        </button> */}
-        <div className={styles.Cars__new}>
-          <AppButton
-            type={'button'}
-            large
-            label={'save'}
-            onClick={(e) => handleSave(e)}
-            color={'#0c2d57'}
-          />
-        </div>
-      </div>
+      {/* style={{ marginBottom: '20px', display: 'flex', flexDirection: 'row' }} */}
 
-      <label style={{ color: 'white', padding: '0 40px 0 40px' }}>
-        {editedRows.length} row(s) affected
-      </label>
-      <div style={{ padding: '0 40px 0 40px' }}>
+      <div style={{ padding: '0 40px 0 40px' }} id="ColorBlakId">
         {cars && (
           <DataGrid
             getRowId={(row) => row.id}
@@ -621,13 +717,17 @@ const Cars = () => {
             columns={columns}
             onRowEditStop={handleRowEditStop}
             processRowUpdate={handleProcessRowUpdate}
+            density="compact"
             onProcessRowUpdateError={(error) => {
               //console.log(error);
             }}
+            getRowClassName={(params) =>
+              params.indexRelativeToCurrentPage % 2 === 0 ? 'even-row' : 'Mui-odd'
+            }
             {...cars}
             initialState={{
               ...cars.initialState,
-              pagination: { paginationModel: { pageSize: 10 } },
+              pagination: { paginationModel: { pageSize: 50 } },
               columns: {
                 columnVisibilityModel: {
                   carStatusId: false,
@@ -640,15 +740,32 @@ const Cars = () => {
                 },
               },
             }}
-            pageSizeOptions={[10, 15, 25]}
+            pageSizeOptions={[50, 100, 1000]}
             slots={{
               toolbar: GridToolbar,
+              footer: CustomComponent,
             }}
             sx={{
+              height: 'calc(100vh - 125px)',
               overflowX: 'scroll',
               background: 'white',
               '& .MuiInputBase-input': {
                 color: 'black !important',
+              },
+              '& .MuiDataGrid-root': {
+                color: 'black !important',
+              },
+              fontSize: '10px !important',
+              fontWeight: 'bold',
+              '& .MuiDataGrid-columnHeaderTitle': {
+                fontWeight: 'bold !important',
+                fontSize: '12px !important',
+              },
+              '& .MuiDataGrid-row:nth-type(odd)': {
+                backgroundColor: 'aliceblue',
+              },
+              '& .MuiDataGrid-columnHeaders': {
+                position: 'sticky',
               },
             }}
           />

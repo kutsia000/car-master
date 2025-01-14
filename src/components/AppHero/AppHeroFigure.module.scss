@@ -4,7 +4,7 @@
   height: 100%;
   overflow: hidden;
   &__figure {
-    height: 100vh;
+    height: 60vh;
     width: 100vw;
     position: relative;
     overflow: hidden;
@@ -13,10 +13,9 @@
       height: 100vh;
     }
   }
-  figure{
+  figure {
     img {
       height: 100% !important;
     }
-
   }
 }

@@ -15,14 +15,17 @@ export default function AppCheckCar() {
   const lang = i18n.language || 'en';
 
   const handleChange = (e) => {
+    //console.log(e.target.value);
     const { value } = e.target;
     setVinCode(value);
   };
 
   const handleSearch = async (e) => {
+    console.log(vinCode);
     //e.preventDefault();
     if (!vinCode) return;
     navigate(`/${lang}/car/${vinCode}`);
+    window.location.reload();
   };
 
   return (

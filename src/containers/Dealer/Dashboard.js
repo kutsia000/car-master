@@ -16,19 +16,23 @@ const DealerDashboard = () => {
           <li>
             <Link to={`/${lang}/dealer/dashboard/profile`}>
               <span className={styles.AdminDashboard__link} style={{ color: 'black ' }}>
-                profile
+                <i className="fa-solid fa-user fa-2x" title="Profile"></i>
               </span>
             </Link>
           </li>
 
           <li>
             <Link to={`/${lang}/dealer/dashboard/mypricelist`} style={{ color: 'black' }}>
-              <span style={{ color: 'black ' }}>mypricelist</span>
+              <span style={{ color: 'black ' }}>
+                <i className="fa-solid fa-list-ul fa-2x" title="My Price List"></i>
+              </span>
             </Link>
           </li>
           <li>
             <Link to={`/${lang}/dealer/dashboard/cars`} style={{ color: 'black' }}>
-              <span style={{ color: 'black ' }}>cars</span>
+              <span style={{ color: 'black ' }}>
+                <i className="fa-solid fa-car fa-2x" title="Cars"></i>
+              </span>
             </Link>
           </li>
         </ul>

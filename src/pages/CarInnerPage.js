@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import { LandingServiceContext } from '../services/LandingServices/LandingService';
 import LoadingMarkUp from '../components/Loading/Loading';
 import AppContainer from '../layout/AppContainer/AppContainer';
+import AppCheckCar from '../components/AppHero/AppCheckCar';
 
 export default function CarInnerPage() {
   const { searchCar, car } = useContext(LandingServiceContext);
@@ -66,10 +67,15 @@ export default function CarInnerPage() {
     <>
       <AppInfoHeader />
       <AppHeader />
+      <section style={{ background: 'black', padding: '40px 0 60px' }}>
+        <AppContainer>
+          <AppCheckCar />
+        </AppContainer>
+      </section>
       {car ? (
         <>
           <AppCarInner images={images} data={car} />
-          <section style={{ background: 'black', padding: '40px 0 60px' }}>
+          {/* <section style={{ background: 'black', padding: '40px 0 60px' }}>
             <AppContainer>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <iframe
@@ -83,7 +89,7 @@ export default function CarInnerPage() {
                 ></iframe>
               </div>
             </AppContainer>
-          </section>
+          </section> */}
         </>
       ) : (
         <>

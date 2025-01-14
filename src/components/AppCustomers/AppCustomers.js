@@ -21,14 +21,16 @@ export default function AppCustomers() {
         />
         <div className={styles.AppCustomers__wrap}>
           {reviews &&
-            reviews.map((review) => {
+            reviews.map((review, index) => {
               return (
-                <AppCustomerCard
-                  key={review.div}
-                  review={review.text}
-                  name={review.fullName}
-                  image={'https://cline.ge' + review.imgUrl}
-                />
+                <div key={index}>
+                  <AppCustomerCard
+                    key={review.div}
+                    review={review.text}
+                    name={review.fullName}
+                    image={'https://cline.ge' + review.imgUrl}
+                  />
+                </div>
               );
             })}
           {/* <AppCustomerCard

@@ -101,7 +101,11 @@ const Users = () => {
     //setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
   };
 
-  const handleDeleteClick = (id) => () => {
+  const handleDeleteClick = async (id) => {
+    if (window.confirm('are you sure?')) {
+      await deleteUser(id);
+      fetchData();
+    }
     //setRows(rows.filter((row) => row.id !== id));
   };
 
@@ -208,13 +212,13 @@ const Users = () => {
             icon={<EditIcon fill="#FF0000" />}
             label="Edit"
             className="textPrimary"
-            onClick={handleEditClick(id)}
+            onClick={() => handleEditClick(id)}
             color="inherit"
           />,
           <GridActionsCellItem
             icon={<DeleteIcon fill="black" />}
             label="Delete"
-            onClick={handleDeleteClick(id)}
+            onClick={() => handleDeleteClick(id)}
             color="inherit"
           />,
         ];

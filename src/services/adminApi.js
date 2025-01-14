@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 
 const adminApi = axios.create({
   //'https://api.cline.ge/api'
-  //'https://localhost:7164/'
+  //'https://localhost:7164/api'
   baseURL: 'https://api.cline.ge/api',
   //'https://api.cline.ge/api',
   // headers: {

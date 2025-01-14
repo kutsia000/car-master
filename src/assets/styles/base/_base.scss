@@ -49,18 +49,18 @@ body {
 }
 .admin-layout {
   margin-top: 100px;
-  margin-left: 240px;
+  margin-left: 55px;
   height: calc(100% - 100px);
-  min-height: 100vh;
+  min-height: 90vh;
   background-color: black;
   box-sizing: border-box;
 }
 
 .dealer-layout {
   margin-top: 40px;
-  margin-left: 240px;
+  margin-left: 55px;
   height: calc(100% - 100px);
-  min-height: 100vh;
+  min-height: 90vh;
   background-color: black;
   box-sizing: border-box;
 }
@@ -135,7 +135,6 @@ input[type='password'],
 input[type='range'],
 input[type='search'],
 input[type='tel'],
-input[type='text'],
 input[type='time'],
 input[type='url'],
 input[type='week'] {

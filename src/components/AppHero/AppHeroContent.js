@@ -8,7 +8,7 @@ export default function AppHeroContent() {
       <article className={styles.AppHeroContent}>
         <div className={styles.AppHeroContent__title}>ჩვენს შესახებ</div>
         <div className={styles.AppHeroContent__desc}>
-          CarLine Auto Import 3+ წელია უზრუნველყოფს მომხარებლისთვის ავტოტექნიკის ჩამოყვანისას ყველა
+          CarLine Auto Import 5+ წელია უზრუნველყოფს მომხარებლისთვის ავტოტექნიკის ჩამოყვანისას ყველა
           საჭირო დეტალას,
         </div>
       </article>

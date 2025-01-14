@@ -67,10 +67,17 @@ export default function AppCarInner({ images, data }) {
     );
   };
 
-  const wrapper = {
-    padding: '200px',
+  const isMobileDevice = () => {
+    return (
+      typeof window.orientation !== 'undefined' || navigator.userAgent.indexOf('IEMobile') !== -1
+    );
   };
-  //console.log(Date(data.containerOpenDate));
+
+  const wrapper = {
+    padding: '20px',
+  };
+
+  console.log(data);
   return (
     <>
       {lBoxIsOpen && lightBoxImages && (
@@ -84,7 +91,7 @@ export default function AppCarInner({ images, data }) {
           }
           onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % lightBoxImages.length)}
           enableZoom
-          imagePadding={250}
+          imagePadding={!isMobileDevice() ? 250 : 10}
           clickOutsideToClose
           toolbarButtons={[<CustomDownloadButton />]}
         />
@@ -138,8 +145,33 @@ export default function AppCarInner({ images, data }) {
                 <span>{dt}</span>
                 <span>კონტეინერის ნომერი:</span>
                 <span>{data.containerNumber}</span>
+                <span>გადამზიდი:</span>
+                <span>
+                  <span
+                    style={{
+                      textTransform: 'uppercase',
+                      fontSize: '18px',
+                      color: 'dodgerblue !important',
+                    }}
+                  >
+                    {data.lineTrackingUrl ? (
+                      <a
+                        href={data.lineTrackingUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: 'dodgerblue !important' }}
+                        className="ddgblue"
+                      >
+                        {data.lineName}
+                      </a>
+                    ) : (
+                      data.lineName
+                    )}
+                  </span>
+                </span>
                 <span>აუქციონი:</span>
                 <span>{data.auctionName}</span>
+
                 {/* <span>Interior Color:</span>
               <span>Jet Black/Ck Ash</span>
               <span>Stock Number:</span>

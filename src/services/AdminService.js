@@ -391,7 +391,7 @@ const AdminService = ({ children }) => {
 
   const deleteReview = async (reqBody) => {
     try {
-      const response = await adminInstance.delete(`/Reviews/DeleteReview?id=${reqBody.id}`);
+      const response = await adminInstance.delete(`/Reviews/DeleteReview?id=${reqBody}`);
       setError(null);
       if (response.status === 200) {
         const { isSuccess, message } = response.data;
@@ -1418,6 +1418,7 @@ const AdminService = ({ children }) => {
 
   const addPriceListGroup = async (reqBody) => {
     try {
+      //console.log(reqBody);
       const fData = jsonToFormData(reqBody);
       const response = await adminInstance.post(
         '/PriceListGroups/AddPriceListGroup',
@@ -1984,6 +1985,26 @@ const AdminService = ({ children }) => {
     }
   };
 
+  const markCarAsGreen = async (id) => {
+    try {
+      const response = await adminInstance.post('/Cars/MarkCarAsGreen', null, {
+        params: { id: id },
+      });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
   return (
     <AdminServiceContext.Provider
       value={{
@@ -2067,6 +2088,7 @@ const AdminService = ({ children }) => {
         deleteCarImages,
         addCar,
         updateCar,
+        markCarAsGreen,
         error,
         success,
         recordsCount,

@@ -1,31 +1,31 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import AppContactInfoCard from './AppContactInfoCard';
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const AnyReactComponent = ({ text }) => <div className="marker"></div>;
 
 const options = {
   styles: [
     {
       featureType: 'all',
       elementType: 'labels.text.fill',
-      stylers: [
-        { color: '#333333' }, // Change label text color to gray
-      ],
+      // stylers: [
+      //   { color: '#333333' }, // Change label text color to gray
+      // ],
     },
     {
       featureType: 'all',
       elementType: 'geometry.fill',
-      stylers: [
-        { color: '#FFFFFF' }, // Change land color to white
-      ],
+      // stylers: [
+      //   { color: '#FFFFFF' }, // Change land color to white
+      // ],
     },
     {
       featureType: 'water',
       elementType: 'geometry',
       stylers: [
-        {
-          color: 'gray',
-        },
+        // {
+        //   color: 'gray',
+        // },
         {
           lightness: 17,
         },
@@ -35,9 +35,9 @@ const options = {
       featureType: 'landscape',
       elementType: 'geometry',
       stylers: [
-        {
-          color: '#f5f5f5',
-        },
+        // {
+        //   color: '#f5f5f5',
+        // },
         {
           lightness: 20,
         },
@@ -47,9 +47,9 @@ const options = {
       featureType: 'road.highway',
       elementType: 'geometry.fill',
       stylers: [
-        {
-          color: '#ffffff',
-        },
+        // {
+        //   color: '#ffffff',
+        // },
         {
           lightness: 17,
         },
@@ -59,9 +59,9 @@ const options = {
       featureType: 'road.highway',
       elementType: 'geometry.stroke',
       stylers: [
-        {
-          color: '#ffffff',
-        },
+        // {
+        //   color: '#ffffff',
+        // },
         {
           lightness: 29,
         },
@@ -74,9 +74,9 @@ const options = {
       featureType: 'road.arterial',
       elementType: 'geometry',
       stylers: [
-        {
-          color: '#ffffff',
-        },
+        // {
+        //   color: '#ffffff',
+        // },
         {
           lightness: 18,
         },
@@ -86,9 +86,9 @@ const options = {
       featureType: 'road.local',
       elementType: 'geometry',
       stylers: [
-        {
-          color: '#ffffff',
-        },
+        // {
+        //   color: '#ffffff',
+        // },
         {
           lightness: 16,
         },
@@ -98,9 +98,9 @@ const options = {
       featureType: 'poi',
       elementType: 'geometry',
       stylers: [
-        {
-          color: '#f5f5f5',
-        },
+        // {
+        //   color: '#f5f5f5',
+        // },
         {
           lightness: 21,
         },
@@ -110,9 +110,9 @@ const options = {
       featureType: 'poi.park',
       elementType: 'geometry',
       stylers: [
-        {
-          color: '#dedede',
-        },
+        // {
+        //   color: '#dedede',
+        // },
         {
           lightness: 21,
         },
@@ -199,22 +199,30 @@ const options = {
 export default function SimpleMap() {
   const defaultProps = {
     center: {
-      lat: 41.716667,
-      lng: 44.783333,
+      lat: 41.72146268064721,
+      lng: 44.72934142975759,
     },
-    zoom: 9,
+    zoom: 18,
   };
+
+  const handleApiLoaded = (map, maps) => {
+    // use map and maps objects
+  };
+  //options={options}
+  //Old 41.72456359863281 44.72990036010742
+  //41.72146268064721, 44.72934142975759
 
   return (
     <div style={{ height: '630px', width: '100%' }}>
       <AppContactInfoCard />
       <GoogleMapReact
-        options={options}
-        bootstrapURLKeys={{ key: '' }}
+        bootstrapURLKeys={{ key: 'AIzaSyBEUGdOyb0Q5qRXDlDkWFZNR6OjkekTDHs' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
+        yesIWantToUseGoogleMapApiInternals
+        onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
       >
-        <AnyReactComponent lat={41.716667} lng={44.783333} text="My Marker" />
+        <AnyReactComponent lat={41.72146268064721} lng={44.72934142975759} text="Cline" />
       </GoogleMapReact>
     </div>
   );

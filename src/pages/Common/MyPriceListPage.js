@@ -8,16 +8,22 @@ const MyPriceListPage = () => {
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   if (myPriceList) {
-  //     console.log(myPriceList);
-  //   }
-  // }, [myPriceList]);
+  useEffect(() => {
+    if (myPriceList) {
+      console.log(myPriceList);
+    }
+  }, [myPriceList]);
 
   return (
     <>
       <div className={styles.PriceList}>
-        <table className={styles.PriceList__table}>
+        {myPriceList && myPriceList.fileUrl && (
+          <iframe
+            style={{ height: 'calc(85vh - 20px)', width: '768px' }}
+            src={`https://cline.ge${myPriceList.fileUrl}`}
+          ></iframe>
+        )}
+        {/* <table className={styles.PriceList__table}>
           <thead>
             <tr>
               <th>Auction</th>
@@ -27,7 +33,7 @@ const MyPriceListPage = () => {
             </tr>
           </thead>
           <tbody>
-            {myPriceList &&
+            {/* {myPriceList &&
               myPriceList.map((line) => {
                 return (
                   <tr key={line.lineId}>
@@ -37,9 +43,9 @@ const MyPriceListPage = () => {
                     <td>{line.price}</td>
                   </tr>
                 );
-              })}
+              })} 
           </tbody>
-        </table>
+        </table> */}
       </div>
       {/* {myPriceList &&
         myPriceList.map((line) => {

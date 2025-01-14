@@ -20,6 +20,7 @@ import LocationsPage from './pages/Admin/LocationsPage';
 import PortsPage from './pages/Admin/Portspage';
 import PriceListGroupsPage from './pages/Admin/PriceListGroupsPage';
 import PriceListGroupLinesPage from './pages/Admin/PriceListGroupLinesPage';
+import LinesPage from './pages/Admin/LinesPage';
 import UsersPage from './pages/Admin/UsersPage';
 import MyPriceListPage from './pages/Common/MyPriceListPage';
 import CarsPage from './pages/Admin/CarsPage';
@@ -37,6 +38,21 @@ import EmployeeCarsPage from './pages/Employee/EmployeeCarsPage';
 import '../src/imageWrapper.css';
 
 function App() {
+  const isMobileDevice = () => {
+    return (
+      typeof window.orientation !== 'undefined' || navigator.userAgent.indexOf('IEMobile') !== -1
+    );
+  };
+
+  if (isMobileDevice()) {
+    import('./temp.css')
+      .then((module) => {
+        // This callback is optional, you may not need it
+        console.log('Mobile styles loaded successfully');
+      })
+      .catch((error) => console.error('Error loading mobile styles:', error));
+  }
+
   return (
     <>
       <Router>
@@ -81,6 +97,8 @@ function App() {
             <Route path={`/:lang/admin/dashboard/auctions`} element={<AuctionsPage />} />
             <Route path={`/:lang/admin/dashboard/auctions/:auctionId`} element={<AuctionsPage />} />
             <Route path={`/:lang/admin/dashboard/locations`} element={<LocationsPage />} />
+            <Route path={`/:lang/admin/dashboard/lines`} element={<LinesPage />} />
+            <Route path={`/:lang/admin/dashboard/lines/:lineId`} element={<LinesPage />} />
             <Route
               path={`/:lang/admin/dashboard/locations/:locationId`}
               element={<LocationsPage />}

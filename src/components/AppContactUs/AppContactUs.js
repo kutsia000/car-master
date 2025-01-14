@@ -16,7 +16,7 @@ export default function AppContactUs() {
         />
         <div className={styles.AppContactUs__details}>
           <div className={styles.AppContactUs__cards}>
-            <AppContactCard name="მისამართი" description="ვაჟა ფშაველას N71">
+            <AppContactCard name="მისამართი" description="პეტრე ქავთარაძის N27">
               <LocationIcon />
             </AppContactCard>
             <AppContactCard name="მობილური" description="557272797">

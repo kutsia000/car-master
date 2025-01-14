@@ -2,6 +2,8 @@ import axios from 'axios';
 //import Cookies from 'js-cookie';
 //const apiUrl = process.env.REACT_APP_API_URL;
 const authApi = axios.create({
+  //'https://localhost:7164/'
+  //'https://api.cline.ge/api'
   baseURL: 'https://api.cline.ge/api',
   headers: {
     post: {

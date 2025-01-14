@@ -7,7 +7,7 @@ export default function AppContactInfoCard() {
     <article className={styles.AppContactCard}>
       <h2 className={styles.AppContactCard__title}>საკონტაქტო ინფორმაცია</h2>
       <div className={styles.AppContactCard__info}>
-        <span>მისამართი : ვაჟა ფშაველას გამზირი , N71</span>
+        <span>მისამართი : პეტრე ქავთარაძის N27</span>
         <span>
           ელ-ფოსტა: <AppLink href={`mailto:info@cline.ge`}>info@cline.ge</AppLink>
         </span>

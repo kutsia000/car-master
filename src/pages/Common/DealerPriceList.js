@@ -13,7 +13,13 @@ const DealerPriceListPage = () => {
   return (
     <>
       <div className={styles.PriceList}>
-        <table className={styles.PriceList__table}>
+        {myPriceList && myPriceList.fileUrl && (
+          <iframe
+            style={{ height: '85vh', width: '768px' }}
+            src={`https://cline.ge${myPriceList.fileUrl}`}
+          ></iframe>
+        )}
+        {/* <table className={styles.PriceList__table}>
           <thead>
             <tr>
               <th>Auction</th>
@@ -23,7 +29,7 @@ const DealerPriceListPage = () => {
             </tr>
           </thead>
           <tbody>
-            {myPriceList &&
+             {myPriceList &&
               myPriceList.map((line) => {
                 return (
                   <tr key={line.lineId}>
@@ -33,9 +39,9 @@ const DealerPriceListPage = () => {
                     <td>{line.price}</td>
                   </tr>
                 );
-              })}
+              })} 
           </tbody>
-        </table>
+        </table>*/}
       </div>
       {/* {myPriceList &&
         myPriceList.map((line) => {
