@@ -39,7 +39,8 @@ const Landing = () => {
       <AppHeroSlider />
       <AppCheckCar />
       <AppService />
-      {/* <AppCalculator />
+      <AppCalculator />
+      {/* 
       <AppFindYourOffer /> */}
       <AppCustomers />
       <MapDrawer />

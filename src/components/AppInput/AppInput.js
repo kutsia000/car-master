@@ -1,7 +1,19 @@
 import React from 'react';
 import styles from './AppInput.module.scss';
 
-function AppInput({ type, placeholder, onChange, name, min, id, label, currency }) {
+function AppInput({
+  type,
+  placeholder,
+  onChange,
+  name,
+  min,
+  id,
+  label,
+  currency,
+  disabled,
+  value,
+  isUSD,
+}) {
   return (
     <div className={styles.AppInput}>
       {label && <label htmlFor={id}>{label}</label>}
@@ -13,8 +25,11 @@ function AppInput({ type, placeholder, onChange, name, min, id, label, currency 
           placeholder={placeholder}
           onChange={onChange}
           min={min}
+          disabled={disabled}
+          value={value}
         />
-        {currency && <span className={styles.AppInput__currency}>₾</span>}
+        {currency && !isUSD && <span className={styles.AppInput__currency}>₾</span>}
+        {currency && isUSD && <span className={styles.AppInput__currency}>$</span>}
       </div>
     </div>
   );

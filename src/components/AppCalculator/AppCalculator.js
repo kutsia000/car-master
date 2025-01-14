@@ -4,6 +4,8 @@ import AppArticleTitle from '../AppArticleTitle/AppArticleTitle';
 import AppContainer from '../../layout/AppContainer/AppContainer';
 import AppButton from '../AppButton/AppButton';
 import AppCalcLeasing from './AppCalcLeasing';
+import AppCalcCopartPrice from './AppCalcCopartPrice';
+import AppCalcIAAIPrice from './AppCalcIAAIPrice';
 
 export default function AppCalculator() {
   return (
@@ -12,17 +14,18 @@ export default function AppCalculator() {
         <div className={styles.AppCalculator__container}>
           <div className={styles.AppCalculator__wrapper}>
             <AppArticleTitle
-              title="გამოთვალე ლიზინგის თანხა"
+              title="გამოთვალე COPART-ის თანხა"
               description="შეიყვანეთ მონაცემები და გამოთვალე მიახლოებითი ხარჯი"
             />
-            <AppCalcLeasing />
+            <AppCalcCopartPrice />
+            {/* <AppCalcLeasing /> */}
           </div>
           <div className={styles.AppCalculator__wrapper}>
             <AppArticleTitle
-              title="გამოთვალე განბაჟების თანხა"
+              title="გამოთვალე IAAI-ის თანხა"
               description="შეიყვანეთ მონაცემები და გამოთვალე მიახლოებითი ხარჯი"
             />
-            <AppCalcLeasing />
+            <AppCalcIAAIPrice />
           </div>
         </div>
       </AppContainer>
