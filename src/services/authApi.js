@@ -4,6 +4,7 @@ import axios from 'axios';
 const authApi = axios.create({
   //'https://localhost:7164/'
   //'https://api.cline.ge/api'
+  //'https://localhost:32777/api'
   baseURL: 'https://api.cline.ge/api',
   headers: {
     post: {

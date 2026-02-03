@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 const adminApi = axios.create({
   //'https://api.cline.ge/api'
   //'https://localhost:7164/api'
+  //'https://localhost:32777/api'
   baseURL: 'https://api.cline.ge/api',
   //'https://api.cline.ge/api',
   // headers: {
@@ -16,7 +17,7 @@ const adminApi = axios.create({
   //     'Content-Type': 'application/json',
   //   },
   // },
-  timeout: 20000,
+  timeout: 60000,
 });
 
 adminApi.interceptors.request.use((config) => {

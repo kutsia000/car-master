@@ -5,7 +5,7 @@ import AppSectionTitle from '../AppSectionTitle/AppSectionTitle';
 import AppContactCard from './AppContactCard';
 import AppButton from '../AppButton/AppButton';
 import classNames from 'classnames';
-
+//
 export default function AppContactUs() {
   return (
     <section className={styles.AppContactUs}>
@@ -16,7 +16,7 @@ export default function AppContactUs() {
         />
         <div className={styles.AppContactUs__details}>
           <div className={styles.AppContactUs__cards}>
-            <AppContactCard name="მისამართი" description="პეტრე ქავთარაძის N27">
+            <AppContactCard name="მისამართი" description="შალვა ნუცუბიძის N60ბ">
               <LocationIcon />
             </AppContactCard>
             <AppContactCard name="მობილური" description="557272797">

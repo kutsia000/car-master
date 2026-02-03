@@ -2,7 +2,7 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import AppContactInfoCard from './AppContactInfoCard';
 const AnyReactComponent = ({ text }) => <div className="marker"></div>;
-
+//41.7276150407908, 44.740810298381675
 const options = {
   styles: [
     {
@@ -199,8 +199,8 @@ const options = {
 export default function SimpleMap() {
   const defaultProps = {
     center: {
-      lat: 41.72146268064721,
-      lng: 44.72934142975759,
+      lat: 41.7276150407908,
+      lng: 44.740810298381675,
     },
     zoom: 18,
   };
@@ -210,7 +210,7 @@ export default function SimpleMap() {
   };
   //options={options}
   //Old 41.72456359863281 44.72990036010742
-  //41.72146268064721, 44.72934142975759
+  //41.7276150407908, 44.740810298381675
 
   return (
     <div style={{ height: '630px', width: '100%' }}>
@@ -222,7 +222,7 @@ export default function SimpleMap() {
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
       >
-        <AnyReactComponent lat={41.72146268064721} lng={44.72934142975759} text="Cline" />
+        <AnyReactComponent lat={41.7276150407908} lng={44.740810298381675} text="Cline" />
       </GoogleMapReact>
     </div>
   );

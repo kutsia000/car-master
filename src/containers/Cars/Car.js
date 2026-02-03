@@ -81,6 +81,7 @@ const Car = ({ handleCloseDialog }) => {
     sublot: '',
     mainImage: '',
     images: [],
+    buyerId1: '',
   });
   const { carId } = useParams();
 
@@ -665,7 +666,16 @@ const Car = ({ handleCloseDialog }) => {
             onChange={(e) => handleInputChange(e)}
             error={errors.lotNumber}
           />
-          <br />
+          <InputComponent
+            label="buyerId"
+            type="text"
+            id="buyerId"
+            required={false}
+            name="buyerId"
+            value={formData.buyerId}
+            onChange={(e) => handleInputChange(e)}
+            error={errors.buyerId}
+          />
           <InputFileComponent
             label="Main Image"
             type="file"

@@ -11,6 +11,7 @@ import {
   GridToolbar,
   GridRowEditStopReasons,
   GridPagination,
+  GridColumnVisibilityModel,
 } from '@mui/x-data-grid';
 //import { createTheme } from '@mui/material/styles';
 import DeleteIcon from '../../components/Icons/DeleteIcon';
@@ -22,6 +23,9 @@ import { saveAs } from 'file-saver';
 import styles from './Cars.module.scss';
 import AppButton from '../../components/AppButton/AppButton';
 import MakeGreenIcon from '../../components/Icons/MakeGreenIcon';
+import ExcelIcon from '../../components/Icons/ExcelIcon';
+import BillIcon from '../../components/Icons/BillIcon';
+import CarCharge from './CarCharge';
 
 // const images = [
 //   'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
@@ -49,7 +53,12 @@ const Cars = () => {
     carStatuses,
     getCarById,
     userTypes,
+    getUserCarColumns,
+    columns,
     markCarAsGreen,
+    updateUserCarColumns,
+    getPriceReport,
+    getTransportingReport,
   } = useContext(AdminServiceContext);
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(true);
@@ -66,6 +75,10 @@ const Cars = () => {
   const [lBoxIsOpen, setLBoxIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [images, setImages] = useState([]);
+  const [carsData, setCarsData] = useState([]);
+  const [openCarCharge, setOpenCarCharge] = useState(false);
+  const [carChargeId, setCarChargeId] = useState(null);
+
   // const [comboUserTypes, setComboUserTypes] = useState([]);
   // const [comboPriceListGroups, setComboPriceListGroups] = useState([]);
   const lang = i18n.language || 'en';
@@ -76,9 +89,64 @@ const Cars = () => {
   //   },
   // })
 
+  const [columnVisibilityModel, setColumnVisibilityModel] = useState({
+    id: true,
+    mainImageUrl: true,
+    carMarkName: true,
+    carModelName: true,
+    carStatusId: false,
+    carStatusName: true,
+    userId: false,
+    fullName: true,
+    prodYear: true,
+    vincode: true,
+    lotNumber: true,
+    containerNumber: true,
+    lineId: false,
+    lineName: true,
+    auctionId: false,
+    auctionName: true,
+    portId: false,
+    portName: true,
+    locationId: false,
+    locationName: true,
+    dealerWin: true,
+    saleDate: true,
+    reciever: true,
+    recieverPersonalId: true,
+    phoneNumber: true,
+    auctionPay: true,
+    wayPay: true,
+    tempPriceIncrease: true,
+    documentPrice: true,
+    fine: true,
+    insurance: true,
+    payOfService: true,
+    transportAmount: true,
+    recieverPortId: false,
+    recieverPortName: true,
+    containerEntryDate: true,
+    containerOpenDate: true,
+    greenDate: true,
+    sublot: true,
+    buyerId1: true,
+    balance: true,
+  });
+
   const fetchData = async () => {
+    setLoading(true);
+    await getUserCarColumns();
     await getCars();
     setLoading(false);
+  };
+
+  const UpdateColumns = async (model) => {
+    const dt = Object.entries(model).map(([key, value]) => ({
+      columnName: key,
+      show: value,
+    }));
+
+    await updateUserCarColumns(dt);
   };
 
   const PhotoCellRenderer = ({ id, value }) => {
@@ -145,9 +213,40 @@ const Cars = () => {
     setComboYears(yearOptions);
   }, []);
 
+  useEffect(() => {
+    if (Array.isArray(columns) && columns.length > 0) {
+      // Convert array to map for faster lookup
+      const apiVisibilityMap = columns.reduce((acc, item) => {
+        if (item && typeof item.columnName === 'string') {
+          acc[item.columnName] = item.show;
+        }
+        return acc;
+      }, {});
+
+      const mergedModel = Object.keys(columnVisibilityModel).reduce((acc, key) => {
+        if (apiVisibilityMap.hasOwnProperty(key)) {
+          acc[key] = apiVisibilityMap[key];
+        } else {
+          acc[key] = columnVisibilityModel[key];
+        }
+        return acc;
+      }, {});
+      //console.log('mergedModel', mergedModel);
+      setColumnVisibilityModel(mergedModel);
+    }
+  }, [columns]);
+
   // useEffect(() => {
   //   console.log(userTypes);
   // }, [userTypes]);
+  useEffect(() => {
+    if (cars) {
+      setCarsData(cars);
+      //console.log(1);
+      // const images = cars.map((car) => `https://cline.ge${car.mainImageUrl}`);
+      // setImages(images);
+    }
+  }, [cars]);
 
   useEffect(() => {
     if (carId) {
@@ -157,6 +256,11 @@ const Cars = () => {
 
   useEffect(() => {
     if (dealers) {
+      // Add a default dealer at index 0
+      if (dealers && dealers.length > 0 && dealers[0].id !== -1) {
+        dealers.unshift({ id: -1, fullName: '-----' });
+      }
+      //console.log(dealers);
       updateComboOptions(dealers, setComboDealers);
     }
   }, [dealers]);
@@ -240,6 +344,9 @@ const Cars = () => {
         row.greenDate = result;
 
         //row.greenDate = row.greenDate.toISOString();
+      }
+      if (row.userId < 0) {
+        row.userId = null;
       }
       //console.log(row.saleDate);
       //return;
@@ -336,7 +443,7 @@ const Cars = () => {
     const newList = [...editedRows];
 
     index === -1 ? newList.push(newRow) : (newList[index] = newRow);
-    console.log(newList);
+    //console.log(newList);
     setEditedRows(newList);
 
     return newRow;
@@ -348,7 +455,32 @@ const Cars = () => {
     }
   };
 
-  const columns = [
+  const handlePriceReport = async (id) => {
+    await getPriceReport(id);
+  };
+
+  const handleTransportingReport = async (id) => {
+    await getTransportingReport(id);
+  };
+
+  const handleColumnVisibility = (model) => {
+    setColumnVisibilityModel(model);
+    UpdateColumns(model);
+  };
+
+  const handleChargeModal = (id) => {
+    setCarChargeId(id);
+    if (openCarCharge) {
+      setCarChargeId(null);
+      setOpenCarCharge(false);
+      fetchData();
+    } else {
+      setCarChargeId(id);
+      setOpenCarCharge(true);
+    }
+  };
+
+  const columnsList = [
     { field: 'id', headerName: 'Id', width: 20, hideable: true, fontWeight: 'bold' },
     {
       field: 'mainImageUrl',
@@ -430,6 +562,17 @@ const Cars = () => {
       type: 'singleSelect',
       valueOptions: comboAuctions,
     },
+    {
+      field: 'buyerId1',
+      headerName: 'buyer_Id',
+      width: 150,
+      hideable: true,
+      editable: true,
+      type: 'number',
+      valueFormatter: (params) => {
+        return params.value != null ? params.value.toString() : '';
+      },
+    },
     { field: 'portId', headerName: 'portId', width: 50 },
     {
       field: 'portName',
@@ -445,7 +588,7 @@ const Cars = () => {
       field: 'locationName',
       headerName: 'location',
       editable: true,
-      width: 100,
+      width: 150,
       hideable: true,
       type: 'singleSelect',
       valueOptions: comboLocations,
@@ -579,7 +722,32 @@ const Cars = () => {
         return <div>{params.value} $</div>;
       },
     },
+    {
+      field: 'balance',
+      headerName: 'Balance $',
+      width: 100,
+      editable: false,
+      hideable: true,
+      renderCell: (params) => {
+        const data = params.row;
+        const getNumber = (val) => (isNaN(Number(val)) ? 0 : Number(val));
+        const taxes = -(
+          getNumber(data.auctionPay) +
+          getNumber(data.tempPriceIncrease) +
+          getNumber(data.documentPrice) +
+          getNumber(data.fine) +
+          getNumber(data.insurance) +
+          getNumber(data.payOfService) +
+          getNumber(data.transportAmount) +
+          getNumber(data.sublot)
+        );
 
+        const charges = data.chargeHistory
+          ? data.chargeHistory.reduce((sum, curr) => sum + (Number(curr.amount) || 0), 0)
+          : 0;
+        return taxes + charges;
+      },
+    },
     { field: 'recieverPortId', headerName: 'recieverPortId', width: 50 },
     {
       field: 'recieverPortName',
@@ -626,11 +794,47 @@ const Cars = () => {
       editable: true,
     },
     {
+      field: 'Pricing',
+      headerName: 'Pricing',
+      width: 80,
+      sortable: false,
+      renderCell: (params) => (
+        <GridActionsCellItem
+          icon={<ExcelIcon fill="#FF0000" />}
+          label="Export to Excel"
+          onClick={() => handlePriceReport(params.id)}
+          color="inherit"
+          showInMenu={false}
+        />
+      ),
+    },
+    {
+      field: 'Transporting',
+      headerName: 'Transporting',
+      width: 80,
+      sortable: false,
+      renderCell: (params) => (
+        <GridActionsCellItem
+          icon={<ExcelIcon fill="#FF0000" />}
+          label="Export to Excel"
+          onClick={() => handleTransportingReport(params.id)}
+          color="inherit"
+          showInMenu={false}
+        />
+      ),
+    },
+    {
       field: 'actions',
       type: 'actions',
-      width: 120,
+      width: 160,
       getActions: ({ id }) => {
         return [
+          <GridActionsCellItem
+            icon={<BillIcon fill="#FF0000" />}
+            label="Export to Excel"
+            color="inherit"
+            onClick={() => handleChargeModal(id)}
+          />,
           <GridActionsCellItem
             icon={<MakeGreenIcon fill="#fff" />}
             label="MakeGreen"
@@ -644,12 +848,12 @@ const Cars = () => {
             onClick={handleEditClick(id)}
             color="inherit"
           />,
-          <GridActionsCellItem
-            icon={<DeleteIcon fill="black" />}
-            label="Delete"
-            onClick={(e) => handleDeleteClick(e, id)}
-            color="inherit"
-          />,
+          // <GridActionsCellItem
+          //   icon={<DeleteIcon fill="black" />}
+          //   label="Delete"
+          //   onClick={(e) => handleDeleteClick(e, id)}
+          //   color="inherit"
+          // />,
         ];
       },
     },
@@ -684,7 +888,9 @@ const Cars = () => {
     return <LoadingMarkUp />;
   }
 
-  isOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
+  isOpen || openCarCharge
+    ? (document.body.style.overflow = 'hidden')
+    : (document.body.style.overflow = '');
 
   return (
     <>
@@ -707,26 +913,37 @@ const Cars = () => {
           <Car handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
+      {openCarCharge && (
+        <Dialog onClose={handleChargeModal}>
+          <CarCharge
+            handleCloseDialog={handleChargeModal}
+            carId={carChargeId}
+            handleChargeModal={handleChargeModal}
+          />
+        </Dialog>
+      )}
       {/* style={{ marginBottom: '20px', display: 'flex', flexDirection: 'row' }} */}
 
       <div style={{ padding: '0 40px 0 40px' }} id="ColorBlakId">
-        {cars && (
+        {carsData && (
           <DataGrid
             getRowId={(row) => row.id}
-            rows={cars}
-            columns={columns}
+            rows={carsData}
+            columns={columnsList}
             onRowEditStop={handleRowEditStop}
             processRowUpdate={handleProcessRowUpdate}
             density="compact"
+            columnVisibilityModel={columnVisibilityModel}
+            onColumnVisibilityModelChange={handleColumnVisibility}
             onProcessRowUpdateError={(error) => {
               //console.log(error);
             }}
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? 'even-row' : 'Mui-odd'
             }
-            {...cars}
+            // {...carsData}
             initialState={{
-              ...cars.initialState,
+              ...carsData.initialState,
               pagination: { paginationModel: { pageSize: 50 } },
               columns: {
                 columnVisibilityModel: {

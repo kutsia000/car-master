@@ -18,6 +18,8 @@ import EditIcon from '../../components/Icons/EditIcon';
 import DeleteIcon from '../../components/Icons/DeleteIcon';
 import Dialog from '../../components/Dialog/Dialog';
 import EmployeeCar from './EmployeeCar';
+import ExcelIcon from '../../components/Icons/ExcelIcon';
+import BillIcon from '../../components/Icons/BillIcon';
 
 const EmployeeCars = () => {
   const location = useLocation();
@@ -35,6 +37,8 @@ const EmployeeCars = () => {
     allRecieverPorts,
     allLines,
     carStatuses,
+    getPriceReport,
+    getTransportingReport,
   } = useContext(EmployeeServiceContext);
 
   const { t, i18n } = useTranslation();
@@ -78,6 +82,14 @@ const EmployeeCars = () => {
         }}
       />
     );
+  };
+
+  const handlePriceReport = async (id) => {
+    await getPriceReport(id);
+  };
+
+  const handleTransportingReport = async (id) => {
+    await getTransportingReport(id);
   };
 
   const CustomDownloadButton = () => {
@@ -291,43 +303,43 @@ const EmployeeCars = () => {
   };
 
   const columns = [
-    { field: 'id', headerName: 'Id', width: 50, hideable: true },
-    {
-      field: 'mainImageUrl',
-      width: 150,
-      headerName: '',
-      renderCell: (params) => (
-        <>
-          <PhotoCellRenderer
-            key={params.id}
-            id={params.id}
-            value={`https://cline.ge${params.value}`}
-          />
-        </>
-      ),
-    },
+    // { field: 'id', headerName: 'Id', width: 50, hideable: true },
+    // {
+    //   field: 'mainImageUrl',
+    //   width: 150,
+    //   headerName: '',
+    //   renderCell: (params) => (
+    //     <>
+    //       <PhotoCellRenderer
+    //         key={params.id}
+    //         id={params.id}
+    //         value={`https://cline.ge${params.value}`}
+    //       />
+    //     </>
+    //   ),
+    // },
     { field: 'carMarkName', headerName: t('column_carMarkName'), width: 150, hideable: true },
     { field: 'carModelName', headerName: t('column_carModelName'), width: 150, hideable: true },
-    { field: 'carStatusId', headerName: 'carStatusId', width: 50 },
-    {
-      field: 'carStatusName',
-      headerName: t('column_carStatusName'),
-      width: 150,
-      hideable: true,
-      editable: true,
-      type: 'singleSelect',
-      valueOptions: comboCarStatuses,
-    },
-    { field: 'userId', headerName: 'userId', width: 50 },
+    // { field: 'carStatusId', headerName: 'carStatusId', width: 50 },
     // {
-    //   field: 'fullName',
-    //   headerName: 'fullName',
+    //   field: 'carStatusName',
+    //   headerName: t('column_carStatusName'),
     //   width: 150,
-    //   editable: false,
-    //   type: 'singleSelect',
-    //   valueOptions: comboDealers,
     //   hideable: true,
+    //   editable: true,
+    //   type: 'singleSelect',
+    //   valueOptions: comboCarStatuses,
     // },
+    { field: 'userId', headerName: 'userId', width: 50, hideable: true },
+    {
+      field: 'fullName',
+      headerName: 'fullName',
+      width: 150,
+      editable: false,
+      // type: '',
+      // valueOptions: fullName,
+      hideable: true,
+    },
     {
       field: 'prodYear',
       headerName: 'ProdYear',
@@ -339,7 +351,7 @@ const EmployeeCars = () => {
     },
     { field: 'vincode', headerName: 'vincode', width: 150, hideable: true, editable: true },
     { field: 'lotNumber', headerName: 'lotNumber', width: 150, hideable: true, editable: true },
-    { field: 'auctionId', headerName: 'auctionId', width: 50 },
+    // { field: 'auctionId', headerName: 'auctionId', width: 50 },
     {
       field: 'auctionName',
       headerName: 'auctionName',
@@ -349,17 +361,17 @@ const EmployeeCars = () => {
       type: 'singleSelect',
       valueOptions: comboAuctions,
     },
-    { field: 'portId', headerName: 'portId', width: 50 },
-    {
-      field: 'portName',
-      headerName: 'portName',
-      editable: true,
-      width: 100,
-      hideable: true,
-      type: 'singleSelect',
-      valueOptions: comboPorts,
-    },
-    { field: 'locationId', headerName: 'locationId', width: 50 },
+    // { field: 'portId', headerName: 'portId', width: 50 },
+    // {
+    //   field: 'portName',
+    //   headerName: 'portName',
+    //   editable: true,
+    //   width: 100,
+    //   hideable: true,
+    //   type: 'singleSelect',
+    //   valueOptions: comboPorts,
+    // },
+    // { field: 'locationId', headerName: 'locationId', width: 50 },
     {
       field: 'locationName',
       headerName: 'locationName',
@@ -369,14 +381,14 @@ const EmployeeCars = () => {
       type: 'singleSelect',
       valueOptions: comboLocations,
     },
-    {
-      field: 'dealerWin',
-      headerName: 'dealerWin',
-      width: 150,
-      hideable: true,
-      type: 'number',
-      editable: true,
-    },
+    // {
+    //   field: 'dealerWin',
+    //   headerName: 'dealerWin',
+    //   width: 150,
+    //   hideable: true,
+    //   type: 'number',
+    //   editable: true,
+    // },
     {
       field: 'saleDate',
       headerName: 'saleDate',
@@ -404,59 +416,77 @@ const EmployeeCars = () => {
     { field: 'phoneNumber', headerName: 'phoneNumber', width: 150, hideable: true, editable: true },
     {
       field: 'auctionPay',
-      headerName: 'auctionPay',
-      width: 150,
+      headerName: 'auction Pay $',
+      width: 90,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
-    {
-      field: 'wayPay',
-      headerName: 'wayPay',
-      width: 150,
-      hideable: true,
-      type: 'number',
-      editable: true,
-    },
+    // {
+    //   field: 'wayPay',
+    //   headerName: 'wayPay',
+    //   width: 150,
+    //   hideable: true,
+    //   type: 'number',
+    //   editable: true,
+    // },
     {
       field: 'tempPriceIncrease',
-      headerName: 'tempPriceIncrease',
-      width: 150,
+      headerName: 'temp Price Increase $',
+      width: 145,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'documentPrice',
-      headerName: 'documentPrice',
-      width: 150,
+      headerName: 'document Price $',
+      width: 115,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'fine',
-      headerName: 'fine',
-      width: 100,
+      headerName: 'fine $',
+      width: 45,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'insurance',
-      headerName: 'insurance',
-      width: 150,
+      headerName: 'insurance $',
+      width: 80,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'payOfService',
-      headerName: 'documentPrice',
-      width: 150,
+      headerName: 'pay Of Service $',
+      width: 125,
       hideable: true,
       type: 'number',
       editable: true,
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'transportAmount',
@@ -466,52 +496,78 @@ const EmployeeCars = () => {
       type: 'number',
       editable: true,
     },
-    { field: 'lineId', headerName: 'lineId', width: 50 },
+    // { field: 'lineId', headerName: 'lineId', width: 50 },
+    // {
+    //   field: 'lineName',
+    //   headerName: 'lineName',
+    //   editable: true,
+    //   width: 100,
+    //   hideable: true,
+    //   type: 'singleSelect',
+    //   valueOptions: comboLines,
+    // },
+    // { field: 'recieverPortId', headerName: 'recieverPortId', width: 50 },
+    // {
+    //   field: 'recieverPortName',
+    //   headerName: 'recieverPortName',
+    //   editable: true,
+    //   width: 100,
+    //   hideable: true,
+    //   type: 'singleSelect',
+    //   valueOptions: comboRecieverPorts,
+    // },
+    // {
+    //   field: 'containerEntryDate',
+    //   headerName: 'containerEntryDate',
+    //   width: 150,
+    //   hideable: true,
+    //   editable: true,
+    //   type: 'date',
+    //   valueGetter: ({ value }) => value && new Date(value),
+    // },
+    // {
+    //   field: 'containerOpenDate',
+    //   headerName: 'containerOpenDate',
+    //   width: 150,
+    //   hideable: true,
+    //   editable: true,
+    //   type: 'date',
+    //   valueGetter: ({ value }) => value && new Date(value),
+    // },
+    // {
+    //   field: 'greenDate',
+    //   headerName: 'greenDate',
+    //   width: 150,
+    //   hideable: true,
+    //   editable: true,
+    //   type: 'date',
+    //   valueGetter: ({ value }) => value && new Date(value),
+    // },
     {
-      field: 'lineName',
-      headerName: 'lineName',
-      editable: true,
+      field: 'balance',
+      headerName: 'Balance $',
       width: 100,
+      editable: false,
       hideable: true,
-      type: 'singleSelect',
-      valueOptions: comboLines,
-    },
-    { field: 'recieverPortId', headerName: 'recieverPortId', width: 50 },
-    {
-      field: 'recieverPortName',
-      headerName: 'recieverPortName',
-      editable: true,
-      width: 100,
-      hideable: true,
-      type: 'singleSelect',
-      valueOptions: comboRecieverPorts,
-    },
-    {
-      field: 'containerEntryDate',
-      headerName: 'containerEntryDate',
-      width: 150,
-      hideable: true,
-      editable: true,
-      type: 'date',
-      valueGetter: ({ value }) => value && new Date(value),
-    },
-    {
-      field: 'containerOpenDate',
-      headerName: 'containerOpenDate',
-      width: 150,
-      hideable: true,
-      editable: true,
-      type: 'date',
-      valueGetter: ({ value }) => value && new Date(value),
-    },
-    {
-      field: 'greenDate',
-      headerName: 'greenDate',
-      width: 150,
-      hideable: true,
-      editable: true,
-      type: 'date',
-      valueGetter: ({ value }) => value && new Date(value),
+      renderCell: (params) => {
+        const data = params.row;
+        const getNumber = (val) => (isNaN(Number(val)) ? 0 : Number(val));
+        const taxes = -(
+          getNumber(data.auctionPay) +
+          getNumber(data.tempPriceIncrease) +
+          getNumber(data.documentPrice) +
+          getNumber(data.fine) +
+          getNumber(data.insurance) +
+          getNumber(data.payOfService) +
+          getNumber(data.transportAmount) +
+          getNumber(data.sublot)
+        );
+
+        const charges = data.chargeHistory
+          ? data.chargeHistory.reduce((sum, curr) => sum + (Number(curr.amount) || 0), 0)
+          : 0;
+        return taxes + charges;
+      },
     },
     {
       field: 'sublot',
@@ -520,6 +576,36 @@ const EmployeeCars = () => {
       hideable: true,
       type: 'number',
       editable: true,
+    },
+    {
+      field: 'Pricing',
+      headerName: 'Pricing',
+      width: 80,
+      sortable: false,
+      renderCell: (params) => (
+        <GridActionsCellItem
+          icon={<ExcelIcon fill="#FF0000" />}
+          label="Export to Excel"
+          onClick={() => handlePriceReport(params.id)}
+          color="inherit"
+          showInMenu={false}
+        />
+      ),
+    },
+    {
+      field: 'Transporting',
+      headerName: 'Transporting',
+      width: 80,
+      sortable: false,
+      renderCell: (params) => (
+        <GridActionsCellItem
+          icon={<ExcelIcon fill="#FF0000" />}
+          label="Export to Excel"
+          onClick={() => handleTransportingReport(params.id)}
+          color="inherit"
+          showInMenu={false}
+        />
+      ),
     },
     {
       field: 'actions',
@@ -534,12 +620,12 @@ const EmployeeCars = () => {
             onClick={handleEditClick(id)}
             color="inherit"
           />,
-          <GridActionsCellItem
-            icon={<DeleteIcon fill="black" />}
-            label="Delete"
-            onClick={(e) => handleDeleteClick(e, id)}
-            color="inherit"
-          />,
+          // <GridActionsCellItem
+          //   icon={<DeleteIcon fill="black" />}
+          //   label="Delete"
+          //   onClick={(e) => handleDeleteClick(e, id)}
+          //   color="inherit"
+          // />,
         ];
       },
     },
@@ -598,6 +684,7 @@ const EmployeeCars = () => {
             getRowId={(row) => row.id}
             rows={cars}
             columns={columns}
+            density="compact"
             onRowEditStop={handleRowEditStop}
             processRowUpdate={handleProcessRowUpdate}
             onProcessRowUpdateError={(error) => {
@@ -619,15 +706,31 @@ const EmployeeCars = () => {
                 },
               },
             }}
-            pageSizeOptions={[10, 15, 25]}
+            pageSizeOptions={[50, 100, 1000]}
             slots={{
               toolbar: GridToolbar,
             }}
             sx={{
+              height: 'calc(100vh - 125px)',
               overflowX: 'scroll',
               background: 'white',
               '& .MuiInputBase-input': {
                 color: 'black !important',
+              },
+              '& .MuiDataGrid-root': {
+                color: 'black !important',
+              },
+              fontSize: '10px !important',
+              fontWeight: 'bold',
+              '& .MuiDataGrid-columnHeaderTitle': {
+                fontWeight: 'bold !important',
+                fontSize: '12px !important',
+              },
+              '& .MuiDataGrid-row:nth-type(odd)': {
+                backgroundColor: 'aliceblue',
+              },
+              '& .MuiDataGrid-columnHeaders': {
+                position: 'sticky',
               },
             }}
           />

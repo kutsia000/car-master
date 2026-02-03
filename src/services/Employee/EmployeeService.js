@@ -268,6 +268,38 @@ const EmployeeService = ({ children }) => {
     }
   };
 
+  const getPriceReport = async (params) => {
+    try {
+      const response = await employeeApi.get(`/Cars/GetPriceReport/${params}`, {
+        responseType: 'blob',
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Invoice_Price_${params}_${Date.now()}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const getTransportingReport = async (params) => {
+    try {
+      const response = await employeeApi.get(`/Cars/GetTransportReport/${params}`, {
+        responseType: 'blob',
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Invoice_Transporting_${params}_${Date.now()}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      setError(error);
+    }
+  };
+
   return (
     <EmployeeServiceContext.Provider
       value={{
@@ -279,6 +311,8 @@ const EmployeeService = ({ children }) => {
         deleteCarImages,
         addCar,
         updateCar,
+        getPriceReport,
+        getTransportingReport,
         success,
         recordsCount,
         carMarks,

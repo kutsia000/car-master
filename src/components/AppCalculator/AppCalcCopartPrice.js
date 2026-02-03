@@ -10,9 +10,7 @@ const AppCalcCopartPrice = () => {
     let securedPaymentFee = 0;
     let liveBidFee = 0;
     const gateFee = 95; // Static
-
-    // const enviromentalFee=15;
-    // პროსტაზე 50$
+    const additionalFee = 95; // Static
 
     // Secured Payment Fee logic
     if (finalBidPrice >= 0 && finalBidPrice <= 49.99) securedPaymentFee = 1;
@@ -69,10 +67,15 @@ const AppCalcCopartPrice = () => {
 
     // Calculate total fee
     const totalFee =
-      parseFloat(finalBidPrice) + parseFloat(securedPaymentFee) + parseFloat(liveBidFee) + gateFee;
+      parseFloat(finalBidPrice) +
+      parseFloat(securedPaymentFee) +
+      parseFloat(liveBidFee) +
+      gateFee +
+      additionalFee;
 
     return {
       finalBidPrice,
+      additionalFee,
       securedPaymentFee,
       liveBidFee,
       gateFee,

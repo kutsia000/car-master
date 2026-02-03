@@ -28,8 +28,7 @@ function AppInput({
           disabled={disabled}
           value={value}
         />
-        {currency && !isUSD && <span className={styles.AppInput__currency}>₾</span>}
-        {currency && isUSD && <span className={styles.AppInput__currency}>$</span>}
+        {currency && <span className={styles.AppInput__currency}>{isUSD ? '$' : '₾'}</span>}
       </div>
     </div>
   );

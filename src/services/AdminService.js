@@ -49,6 +49,8 @@ const AdminService = ({ children }) => {
   const [recieverPorts, setRecieverPorts] = useState(null);
   const [lines, setLines] = useState(null);
   const [dealers, setDealers] = useState(null);
+  const [columns, setColumns] = useState([]);
+  const [chargeHistory, setChargeHistory] = useState([]);
 
   const config = {
     headers: {
@@ -1899,6 +1901,59 @@ const AdminService = ({ children }) => {
     }
   };
 
+  const getChargeHistory = async (id) => {
+    try {
+      setChargeHistory([]);
+      const response = await adminInstance.get('/Cars/GetCarChargeHistory', {
+        params: { id: id },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, carChargingHistories, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setChargeHistory(carChargingHistories);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const addChargeHistory = async (reqBody) => {
+    try {
+      setChargeHistory([]);
+      // const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post('/Cars/AddChargeHistory', reqBody, {
+        headers: {
+          'Content-Type': 'application/json', // usually optional, but safe
+        },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, carChargingHistories, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setChargeHistory(carChargingHistories);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
   const deleteCar = async (id) => {
     try {
       const response = await adminInstance.delete('/Cars/DeleteCar', {
@@ -2005,6 +2060,85 @@ const AdminService = ({ children }) => {
     }
   };
 
+  const getUserCarColumns = async () => {
+    try {
+      const response = await adminInstance.get('/Cars/GetUserCarColumns');
+      if (response.status === 200) {
+        const { isSuccess, columns } = response.data;
+        //console.log('columns', columns);
+        setSuccess(isSuccess);
+        if (columns) {
+          setColumns(columns);
+        }
+        if (!isSuccess) {
+          setError('Failed to fetch car columns');
+        } else {
+        }
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const updateUserCarColumns = async (reqBody) => {
+    try {
+      //const fData = jsonToFormData(reqBody);
+      //console.log(reqBody);
+      const response = await adminInstance.post('/Cars/ColumnsShow', reqBody, {
+        headers: {
+          'Content-Type': 'application/json', // usually optional, but safe
+        },
+      });
+      if (response.status === 200) {
+        const { isSuccess, columns, message } = response.data;
+        //console.log('columns', columns);
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setColumns(columns);
+          setError(message);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const getPriceReport = async (params) => {
+    try {
+      const response = await adminInstance.get(`/Cars/GetPriceReport/${params}`, {
+        responseType: 'blob',
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Invoice_Price_${params}_${Date.now()}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const getTransportingReport = async (params) => {
+    try {
+      const response = await adminInstance.get(`/Cars/GetTransportReport/${params}`, {
+        responseType: 'blob',
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Invoice_Transporting_${params}_${Date.now()}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      setError(error);
+    }
+  };
+
   return (
     <AdminServiceContext.Provider
       value={{
@@ -2089,6 +2223,12 @@ const AdminService = ({ children }) => {
         addCar,
         updateCar,
         markCarAsGreen,
+        getUserCarColumns,
+        updateUserCarColumns,
+        getPriceReport,
+        getTransportingReport,
+        getChargeHistory,
+        addChargeHistory,
         error,
         success,
         recordsCount,
@@ -2134,6 +2274,8 @@ const AdminService = ({ children }) => {
         recieverPorts,
         lines,
         dealers,
+        columns,
+        chargeHistory,
       }}
     >
       {children}
