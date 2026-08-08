@@ -1,0 +1,57 @@
+.AppServiceCard {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 340px;
+
+  &__icon {
+    border-radius: 100%;
+    border-width: 1px;
+    border-color: var(--color-red);
+    padding: 20px;
+  }
+  &__desc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 17px;
+  }
+  &__title {
+    color: var(--color-white);
+    text-align: center;
+    font-feature-settings: 'case' on;
+    font-family: var(--font-base);
+    font-size: var(--font-size--xl);
+    font-style: normal;
+    font-weight: var(--font-weight-medium);
+    line-height: 159%;
+    letter-spacing: 0.2px;
+    padding-bottom: 17px;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      background-color: var(--color-red);
+      max-width: 135px;
+      width: 100%;
+      height: 2px;
+      border-radius: 8px;
+    }
+  }
+
+  &__subtitle {
+    color: var(--color-white);
+    text-align: center;
+    font-family: var(--font-base);
+    font-size: var(--font-size--md);
+    font-style: normal;
+    font-weight: var(--font-weight-normal);
+    line-height: 182%;
+    letter-spacing: 0.18px;
+  }
+}

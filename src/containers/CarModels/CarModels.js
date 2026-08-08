@@ -6,6 +6,10 @@ import { PaginationControl } from 'react-bootstrap-pagination-control';
 import Dialog from '../../components/Dialog/Dialog';
 import CarModel from './CarModel';
 import { Link, useLocation, createSearchParams, useNavigate, useParams } from 'react-router-dom';
+import AppButton from '../../components/AppButton/AppButton';
+import styles from './CarModels.module.scss';
+import EditIcon from '../../components/Icons/EditIcon';
+import DeleteIcon from '../../components/Icons/DeleteIcon';
 
 const CarModels = () => {
   const location = useLocation();
@@ -74,19 +78,24 @@ const CarModels = () => {
     return <LoadingMarkUp />;
   }
 
+  isOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
+
   return (
     <>
-      <button onClick={handleOpenDialog}>{t('new')}</button>
+      <div className={styles.CarModels__new}>
+        <AppButton large label={'new'} onClick={handleOpenDialog} color={'#0c2d57'} />
+      </div>
       {isOpen && (
         <Dialog onClose={handleCloseDialog}>
           <CarModel handleCloseDialog={handleCloseDialog} />
         </Dialog>
       )}
-      <div>
-        <table>
+      <div className={styles.CarModels}>
+        <table className={styles.CarModels__table}>
           <thead>
             <tr>
               <th>ID</th>
+              <th>CarMark</th>
               <th>Name</th>
               <th>Edit</th>
               <th>Delete</th>
@@ -102,11 +111,19 @@ const CarModels = () => {
                     <td>{carModel.carModelName}</td>
                     <td>
                       <Link to={`/${lang}/admin/dashboard/carmodels/${carModel.carModelId}`}>
-                        edit
+                        <AppButton iconButton color={'#0c2d57'}>
+                          <EditIcon />
+                        </AppButton>
                       </Link>
                     </td>
                     <td>
-                      <button onClick={() => handleDelete(carModel.CarModelId)}>delete</button>
+                      <AppButton
+                        iconButton
+                        color={'rgba(219, 45, 46, .8)'}
+                        onClick={() => handleDelete(carModel.id)}
+                      >
+                        <DeleteIcon />
+                      </AppButton>
                     </td>
                   </tr>
                 );

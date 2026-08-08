@@ -13,7 +13,7 @@ import 'flag-icon-css/css/flag-icons.css';
 
 import './utils/i18n';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('main'));
 root.render(
   <Suspense fallback={<LoadingMarkUp />}>
     {/* <React.StrictMode> */}

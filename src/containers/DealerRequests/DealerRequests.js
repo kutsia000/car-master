@@ -4,6 +4,9 @@ import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import { PaginationControl } from 'react-bootstrap-pagination-control';
 import { useLocation, createSearchParams, useNavigate } from 'react-router-dom';
+import AppButton from '../../components/AppButton/AppButton';
+import DeleteIcon from '../../components/Icons/DeleteIcon';
+import styles from './DealerRequests.module.scss';
 
 const DealerRequests = () => {
   const location = useLocation();
@@ -66,8 +69,8 @@ const DealerRequests = () => {
 
   return (
     <>
-      <div>
-        <table>
+      <div className={styles.DealerRequests}>
+        <table className={styles.DealerRequests__table}>
           <thead>
             <tr>
               <th>ID</th>
@@ -75,7 +78,7 @@ const DealerRequests = () => {
               <th>PhoneNumber</th>
               <th>EMail</th>
               <th>Text</th>
-              <th>Edit</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -86,10 +89,16 @@ const DealerRequests = () => {
                     <td>{req.id}</td>
                     <td>{req.fullName}</td>
                     <td>{req.phoneNumber}</td>
-                    <td>{req.eMail}</td>
+                    <td>{req.email}</td>
                     <td>{req.text}</td>
                     <td>
-                      <button onClick={() => handleDelete(req.id)}>delete</button>
+                      <AppButton
+                        iconButton
+                        color={'rgba(219, 45, 46, .8)'}
+                        onClick={() => handleDelete(req.id)}
+                      >
+                        <DeleteIcon />
+                      </AppButton>
                     </td>
                   </tr>
                 );

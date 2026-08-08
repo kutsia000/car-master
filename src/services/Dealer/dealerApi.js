@@ -3,7 +3,9 @@ import handleUnauthorizedError from '../../errorHandlers/unAuthorizedhandler';
 import Cookies from 'js-cookie';
 
 const dealerApi = axios.create({
-  baseURL: 'https://localhost:7164/api',
+  //'https://api.cline.ge/api'
+  //'https://localhost:7164/api'
+  baseURL: 'https://api.cline.ge/api',
 
   timeout: 20000,
 });

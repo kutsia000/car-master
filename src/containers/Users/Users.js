@@ -11,8 +11,10 @@ import {
   GridToolbar,
   GridRowEditStopReasons,
 } from '@mui/x-data-grid';
+import AppButton from '../../components/AppButton/AppButton';
 import DeleteIcon from '../../components/Icons/DeleteIcon';
 import EditIcon from '../../components/Icons/EditIcon';
+import styles from './Users.module.scss';
 
 const Users = () => {
   const location = useLocation();
@@ -47,6 +49,7 @@ const Users = () => {
   }, [userId]);
 
   useEffect(() => {
+    //console.log(userTypes);
     if (userTypes) {
       const labels = userTypes.map((ut) => {
         return ut.name;
@@ -98,7 +101,11 @@ const Users = () => {
     //setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
   };
 
-  const handleDeleteClick = (id) => () => {
+  const handleDeleteClick = async (id) => {
+    if (window.confirm('are you sure?')) {
+      await deleteUser(id);
+      fetchData();
+    }
     //setRows(rows.filter((row) => row.id !== id));
   };
 
@@ -131,7 +138,7 @@ const Users = () => {
   };
 
   const handleSave = async (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     //console.log(editedRows);
     if (editedRows.length === 0) return;
     setLoading(true);
@@ -139,6 +146,7 @@ const Users = () => {
     editedRows.forEach(async (row) => {
       await updateUser(row);
     });
+    setEditedRows([]);
     setLoading(false);
   };
 
@@ -150,7 +158,7 @@ const Users = () => {
 
   const columns = [
     { field: 'id', headerName: 'Id', width: 50, hideable: true },
-    { field: 'userTypeId', headerName: 'userTypeId', width: 150, hideable: true },
+    // { field: 'userTypeId', headerName: 'userTypeId', width: 150, hideable: true },
     {
       field: 'userTypeName',
       headerName: 'UserType',
@@ -160,7 +168,7 @@ const Users = () => {
       valueOptions: comboUserTypes,
       hideable: true,
     },
-    { field: 'priceListGroupsId', headerName: 'priceListGroupsId', width: 150, hideable: true },
+    // { field: 'priceListGroupsId', headerName: 'priceListGroupsId', width: 150, hideable: true },
     {
       field: 'priceListGroupName',
       headerName: 'priceListGroupName',
@@ -184,6 +192,7 @@ const Users = () => {
     { field: 'personalId', headerName: 'personalId', width: 150, hideable: true },
     { field: 'email', headerName: 'email', width: 150 },
     { field: 'phoneNumber', headerName: 'phoneNumber', width: 150, hideable: true },
+    { field: 'balance', headerName: 'balance', width: 150, hideable: true, editable: true },
     {
       field: 'dateBirth',
       headerName: 'dateBirth',
@@ -200,16 +209,16 @@ const Users = () => {
       getActions: ({ id }) => {
         return [
           <GridActionsCellItem
-            icon={<EditIcon />}
+            icon={<EditIcon fill="#FF0000" />}
             label="Edit"
             className="textPrimary"
-            onClick={handleEditClick(id)}
+            onClick={() => handleEditClick(id)}
             color="inherit"
           />,
           <GridActionsCellItem
-            icon={<DeleteIcon />}
+            icon={<DeleteIcon fill="black" />}
             label="Delete"
-            onClick={handleDeleteClick(id)}
+            onClick={() => handleDeleteClick(id)}
             color="inherit"
           />,
         ];
@@ -220,7 +229,7 @@ const Users = () => {
   if (loading) {
     return <LoadingMarkUp />;
   }
-
+  isOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
   return (
     <>
       {isOpen && (
@@ -228,41 +237,64 @@ const Users = () => {
           <User handleCloseDialog={handleCloseDialog}></User>
         </Dialog>
       )}
-      <div>
-        <button type="button" className="btn btn-md btn-success" onClick={handleOpenDialog}>
+      <div style={{ marginBottom: '20px', display: 'flex', flexDirection: 'row' }}>
+        <div className={styles.Users__new}>
+          <AppButton type="button" large label={'new'} onClick={handleOpenDialog} />
+        </div>
+        {/* <button type="button" className="btn btn-md btn-success" onClick={handleOpenDialog}>
           new
-        </button>
-        <button type="button" className="btn btn-md btn-primary" onClick={(e) => handleSave(e)}>
+        </button> */}
+        <div className={styles.Users__new}>
+          <AppButton
+            type={'button'}
+            large
+            label={'save'}
+            onClick={(e) => handleSave(e)}
+            color={'#0c2d57'}
+          />
+        </div>
+        {/* <button type="button" className="btn btn-md btn-primary" onClick={(e) => handleSave(e)}>
           save
-        </button>
+        </button> */}
       </div>
-      <div style={{ width: '1280px' }}>
-        <DataGrid
-          getRowId={(row) => row.id}
-          rows={users}
-          onRowEditStop={handleRowEditStop}
-          processRowUpdate={handleProcessRowUpdate}
-          onProcessRowUpdateError={(error) => {
-            //console.log(error);
-          }}
-          columns={columns}
-          sx={{ overflowX: 'scroll' }}
-          {...users}
-          initialState={{
-            ...users.initialState,
-            pagination: { paginationModel: { pageSize: 5 } },
-          }}
-          // localeText={{
-          //   toolbarFilters: 'ფილტრი',
-          //   columnMenuHideColumn: 'დამალვა',
-          //   toolbarColumnsLabel: 'სვეტები',
-          //   toolbarFiltersLabel: 'ფილტრი',
-          // }}
-          pageSizeOptions={[5, 10, 25]}
-          slots={{
-            toolbar: GridToolbar,
-          }}
-        />
+      <label style={{ color: 'white', padding: '0 40px 0 40px' }}>
+        {editedRows.length} row(s) affected
+      </label>
+      <div style={{ padding: '0 40px 0 40px' }}>
+        {users && (
+          <DataGrid
+            getRowId={(row) => row.id}
+            rows={users}
+            onRowEditStop={handleRowEditStop}
+            processRowUpdate={handleProcessRowUpdate}
+            onProcessRowUpdateError={(error) => {
+              //console.log(error);
+            }}
+            columns={columns}
+            sx={{
+              overflowX: 'scroll',
+              background: 'white',
+              '& .MuiInputBase-input': {
+                color: 'black !important',
+              },
+            }}
+            {...users}
+            initialState={{
+              ...users.initialState,
+              pagination: { paginationModel: { pageSize: 5 } },
+            }}
+            // localeText={{
+            //   toolbarFilters: 'ფილტრი',
+            //   columnMenuHideColumn: 'დამალვა',
+            //   toolbarColumnsLabel: 'სვეტები',
+            //   toolbarFiltersLabel: 'ფილტრი',
+            // }}
+            pageSizeOptions={[5, 10, 25]}
+            slots={{
+              toolbar: GridToolbar,
+            }}
+          />
+        )}
       </div>
     </>
   );

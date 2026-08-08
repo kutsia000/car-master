@@ -5,13 +5,16 @@ import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 
 const adminInstance = axios.create({
-  baseURL: 'https://localhost:7164/api',
+  //'https://api.cline.ge/api',
+  //'https://localhost:7164/api',
+  //'https://localhost:32777/api'
+  baseURL: 'https://api.cline.ge/api',
   headers: {
     post: {
       'Content-Type': 'application/json',
     },
   },
-  timeout: 20000,
+  timeout: 60000,
 });
 
 const AxiosInterceptor = ({ children }) => {

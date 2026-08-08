@@ -1,0 +1,18 @@
+.AppService {
+  position: relative;
+  display: block;
+  background-color: var(--color-black);
+
+  &__wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 88px 40px;
+    @media (max-width: 1024px) {
+      padding: 88px 20px;
+      flex-direction: column;
+    }
+  }
+}

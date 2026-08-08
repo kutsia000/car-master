@@ -49,6 +49,8 @@ const AdminService = ({ children }) => {
   const [recieverPorts, setRecieverPorts] = useState(null);
   const [lines, setLines] = useState(null);
   const [dealers, setDealers] = useState(null);
+  const [columns, setColumns] = useState([]);
+  const [chargeHistory, setChargeHistory] = useState([]);
 
   const config = {
     headers: {
@@ -110,6 +112,7 @@ const AdminService = ({ children }) => {
           recieverPorts,
           lines,
           dealers,
+          userDTO,
         } = response.data;
         if (!isSuccess) {
           setError(message);
@@ -126,6 +129,8 @@ const AdminService = ({ children }) => {
           setAllRecieverPorts(recieverPorts);
           setAllLines(lines);
           setDealers(dealers);
+          setUser(userDTO);
+          //console.log(userTypes);
         }
         //console.log(code);
       }
@@ -182,6 +187,26 @@ const AdminService = ({ children }) => {
       }
     } catch (error) {
       setError(error);
+    }
+  };
+
+  const resetPassword = async (reqBody) => {
+    try {
+      const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post('/Admin/ResetPassword', fData, config);
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setError(response.statusText);
+      }
+    } catch (ex) {
+      setError(error);
+      setSuccess(false);
     }
   };
 
@@ -368,7 +393,7 @@ const AdminService = ({ children }) => {
 
   const deleteReview = async (reqBody) => {
     try {
-      const response = await adminInstance.delete(`/Reviews/DeleteReview?id=${reqBody.id}`);
+      const response = await adminInstance.delete(`/Reviews/DeleteReview?id=${reqBody}`);
       setError(null);
       if (response.status === 200) {
         const { isSuccess, message } = response.data;
@@ -472,7 +497,7 @@ const AdminService = ({ children }) => {
 
   const deleteBlog = async (id) => {
     try {
-      const response = await adminInstance.delete(`/Blogs/DeleteBlog?id=${id}`);
+      const response = await adminInstance.delete(`/Blogs/DeleteBlog/${id}`);
       setError(null);
       if (response.status === 200) {
         const { isSuccess, message } = response.data;
@@ -1160,7 +1185,7 @@ const AdminService = ({ children }) => {
   const addLocation = async (reqBody) => {
     try {
       const fData = jsonToFormData(reqBody);
-      const response = await adminInstance.post('/Locations/AddAuction', fData, config);
+      const response = await adminInstance.post('/Locations/AddLocation', fData, config);
       setError(null);
       if (response.status === 200) {
         const { isSuccess, location, message } = response.data;
@@ -1395,6 +1420,7 @@ const AdminService = ({ children }) => {
 
   const addPriceListGroup = async (reqBody) => {
     try {
+      //console.log(reqBody);
       const fData = jsonToFormData(reqBody);
       const response = await adminInstance.post(
         '/PriceListGroups/AddPriceListGroup',
@@ -1875,6 +1901,59 @@ const AdminService = ({ children }) => {
     }
   };
 
+  const getChargeHistory = async (id) => {
+    try {
+      setChargeHistory([]);
+      const response = await adminInstance.get('/Cars/GetCarChargeHistory', {
+        params: { id: id },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, carChargingHistories, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setChargeHistory(carChargingHistories);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const addChargeHistory = async (reqBody) => {
+    try {
+      setChargeHistory([]);
+      // const fData = jsonToFormData(reqBody);
+      const response = await adminInstance.post('/Cars/AddChargeHistory', reqBody, {
+        headers: {
+          'Content-Type': 'application/json', // usually optional, but safe
+        },
+      });
+      setError(null);
+      if (response.status === 200) {
+        const { isSuccess, carChargingHistories, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        } else {
+          setChargeHistory(carChargingHistories);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
   const deleteCar = async (id) => {
     try {
       const response = await adminInstance.delete('/Cars/DeleteCar', {
@@ -1961,10 +2040,110 @@ const AdminService = ({ children }) => {
     }
   };
 
+  const markCarAsGreen = async (id) => {
+    try {
+      const response = await adminInstance.post('/Cars/MarkCarAsGreen', null, {
+        params: { id: id },
+      });
+      if (response.status === 200) {
+        const { isSuccess, message } = response.data;
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setError(message);
+        }
+      } else {
+        setSuccess(false);
+        setError(response.statusText);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const getUserCarColumns = async () => {
+    try {
+      const response = await adminInstance.get('/Cars/GetUserCarColumns');
+      if (response.status === 200) {
+        const { isSuccess, columns } = response.data;
+        //console.log('columns', columns);
+        setSuccess(isSuccess);
+        if (columns) {
+          setColumns(columns);
+        }
+        if (!isSuccess) {
+          setError('Failed to fetch car columns');
+        } else {
+        }
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const updateUserCarColumns = async (reqBody) => {
+    try {
+      //const fData = jsonToFormData(reqBody);
+      //console.log(reqBody);
+      const response = await adminInstance.post('/Cars/ColumnsShow', reqBody, {
+        headers: {
+          'Content-Type': 'application/json', // usually optional, but safe
+        },
+      });
+      if (response.status === 200) {
+        const { isSuccess, columns, message } = response.data;
+        //console.log('columns', columns);
+        setSuccess(isSuccess);
+        if (!isSuccess) {
+          setColumns(columns);
+          setError(message);
+        }
+      } else {
+        setError(response.statusText);
+        setSuccess(false);
+      }
+    } catch (error) {
+      setError(error);
+      setSuccess(false);
+    }
+  };
+
+  const getPriceReport = async (params) => {
+    try {
+      const response = await adminInstance.get(`/Cars/GetPriceReport/${params}`, {
+        responseType: 'blob',
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Invoice_Price_${params}_${Date.now()}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const getTransportingReport = async (params) => {
+    try {
+      const response = await adminInstance.get(`/Cars/GetTransportReport/${params}`, {
+        responseType: 'blob',
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Invoice_Transporting_${params}_${Date.now()}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      setError(error);
+    }
+  };
+
   return (
     <AdminServiceContext.Provider
       value={{
         home,
+        resetPassword,
         getUsers,
         getUserById,
         registerUser,
@@ -2043,6 +2222,13 @@ const AdminService = ({ children }) => {
         deleteCarImages,
         addCar,
         updateCar,
+        markCarAsGreen,
+        getUserCarColumns,
+        updateUserCarColumns,
+        getPriceReport,
+        getTransportingReport,
+        getChargeHistory,
+        addChargeHistory,
         error,
         success,
         recordsCount,
@@ -2088,6 +2274,8 @@ const AdminService = ({ children }) => {
         recieverPorts,
         lines,
         dealers,
+        columns,
+        chargeHistory,
       }}
     >
       {children}

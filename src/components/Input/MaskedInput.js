@@ -3,7 +3,7 @@ import ReactInputMask from 'react-input-mask';
 
 const MaskedInput = ({ id, name, label, mask, value, onChange, isValid, errorMessage }) => {
   return (
-    <div className="form-group">
+    <div className="form-group row gap-2">
       <label htmlFor={id}>{label}</label>
       <ReactInputMask
         id={id}

@@ -1,0 +1,54 @@
+.AppRelatedBlogs {
+  position: relative;
+  display: block;
+  height: 100%;
+  background-color: var(--color-gray-900);
+  border-radius: 21px;
+  box-shadow: 0px 0px 10.52394px 0px rgba(0, 0, 0, 0.04);
+  padding: 20px;
+  @media (max-width: 1024px) {
+    margin: 0 auto;
+  }
+
+  &__titleWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    padding-bottom: 30px;
+  }
+
+  &__title {
+    color: var(--color-white);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: var(--font-base);
+    font-size: var(--font-size--md-display);
+    font-style: normal;
+    font-weight: var(--font-weight-medium);
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  &__button {
+    color: var(--color-white);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: var(--font-base);
+    font-size: var(--font-size--md);
+    font-weight: 400;
+    opacity: 0.8;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    &:hover {
+      color: var(--color-red);
+    }
+  }
+
+  &__cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+}

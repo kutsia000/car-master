@@ -1,5 +1,4 @@
-/* Dialog Container */
-.dialog-container {
+Dialog Container .dialog-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -32,4 +31,8 @@ dialog {
 
 .child-component p {
   color: #333;
+}
+
+.cell-green {
+  background-color: #bae0bd;
 }

@@ -1,0 +1,128 @@
+.AppFooter {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-gray-900);
+  padding: 50px 0 25px;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 100px;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 60px;
+    }
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    justify-content: space-between;
+    align-items: flex-start;
+    @media (max-width: 768px) {
+      gap: 10px;
+    }
+
+    &--copyright {
+      user-select: none;
+      color: var(--color-white);
+      font-family: var(--font-base);
+      font-size: var(--font-size--sm);
+      font-style: normal;
+      font-weight: var(--font-weight-normal);
+      line-height: normal;
+      letter-spacing: 0.18px;
+      opacity: 0.6;
+    }
+  }
+
+  &__leftWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    @media (max-width: 768px) {
+      gap: 0;
+    }
+  }
+
+  &__right {
+    &--title {
+      color: var(--color-white);
+      font-feature-settings: 'case' on;
+      font-family: var(--font-base);
+      font-size: var(--font-size--lg);
+      font-style: normal;
+      font-weight: var(--font-weight-normal);
+      line-height: normal;
+      letter-spacing: 0.18px;
+      opacity: 0.95;
+      padding-left: 10px;
+      margin-bottom: 12px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 4px;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        height: 100%;
+        border-radius: 8px;
+        background-color: var(--color-red);
+      }
+    }
+
+    &--desc {
+      color: var(--color-white);
+      font-family: var(--font-base);
+      font-size: var(--font-size--sm);
+      font-style: normal;
+      font-weight: var(--font-weight-normal);
+      letter-spacing: 0.15px;
+      opacity: 0.8;
+      max-width: 485px;
+      margin-bottom: 30px;
+    }
+
+    &--subscribe {
+      display: flex;
+      width: 100%;
+
+      input[type='email'] {
+        color: var(--color-white);
+        align-items: center;
+        width: 100%;
+        padding: 12px 24px;
+        border-radius: 4px 0px 0px 4px;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        border-right: none;
+      }
+
+      input[type='submit'] {
+        color: var(--color-white);
+        font-feature-settings: 'case' on;
+        font-family: var(--font-base);
+        font-size: var(--font-size--md);
+        font-weight: var(--font-weight-normal);
+        letter-spacing: 0.16px;
+        border-radius: 0px 4px 4px 0px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: var(--color-red);
+        padding: 0 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.4s ease;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+.AppFindCar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 120px;
+  @media (max-width: 1024px) {
+    padding-bottom: 100px;
+  }
+  figure {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    img {
+      height: 100%;
+    }
+  }
+
+  &__cars {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 80px 40px 120px;
+    @media (max-width: 1024px) {
+      padding: 60px 20px 100px;
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+}

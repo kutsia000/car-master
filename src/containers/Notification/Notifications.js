@@ -6,6 +6,10 @@ import { PaginationControl } from 'react-bootstrap-pagination-control';
 import Dialog from '../../components/Dialog/Dialog';
 import Notification from './Notification';
 import { Link, useLocation, createSearchParams, useNavigate, useParams } from 'react-router-dom';
+import AppButton from '../../components/AppButton/AppButton';
+import styles from './Notifications.module.scss';
+import EditIcon from '../../components/Icons/EditIcon';
+import DeleteIcon from '../../components/Icons/DeleteIcon';
 
 const Notifications = () => {
   const location = useLocation();
@@ -75,19 +79,24 @@ const Notifications = () => {
   if (loading) {
     return <LoadingMarkUp />;
   }
+  isOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
 
-  //console.log(recordsCount);
+  if (isOpen) {
+    return (
+      <Dialog onClose={handleCloseDialog}>
+        <Notification handleCloseDialog={handleCloseDialog} />
+      </Dialog>
+    );
+  }
+
   return (
     <>
       {/* <Link to={`/${lang}/admin/dashboard/notification/`}>{t('new')}</Link> */}
-      <button onClick={handleOpenDialog}>{t('new')}</button>
-      {isOpen && (
-        <Dialog onClose={handleCloseDialog}>
-          <Notification handleCloseDialog={handleCloseDialog} />
-        </Dialog>
-      )}
-      <div>
-        <table>
+      <div className="new-button">
+        <AppButton large label={'new'} onClick={handleOpenDialog} color={'#0c2d57'} />
+      </div>
+      <div className={styles.Notifications}>
+        <table className={styles.Notifications__table}>
           <thead>
             <tr>
               <th>ID</th>
@@ -107,11 +116,19 @@ const Notifications = () => {
                     <td>{notification.content}</td>
                     <td>
                       <Link to={`/${lang}/admin/dashboard/notifications/${notification.id}`}>
-                        edit
+                        <AppButton iconButton color={'#0c2d57'}>
+                          <EditIcon />
+                        </AppButton>
                       </Link>
                     </td>
                     <td>
-                      <button onClick={() => handleDelete(notification.id)}>delete</button>
+                      <AppButton
+                        iconButton
+                        color={'rgba(219, 45, 46, .8)'}
+                        onClick={() => handleDelete(notification.id)}
+                      >
+                        <DeleteIcon />
+                      </AppButton>
                     </td>
                   </tr>
                 );

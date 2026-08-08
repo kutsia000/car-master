@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const landginApi = axios.create({
-  baseURL: 'https://localhost:7164/api',
+  //'https://api.cline.ge/api'
+  //'https://localhost:7164/api'
+  baseURL: 'https://api.cline.ge/api',
   headers: {
     post: {
       'Content-Type': 'application/json',

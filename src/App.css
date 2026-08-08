@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  background: red;
+}
+
+/* .MuiDataGrid-root {
+  font-size: 12px !important;
+} */

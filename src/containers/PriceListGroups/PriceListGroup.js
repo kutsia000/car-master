@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
+import AppButton from '../../components/AppButton/AppButton';
+import InputFilePdfComponent from '../../components/Input/InputFilePdfComponent';
 
 const PriceListGroup = ({ handleCloseDialog }) => {
   const {
@@ -20,6 +22,7 @@ const PriceListGroup = ({ handleCloseDialog }) => {
   const [formData, setFormData] = useState({
     id: null,
     name: '',
+    fileUrl: '',
   });
 
   const lang = i18n.language || 'en';
@@ -87,16 +90,23 @@ const PriceListGroup = ({ handleCloseDialog }) => {
     setLoading(false);
   };
 
+  const handleFileChange = (e) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      fileUrl: e,
+    }));
+  };
+
   if (loading) {
     return <LoadingMarkUp />;
   }
 
   return (
     <>
-      <h2>port Id:{priceListGroupId}</h2>
+      <h2>PriceListGroup Id:{priceListGroupId}</h2>
       <form onSubmit={handleSubmit}>
         <InputComponent
-          label="portname"
+          label="priceListGroupname"
           type="text"
           id="name"
           required={true}
@@ -104,9 +114,21 @@ const PriceListGroup = ({ handleCloseDialog }) => {
           value={formData.name}
           onChange={(e) => handleInputChange(e)}
         />
-
+        <InputFilePdfComponent
+          label="File"
+          type="file"
+          id="MainImage"
+          name="MainImage"
+          multiple={false}
+          required={false}
+          onFileSelected={handleFileChange}
+        />
         {error ? error : null}
-        <button type="submit">submit</button>
+        <div className="form-group row"></div>
+        <div className="form-group row"></div>
+        <div className="form-group row">
+          <AppButton type={'submit'} full label="submit" />
+        </div>
       </form>
     </>
   );

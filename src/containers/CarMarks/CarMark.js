@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
+import AppButton from '../../components/AppButton/AppButton';
 
 const CarMark = ({ handleCloseDialog }) => {
   const { t, i18n } = useTranslation();
@@ -92,7 +93,11 @@ const CarMark = ({ handleCloseDialog }) => {
           onChange={(e) => handleInputChange(e)}
         />
         {error ? error : null}
-        <button type="submit">submit</button>
+        <div className="form-group row"></div>
+        <div className="form-group row"></div>
+        <div className="form-group row">
+          <AppButton type={'submit'} full label="submit" />
+        </div>
       </form>
     </>
   );

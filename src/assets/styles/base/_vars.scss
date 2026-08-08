@@ -1,0 +1,90 @@
+:root {
+  --color-white: #fff;
+  --color-black: #000000;
+
+  --color-gray-800: #2d2d2d;
+  --color-gray-900: #131415;
+
+  --color-blue: #2a5996;
+  --color-blue-100: #006bad;
+  --color-red: #db2d2e;
+  --color-yellow: #f1b13b;
+  --color-skyblue: #3988ba;
+  --color-green: #82be68;
+  --color-light-blue: #344054;
+  --color-darkblue: #0c2d57;
+  --color-orange: #ec8f24;
+  --color-warning: #fdb022;
+
+  --font-size--lg-display: 48px;
+  --font-size--md-display: 36px;
+  --font-size--xl: 20px;
+  --font-size--lg: 18px;
+  --font-size--md: 16px;
+  --font-size--sm: 14px;
+  --font-size--xs: 12px;
+
+  --line-height--lg-display: 48px;
+  --line-height--md-display: 44px;
+  --line-height--xl: 30px;
+  --line-height--lg: 28px;
+  --line-height--md: 24px;
+  --line-height--sm: 20px;
+  --line-height--xs: 18px;
+
+  --font-weight-bold: 700;
+  --font-weight-large: 600;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+
+  --font-base: 'FiraGo', sans-serif;
+  --font-base-italic: 'FiraGoI', sans-serif;
+
+  //font-family: Poppins; ??
+
+  @media (max-width: 1680px) {
+    --font-size--lg-display: 44px;
+    --font-size--md-display: 32px;
+  }
+
+  @media (max-width: 1440px) {
+    --font-size--lg-display: 42px;
+    --font-size--md-display: 28px;
+    --font-size--xl: 18px;
+  }
+
+  @media (max-width: 1366px) {
+    --font-size--lg-display: 40px;
+    --font-size--md-display: 22px;
+  }
+
+  @media (max-width: 1280px) {
+    --font-size--lg-display: 30px;
+    --font-size--lg: 16px;
+  }
+
+  @media (max-width: 1024px) {
+    --font-size--lg-display: 26px;
+    --font-size--xl: 18px;
+    --font-size--lg: 16px;
+    --font-size--md: 14px;
+    --font-size--sm: 12px;
+    --font-size--xs: 10px;
+  }
+
+  @media (max-width: 768px) {
+    --font-size--xl: 16px;
+    --font-size--lg: 14px;
+    --font-size--md: 12px;
+    --font-size--sm: 10px;
+    --font-size--xs: 8px;
+  }
+
+  @media (max-width: 420px) {
+    --font-size--md-display: 16px;
+    --font-size--xl: 14px;
+    --font-size--lg: 12px;
+    --font-size--md: 10px;
+    --font-size--sm: 8px;
+  }
+}

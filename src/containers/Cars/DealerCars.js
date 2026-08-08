@@ -2,39 +2,35 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DealerServiceContext } from '../../services/Dealer/DealerService';
 import LoadingMarkUp from '../../components/Loading/Loading';
-import Dialog from '../../components/Dialog/Dialog';
-import Car from './Car';
+import styles from './Cars.module.scss';
 import { Link, useLocation, createSearchParams, useNavigate, useParams } from 'react-router-dom';
 import {
   DataGrid,
   GridActionsCellItem,
   GridToolbar,
   GridRowEditStopReasons,
+  GridPagination,
 } from '@mui/x-data-grid';
 import Lightbox from 'react-18-image-lightbox';
 import 'react-18-image-lightbox/style.css';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-
-const images = [
-  'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
-  'https://th.bing.com/th/id/OIG.lVXjWwlHyIo4QdjnC1YE',
-  'https://1.bp.blogspot.com/-kK7Fxm7U9o0/YN0bSIwSLvI/AAAAAAAACFk/aF4EI7XU_ashruTzTIpifBfNzb4thUivACLcBGAsYHQ/s1280/222.jpg',
-  'https://pixlr.com/images/index/remove-bg.webp',
-];
+import AppButton from '../../components/AppButton/AppButton';
 
 const DealerCars = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
-  const { getCars, updateCar, cars, error } = useContext(DealerServiceContext);
+  const { getCars, updateCar, cars, error, user } = useContext(DealerServiceContext);
 
+  console.log(user.balance);
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const [loading, setLoading] = useState(true);
   const [editedRows, setEditedRows] = useState([]);
   const [lBoxIsOpen, setLBoxIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -45,13 +41,21 @@ const DealerCars = () => {
     setLoading(false);
   };
 
-  const PhotoCellRenderer = ({ value }) => {
+  const PhotoCellRenderer = ({ id, value }) => {
     return (
       <img
         src={value}
         alt="Photo"
         style={{ maxWidth: '100%', maxHeight: '100px', cursor: 'pointer' }}
-        onClick={() => setLBoxIsOpen(true)}
+        onClick={() => {
+          let car = cars.find((c) => c.id == id);
+          if (car) {
+            let imgs = [car.mainImageUrl, ...car.imageURLs];
+            let images = imgs.map((i) => `https://cline.ge${i}`);
+            setImages(images);
+          }
+          setLBoxIsOpen(true);
+        }}
       />
     );
   };
@@ -81,7 +85,7 @@ const DealerCars = () => {
   };
 
   const handleSave = async (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     //console.log(editedRows);
     if (editedRows.length === 0) return;
     setLoading(true);
@@ -126,77 +130,99 @@ const DealerCars = () => {
   };
 
   const columns = [
-    { field: 'id', headerName: 'Id', width: 50, hideable: true },
+    // { field: 'id', headerName: 'Id', width: 20, hideable: true },
     {
       field: 'mainImageUrl',
-      width: 150,
+      width: 60,
       headerName: '',
       renderCell: (params) => (
         <PhotoCellRenderer
           key={params.id}
-          value={
-            'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80'
-          }
+          id={params.id}
+          value={`https://cline.ge${params.value}`}
         />
       ),
     },
-    { field: 'carMarkName', headerName: t('column_carMarkName'), width: 150, hideable: true },
-    { field: 'carModelName', headerName: t('column_carModelName'), width: 150, hideable: true },
+    { field: 'carMarkName', headerName: t('column_carMarkName'), width: 90, hideable: true },
+    { field: 'carModelName', headerName: t('column_carModelName'), width: 80, hideable: true },
     { field: 'carStatusId', headerName: 'carStatusId', width: 50 },
     {
       field: 'carStatusName',
       headerName: t('column_carStatusName'),
-      width: 150,
+      width: 75,
       hideable: true,
     },
     { field: 'userId', headerName: 'userId', width: 50 },
     {
       field: 'fullName',
       headerName: 'fullName',
-      width: 150,
+      width: 100,
       hideable: true,
     },
     {
       field: 'prodYear',
       headerName: 'ProdYear',
-      width: 150,
+      width: 80,
       hideable: true,
     },
     { field: 'vincode', headerName: 'vincode', width: 150, hideable: true },
-    { field: 'lotNumber', headerName: 'lotNumber', width: 150, hideable: true },
+    { field: 'lotNumber', headerName: 'lotNumber', width: 90, hideable: true },
+    {
+      field: 'containerNumber',
+      headerName: 'containerNumber',
+      width: 120,
+      hideable: true,
+    },
+    { field: 'lineId', headerName: 'lineId', width: 50 },
+    {
+      field: 'lineName',
+      headerName: 'lineName',
+      width: 90,
+      hideable: true,
+    },
     { field: 'auctionId', headerName: 'auctionId', width: 50 },
     {
       field: 'auctionName',
       headerName: 'auctionName',
-      width: 150,
+      width: 100,
       hideable: true,
     },
     { field: 'portId', headerName: 'portId', width: 50 },
     {
       field: 'portName',
       headerName: 'portName',
-      width: 100,
+      width: 80,
       hideable: true,
     },
     { field: 'locationId', headerName: 'locationId', width: 50 },
     {
       field: 'locationName',
       headerName: 'locationName',
-      width: 150,
+      width: 100,
       hideable: true,
     },
     {
       field: 'dealerWin',
-      headerName: 'dealerWin',
-      width: 150,
+      headerName: 'dealerWin $',
+      width: 80,
       hideable: true,
       type: 'number',
+      //valueGetter: (params) => params.row.dealerWin || null,
       editable: true,
+      cellClassName: (params) => {
+        if (params.row.isGreen) {
+          return 'cell-green';
+        }
+      },
+      renderCell: (params) => {
+        //console.log(params.row.dealerWin);
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'saleDate',
       headerName: 'saleDate',
-      width: 150,
+      width: 75,
       hideable: true,
       type: 'date',
       valueGetter: ({ value }) => value && new Date(value),
@@ -204,7 +230,7 @@ const DealerCars = () => {
     {
       field: 'reciever',
       headerName: 'reciever',
-      width: 150,
+      width: 125,
       hideable: true,
       editable: true,
       valueGetter: (params) => params.row.reciever || null,
@@ -212,85 +238,109 @@ const DealerCars = () => {
     {
       field: 'recieverPersonalId',
       headerName: 'recieverPersonalId',
-      width: 150,
+      width: 130,
       hideable: true,
       editable: true,
     },
     { field: 'phoneNumber', headerName: 'phoneNumber', width: 150, hideable: true, editable: true },
     {
       field: 'auctionPay',
-      headerName: 'auctionPay',
-      width: 150,
+      headerName: 'auctionPay $',
+      width: 90,
       hideable: true,
       type: 'number',
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'wayPay',
-      headerName: 'wayPay',
-      width: 150,
+      headerName: 'wayPay $',
+      width: 70,
       hideable: true,
       type: 'number',
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'tempPriceIncrease',
-      headerName: 'tempPriceIncrease',
-      width: 150,
+      headerName: 'tempPriceIncrease $',
+      width: 145,
       hideable: true,
       type: 'number',
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'documentPrice',
-      headerName: 'documentPrice',
-      width: 150,
+      headerName: 'documentPrice $',
+      width: 115,
       hideable: true,
       type: 'number',
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'fine',
-      headerName: 'fine',
-      width: 100,
+      headerName: 'fine $',
+      width: 45,
       hideable: true,
       type: 'number',
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'insurance',
-      headerName: 'insurance',
-      width: 150,
+      headerName: 'insurance $',
+      width: 80,
       hideable: true,
       type: 'number',
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'payOfService',
-      headerName: 'documentPrice',
-      width: 150,
+      headerName: 'documentPrice $',
+      width: 125,
       hideable: true,
       type: 'number',
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
     {
       field: 'transportAmount',
-      headerName: 'transportAmount',
-      width: 150,
+      headerName: 'transportAmount $',
+      width: 125,
       hideable: true,
       type: 'number',
+      renderCell: (params) => {
+        return <div>{params.value} $</div>;
+      },
     },
-    { field: 'lineId', headerName: 'lineId', width: 50 },
-    {
-      field: 'lineName',
-      headerName: 'lineName',
-      width: 100,
-      hideable: true,
-    },
+    // { field: 'lineId', headerName: 'lineId', width: 50 },
+    // {
+    //   field: 'lineName',
+    //   headerName: 'lineName',
+    //   width: 90,
+    //   hideable: true,
+    // },
     { field: 'recieverPortId', headerName: 'recieverPortId', width: 50 },
     {
       field: 'recieverPortName',
       headerName: 'recieverPortName',
-      width: 100,
+      width: 120,
       hideable: true,
     },
     {
       field: 'containerEntryDate',
       headerName: 'containerEntryDate',
-      width: 150,
+      width: 130,
       hideable: true,
       type: 'date',
       valueGetter: ({ value }) => value && new Date(value),
@@ -298,7 +348,7 @@ const DealerCars = () => {
     {
       field: 'containerOpenDate',
       headerName: 'containerOpenDate',
-      width: 150,
+      width: 130,
       hideable: true,
       type: 'date',
       valueGetter: ({ value }) => value && new Date(value),
@@ -306,7 +356,7 @@ const DealerCars = () => {
     {
       field: 'greenDate',
       headerName: 'greenDate',
-      width: 150,
+      width: 90,
       hideable: true,
       type: 'date',
       valueGetter: ({ value }) => value && new Date(value),
@@ -314,11 +364,48 @@ const DealerCars = () => {
     {
       field: 'sublot',
       headerName: 'sublot',
-      width: 150,
+      width: 75,
       hideable: true,
       type: 'number',
     },
   ];
+
+  function IsCellEditable(params) {
+    if (params.field == 'dealerWin') {
+      if (params.formattedValue == '') return true;
+      else return false;
+    }
+    return true;
+    //return params.ise;
+  }
+
+  const CustomComponent = () => {
+    return (
+      <>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+            {/* <div>
+              <AppButton type="button" small label={'new'} onClick={handleOpenDialog} />
+            </div> */}
+            <div style={{ marginLeft: '10px' }}>
+              <AppButton
+                type={'button'}
+                small
+                label={'save'}
+                onClick={(e) => handleSave(e)}
+                color={'#0c2d57'}
+              />
+            </div>
+            <label style={{ marginLeft: '10px' }}>{editedRows.length} row(s) affected</label>
+            <label style={{ marginLeft: '100px' }}>
+              Balance: <span style={{ color: 'green' }}>{user.balance}$</span>
+            </label>
+          </div>
+          <GridPagination height={'120px'}></GridPagination>
+        </div>
+      </>
+    );
+  };
 
   if (loading) {
     return <LoadingMarkUp />;
@@ -335,30 +422,44 @@ const DealerCars = () => {
           onMovePrevRequest={() => setPhotoIndex((photoIndex + images.length - 1) % images.length)}
           onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % images.length)}
           enableZoom
+          imagePadding={250}
           clickOutsideToClose
           toolbarButtons={[<CustomDownloadButton />]}
         />
       )}
-      <div>
-        <button type="button" className="btn btn-md btn-primary" onClick={(e) => handleSave(e)}>
-          save
-        </button>
-      </div>
-      <label>{editedRows.length} row(s) affected</label>
-      <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+      {/* <div className={styles.Cars__new}>
+        <AppButton
+          type={'button'}
+          large
+          label={'save'}
+          onClick={(e) => handleSave(e)}
+          color={'#0c2d57'}
+        />
+      </div> */}
+
+      {/* <label style={{ color: 'white', padding: '0 40px 0 40px' }}>
+        {editedRows.length} row(s) affected
+      </label> */}
+      <div style={{ padding: '0 40px 0 40px' }}>
         <DataGrid
           getRowId={(row) => row.id}
           rows={cars}
           columns={columns}
+          density="compact"
+          isCellEditable={IsCellEditable}
           onRowEditStop={handleRowEditStop}
           processRowUpdate={handleProcessRowUpdate}
+          getRowClassName={(params) =>
+            params.indexRelativeToCurrentPage % 2 === 0 ? 'even-row' : 'odd'
+          }
           onProcessRowUpdateError={(error) => {
             //console.log(error);
           }}
           {...cars}
           initialState={{
             ...cars.initialState,
-            pagination: { paginationModel: { pageSize: 10 } },
+            pagination: { paginationModel: { pageSize: 50 } },
             columns: {
               columnVisibilityModel: {
                 carStatusId: false,
@@ -371,9 +472,27 @@ const DealerCars = () => {
               },
             },
           }}
-          pageSizeOptions={[10, 15, 25]}
+          pageSizeOptions={[50, 100, 1000]}
           slots={{
             toolbar: GridToolbar,
+            footer: CustomComponent,
+          }}
+          sx={{
+            height: 'calc(100vh - 125px)',
+            overflowX: 'scroll',
+            background: 'white',
+            '& .MuiInputBase-input': {
+              color: 'black !important',
+            },
+            fontSize: '10px !important',
+            fontWeight: 'bold',
+            '& .MuiDataGrid-columnHeaderTitle': {
+              fontWeight: 'bold !important',
+              fontSize: '12px !important',
+            },
+            '& .MuiDataGrid-row:nth-type(odd)': {
+              backgroundColor: 'aliceblue',
+            },
           }}
         />
       </div>

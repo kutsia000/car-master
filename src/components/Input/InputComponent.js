@@ -33,7 +33,7 @@ const InputComponent = ({
   };
 
   return (
-    <div className="form-group row">
+    <div className="form-group row gap-2">
       <label htmlFor={id} className={labelClass}>
         {label}
         {required && <span style={{ color: '#dc3545' }}>*</span>}

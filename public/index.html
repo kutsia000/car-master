@@ -4,8 +4,19 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:locale" content="ka_GE" />
+    <meta property="og:url" content="https://cline.ge/" />
+    <meta property="og:title" content="CarLine Auto Import" />
     <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Web site created using create-react-app" />
+    <meta name="author" content="CarLine Auto Import - ქარლაინ ავტო იმპორტი" />
+    <meta name="copyright" content="CarLine Auto Import - ქარლაინ ავტო იმპორტი" />
+    <meta property="og:description" content="ავტომობილები ამერიკიდან შენს სახლამდე!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cline.ge/" />
+    <meta
+      name="keywords"
+      content="ავტოიმპორტი, მანქანა, ავტომიბილის ჩამოყვანა, იმპორტი, მანქანის იმპორტი, მანქანის ჩამოყვანა ამერიკიდან, ."
+    />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -34,6 +45,44 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script src="https://kit.fontawesome.com/d552aa6eb1.js" crossorigin="anonymous"></script>
+    <style>
+      .marker {
+        position: absolute;
+
+        border-radius: 50% 50% 50% 0;
+        border: 4px solid red;
+        width: 20px;
+        height: 20px;
+        transform: rotate(-45deg);
+      }
+
+      .marker::after {
+        position: absolute;
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        margin-left: -5px;
+        margin-top: -5px;
+        background-color: red;
+      }
+      #ColorBlakId .MuiDataGrid-root .MuiInputBase-input.MuiDataGrid-filterInput {
+        color: black !important;
+      }
+      .MuiInputBase-input {
+        color: black !important;
+      }
+
+      .ddgblue {
+        color: dodgerblue !important;
+      }
+      .even-row {
+        background-color: #f6f6f6; /* Light gray background color */
+      }
+    </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -43,21 +92,10 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Car Line</title>
   </head>
 
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <main id="main"></main>
   </body>
 </html>

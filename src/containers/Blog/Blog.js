@@ -5,6 +5,7 @@ import { AdminServiceContext } from '../../services/AdminService';
 import LoadingMarkUp from '../../components/Loading/Loading';
 import InputComponent from '../../components/Input/InputComponent';
 import InputFileComponent from '../../components/Input/InputFileComponent';
+import AppButton from '../../components/AppButton/AppButton';
 
 const Blog = ({ handleCloseDialog }) => {
   const { blog, getBlogByIdAllLanguages, addBlog, updateBlog, error, success } =
@@ -15,7 +16,7 @@ const Blog = ({ handleCloseDialog }) => {
     mainImage: null,
     images: [],
     blogContents: [
-      { languageId: 1, title: '', content: '' },
+      { languageId: 1, title: '', content: '', languageName: 'ქართული' },
       { languageId: 2, title: '', content: '' },
       { languageId: 3, title: '', content: '' },
     ],
@@ -147,7 +148,11 @@ const Blog = ({ handleCloseDialog }) => {
           onFileSelected={handleImagesChange}
         />
         {error && <label>{error}</label>}
-        <button type="submit">Submit</button>
+        <div className="form-group row"></div>
+        <div className="form-group row"></div>
+        <div className="form-group row">
+          <AppButton type={'submit'} full label="submit" />
+        </div>
       </form>
     </>
   );
