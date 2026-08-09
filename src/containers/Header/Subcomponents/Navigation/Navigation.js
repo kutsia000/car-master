@@ -47,7 +47,7 @@ const Navigation = ({ header, footer }) => {
       </ul>
       {header && (
         <div className={styles.AppMenuList__right}>
-          <Link to={`/${lang}/login`}>
+          <Link to={'https://dealers.cl1ne.ge'} target="_blank" rel="noopener noreferrer">
             <UserIcon />
           </Link>
           <AppButton iconButton>

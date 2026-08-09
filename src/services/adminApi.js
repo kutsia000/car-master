@@ -7,11 +7,11 @@ import Cookies from 'js-cookie';
 //const apiUrl = process.env.REACT_APP_API_URL;
 
 const adminApi = axios.create({
-  //'https://api.cline.ge/api'
+  //'https://api.cl1ne.ge/api'
   //'https://localhost:7164/api'
   //'https://localhost:32777/api'
-  baseURL: 'https://api.cline.ge/api',
-  //'https://api.cline.ge/api',
+  baseURL: 'https://api.cl1ne.ge/api',
+  //'https://api.cl1ne.ge/api',
   // headers: {
   //   post: {
   //     'Content-Type': 'application/json',

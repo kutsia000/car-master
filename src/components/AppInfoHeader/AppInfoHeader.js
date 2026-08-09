@@ -10,9 +10,9 @@ export default function AppInfoHeader() {
       <AppContainer>
         <div className={styles.AppInfoHeader__wrap}>
           <div className={styles.AppInfoHeader__info}>
-            <AppLink href={`mailto:info@cline.ge`} className={styles.AppInfoHeader__link}>
+            <AppLink href={`mailto:info@cl1ne.ge`} className={styles.AppInfoHeader__link}>
               <EmailIcon />
-              <span className={styles.AppInfoHeader__icon}>info@cline.ge</span>
+              <span className={styles.AppInfoHeader__icon}>info@cl1ne.ge</span>
             </AppLink>
             <AppLink href={`tel:0322800803`} className={styles.AppInfoHeader__link}>
               <CallIcon />

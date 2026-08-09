@@ -9,7 +9,7 @@ export default function AppCustomers() {
   const { reviews } = useContext(LandingServiceContext);
 
   useEffect(() => {
-    //console.log(reviews);
+    console.log(reviews);
   }, [reviews]);
 
   return (
@@ -28,7 +28,7 @@ export default function AppCustomers() {
                     key={review.div}
                     review={review.text}
                     name={review.fullName}
-                    image={'https://cline.ge' + review.imgUrl}
+                    image={'https://cl1ne.ge' + review.imgUrl}
                   />
                 </div>
               );

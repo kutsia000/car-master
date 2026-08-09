@@ -3,9 +3,9 @@ import handleUnauthorizedError from '../../errorHandlers/unAuthorizedhandler';
 import Cookies from 'js-cookie';
 
 const employeeApi = axios.create({
-  //'https://api.cline.ge/api'
+  //'https://api.cl1ne.ge/api'
   //'https://localhost:7164/api'
-  baseURL: 'https://api.cline.ge/api',
+  baseURL: 'https://api.cl1ne.ge/api',
 
   timeout: 20000,
 });

@@ -3,9 +3,9 @@ import axios from 'axios';
 //const apiUrl = process.env.REACT_APP_API_URL;
 const authApi = axios.create({
   //'https://localhost:7164/'
-  //'https://api.cline.ge/api'
+  //'https://api.cl1ne.ge/api'
   //'https://localhost:32777/api'
-  baseURL: 'https://api.cline.ge/api',
+  baseURL: 'https://api.cl1ne.ge/api',
   headers: {
     post: {
       'Content-Type': 'application/json',

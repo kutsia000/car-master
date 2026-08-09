@@ -16,7 +16,7 @@ const DealerPriceListPage = () => {
         {myPriceList && myPriceList.fileUrl && (
           <iframe
             style={{ height: '85vh', width: '768px' }}
-            src={`https://cline.ge${myPriceList.fileUrl}`}
+            src={`https://cl1ne.ge${myPriceList.fileUrl}`}
           ></iframe>
         )}
         {/* <table className={styles.PriceList__table}>

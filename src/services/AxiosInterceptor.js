@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 
 const adminInstance = axios.create({
-  //'https://api.cline.ge/api',
+  //'https://api.cl1ne.ge/api',
   //'https://localhost:7164/api',
   //'https://localhost:32777/api'
-  baseURL: 'https://api.cline.ge/api',
+  baseURL: 'https://api.cl1ne.ge/api',
   headers: {
     post: {
       'Content-Type': 'application/json',

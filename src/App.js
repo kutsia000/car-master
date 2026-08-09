@@ -69,8 +69,8 @@ function App() {
             <Route path={`/:lang/car`} element={<CarInside />} />
             <Route path={`/:lang/car/:vinCode`} element={<CarInside />} />
           </Route>
-          <Route path={`/:lang/login`} element={<LoginPage />} />
-          <Route path={`/:lang/dealer/dashboard`} element={<DealerDashboard />}>
+          {/* <Route path={`/:lang/login`} element={<LoginPage />} /> */}
+          {/* <Route path={`/:lang/dealer/dashboard`} element={<DealerDashboard />}>
             <Route path={`/:lang/dealer/dashboard/profile`} element={<DealerProfilePage />} />
             <Route path={`/:lang/dealer/dashboard/mypricelist`} element={<DealerPriceListPage />} />
             <Route path={`/:lang/dealer/dashboard/cars`} element={<DealerCarsPage />} />
@@ -130,7 +130,7 @@ function App() {
           <Route path={`/:lang/employee/dashboard`} element={<EmployeeDashboardPage />}>
             <Route path={`/:lang/employee/dashboard/profile`} element={<EmployeeProfilePage />} />
             <Route path={`/:lang/employee/dashboard/cars`} element={<EmployeeCarsPage />} />
-          </Route>
+          </Route> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

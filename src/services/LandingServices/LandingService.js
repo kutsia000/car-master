@@ -68,6 +68,28 @@ const LandingService = ({ children }) => {
     }
   };
 
+  const getLastReviews = async()=>{
+    try {
+      const response = await landginApi.get('/Landing/GetLastReviews');
+
+      console.log(response);
+    
+      if (response.status === 200) {
+        const { success, message, data } = response.data;
+        if (!success) {
+          setError(message);
+          throw new Error('something went wrong');
+        } else {
+          setReviews(data);
+        }
+      } else {
+        setError('something went wrong');
+      }
+    } catch (error) {
+      setError(error);
+    }
+  }
+
   const getBlogs = async (reqBody) => {
     try {
       const response = await landginApi.get('/Landing/GetBlogs', { params: reqBody });
@@ -107,12 +129,12 @@ const LandingService = ({ children }) => {
 
   const addDealerRequest = async (reqBody) => {
     try {
-      const fData = jsonToFormData(reqBody);
-      const response = await landginApi.post('/BecomeDealer/AddBecomeDealerRequest', fData, config);
+      //const fData = jsonToFormData(reqBody);
+      const response = await landginApi.post('/DealerRequests/add-dealer-request', reqBody);
       if (response.status === 200) {
-        const { isSuccess, message } = response.data;
-        setSuccess(isSuccess);
-        if (!isSuccess) {
+        const { success, message } = response.data;
+        setSuccess(success);
+        if (!success  ) {
           setError(message);
         }
       } else {
@@ -128,12 +150,12 @@ const LandingService = ({ children }) => {
     try {
       const response = await landginApi.get('/Landing/SearchCar', { params: { vinCode: vinCode } });
       if (response.status === 200) {
-        const { isSuccess, carSearch, message } = response.data;
-        if (!isSuccess) {
+        const { success, data, message } = response.data;
+        if (!success) {
           setError(message);
         } else {
-          if (carSearch) {
-            const inputDateString = carSearch.containerOpenDate;
+          if (data) {
+            const inputDateString = data.containerOpenDate;
             const dateObject = new Date(inputDateString);
 
             const day = String(dateObject.getDate()).padStart(2, '0');
@@ -142,9 +164,9 @@ const LandingService = ({ children }) => {
 
             const formattedDate = `${day}/${month}/${year}`;
             //console.log(formattedDate);
-            carSearch.containerOpenDate = formattedDate;
+            data.containerOpenDate = formattedDate;
 
-            setCar(carSearch);
+            setCar(data);
           }
         }
       } else {
@@ -161,6 +183,7 @@ const LandingService = ({ children }) => {
         getLandingHome,
         getBlogs,
         getBlogById,
+        getLastReviews,
         addDealerRequest,
         searchCar,
         error,

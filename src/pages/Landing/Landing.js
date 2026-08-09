@@ -14,7 +14,7 @@ import { LandingServiceContext } from '../../services/LandingServices/LandingSer
 import { useTranslation } from 'react-i18next';
 
 const Landing = () => {
-  const { getLandingHome } = useContext(LandingServiceContext);
+  const { getLandingHome, getLastReviews } = useContext(LandingServiceContext);
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const [params, setParams] = useState({
@@ -25,7 +25,8 @@ const Landing = () => {
   });
 
   const fetchData = async () => {
-    await getLandingHome(params);
+    //await getLandingHome(params);
+    await getLastReviews();
   };
 
   useEffect(() => {

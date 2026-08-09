@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './AppCarInner.module.scss';
 import AppImage from '../AppImage/AppImage';
 import AppContainer from '../../layout/AppContainer/AppContainer';
-import 'react-image-gallery/styles/scss/image-gallery.scss';
+//import 'react-image-gallery/styles/scss/image-gallery.scss';
 import ImageGallery from 'react-image-gallery';
 import classNames from 'classnames';
 import Lightbox from 'react-18-image-lightbox';
@@ -23,12 +23,12 @@ export default function AppCarInner({ images, data }) {
       let imgs = [data.mainImageUrl, ...data.imageURLs];
       let images = imgs.map((i) => {
         return {
-          original: `https://cline.ge${i}`,
-          thumbnail: `https://cline.ge${i}`,
+          original: `https://cl1ne.ge${i}`,
+          thumbnail: `https://cl1ne.ge${i}`,
         };
       });
       setImgs(images);
-      let lImages = imgs.map((i) => `https://cline.ge${i}`);
+      let lImages = imgs.map((i) => `https://cl1ne.ge${i}`);
       setLightBoxImages(lImages);
       if (data.containerNumber) {
         //console.log(data.containerOpenDate);

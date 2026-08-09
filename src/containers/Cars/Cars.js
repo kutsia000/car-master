@@ -159,7 +159,7 @@ const Cars = () => {
           let car = cars.find((c) => c.id == id);
           if (car) {
             let imgs = [car.mainImageUrl, ...car.imageURLs];
-            let images = imgs.map((i) => `https://cline.ge${i}`);
+            let images = imgs.map((i) => `https://cl1ne.ge${i}`);
             setImages(images);
           }
           setLBoxIsOpen(true);
@@ -243,7 +243,7 @@ const Cars = () => {
     if (cars) {
       setCarsData(cars);
       //console.log(1);
-      // const images = cars.map((car) => `https://cline.ge${car.mainImageUrl}`);
+      // const images = cars.map((car) => `https://cl1ne.ge${car.mainImageUrl}`);
       // setImages(images);
     }
   }, [cars]);
@@ -491,7 +491,7 @@ const Cars = () => {
           <PhotoCellRenderer
             key={params.id}
             id={params.id}
-            value={`https://cline.ge${params.value}`}
+            value={`https://cl1ne.ge${params.value}`}
           />
         </>
       ),
