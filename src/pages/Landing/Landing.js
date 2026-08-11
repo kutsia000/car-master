@@ -14,7 +14,7 @@ import { LandingServiceContext } from '../../services/LandingServices/LandingSer
 import { useTranslation } from 'react-i18next';
 
 const Landing = () => {
-  const { getLandingHome, getLastReviews } = useContext(LandingServiceContext);
+  const { getLandingHome, getLastReviews,getLastBlogs } = useContext(LandingServiceContext);
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const [params, setParams] = useState({
@@ -24,13 +24,14 @@ const Landing = () => {
     pageSize: null,
   });
 
-  const fetchData = async () => {
+  const fetchData = async (params) => {
     //await getLandingHome(params);
     await getLastReviews();
+    await getLastBlogs();
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(params);
   }, []);
 
   return (

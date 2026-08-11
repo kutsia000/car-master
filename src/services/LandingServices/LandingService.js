@@ -90,19 +90,39 @@ const LandingService = ({ children }) => {
     }
   }
 
+  const getLastBlogs = async()=>{
+    try {
+      const response = await landginApi.get('/Landing/GetLastBlogs');
+      if (response.status === 200) {
+        const { success, message, data } = response.data;
+        if (!success) {
+          setError(message);
+          throw new Error('something went wrong');
+        }
+        else {
+          setBlogs(data);
+        }
+      } else {
+        setError('something went wrong');
+      }
+    } catch (error) {
+      setError(error);
+    }
+  }
+
   const getBlogs = async (reqBody) => {
     try {
       const response = await landginApi.get('/Landing/GetBlogs', { params: reqBody });
       if (response.status === 200) {
-        const { isSuccess, message, blogs, recordsCount } = response.data;
-        if (!isSuccess) {
+        const { success, message, data, count } = response.data;
+        if (!success) {
           setError(message);
         } else {
-          setBlogs(blogs);
-          setRecordsCount(recordsCount);
+          setBlogs(data);
+          setRecordsCount(count);
         }
       } else {
-        setError(response.statusText);
+        setError(response.message);
       }
     } catch (error) {
       setError(error);
@@ -186,6 +206,7 @@ const LandingService = ({ children }) => {
         getLastReviews,
         addDealerRequest,
         searchCar,
+        getLastBlogs,
         error,
         reviews,
         blogs,
