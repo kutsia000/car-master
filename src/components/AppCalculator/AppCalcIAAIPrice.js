@@ -12,8 +12,8 @@ const AppCalcIAAIPrice = () => {
     const gateFee = 95; // Static
 
     const enviromentalFee = 15;
-    const additionalFee = 50;
-    // პროსტაზე 50$
+    const additionalFee = 250;
+    // პროსტაზე 250$
 
     // Secured Payment Fee logic
     if (finalBidPrice >= 0 && finalBidPrice <= 99.99) securedPaymentFee = 1;
