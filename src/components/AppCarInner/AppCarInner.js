@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './AppCarInner.module.scss';
 import AppImage from '../AppImage/AppImage';
 import AppContainer from '../../layout/AppContainer/AppContainer';
-// import 'react-image-gallery/styles/scss/image-gallery.scss';
+import 'react-image-gallery/styles/css/image-gallery.css';
 import ImageGallery from 'react-image-gallery';
 import classNames from 'classnames';
 import Lightbox from 'react-18-image-lightbox';
